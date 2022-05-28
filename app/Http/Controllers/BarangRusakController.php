@@ -27,8 +27,7 @@ class BarangRusakController extends Controller
         $barang_rusak = new BarangRusak();
         $barang_rusak->barang_id = $request->barang_id;
         $barang_rusak->jumlah = $request->jumlah;
-        $barang = Barang::select("jumlah_barang")->where("id", $request->barang_id)->get();
-        // dd($barang);
+        $barang = Barang::select("jumlah_barang")->where("id", $request->barang_id)->sum('jumlah_barang');
         if ($barang > $request->jumlah) {
             $barang_rusak->save();
             Alert::success("Tersimpan", "Data Berhasil Disimpan");

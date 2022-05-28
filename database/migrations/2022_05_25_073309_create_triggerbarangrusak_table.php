@@ -15,12 +15,12 @@ class CreateTriggerbarangrusakTable extends Migration
     public function up()
     {
         DB::unprepared('
-            CREATE TRIGGER trigger_stokbarangrusak after INSERT ON barang_rusaks
+            CREATE TRIGGER triggerbarangrusak after INSERT ON barang_rusaks
             FOR EACH ROW BEGIN
             UPDATE barangs
                 SET jumlah_barang = jumlah_barang - NEW.jumlah
             WHERE
-            id = NEW.id;
+            id = NEW.barang_id;
             END
             ');
     }

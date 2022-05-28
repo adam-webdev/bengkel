@@ -21,7 +21,7 @@ class CreateTriggerStokbarangmasukTable extends Migration
         UPDATE barangs
         SET jumlah_barang = jumlah_barang + NEW.jumlah
         WHERE
-        id = NEW.id;
+        id = NEW.barang_id;
         END
         ');
     }
