@@ -26,7 +26,6 @@
         hr {
             margin-bottom: 30px;
         }
-
     </style>
 </head>
 
@@ -42,7 +41,7 @@
     <hr>
     <div class="row">
         <h5 class="text-center">
-            {{ $periode == 'all' ? 'Laporan barang masuk ' : 'Laporan barang masuk Periode ' . $tgl_awal . ' sampai dengan ' . $tgl_akhir }}
+            {{ $periode == 'all' ? 'Laporan barang masuk ' : 'Laporan barang masuk Periode ' . $tahun }}
         </h5>
     </div>
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
@@ -54,9 +53,10 @@
                     <th>Kode Barang</th>
                     <th>Nama Barang</th>
                     <th>Jumlah Barang </th>
-                    <th>Harga Barang</th>
-                    {{-- <th>Aksi</th> --}}
-                    {{-- <th>Tanggal Masuk</th> --}}
+                    <th>Merk / Type </th>
+                    {{-- <th>Foto Barang</th> --}}
+                    <th>Tahun</th>
+                    s
                 </tr>
             </thead>
             <tbody>
@@ -67,32 +67,11 @@
                         <td>{{ $r->kode_barang }}</td>
                         <td>{{ $r->nama_barang }}</td>
                         <td>{{ $r->jumlah_barang }}</td>
-                        <td>@currency($r->harga_barang) </td>
-                        {{-- looping total obat --}}
+                        <td>{{ $r->merk_type }}</td>
+                        {{-- <td> <img src="{{ storage_path(`app/public/$r->image`) }}"
+                                style="width: 200px; height: 200px"></td> --}}
+                        <td>{{ $r->tahun }}</td>
 
-                        {{-- <td> @foreach ($r->rawatinap->obat as $o)
-                        - {{$o->nama_obat}} <br> @currency($o->harga_obat) <br>
-                        @endforeach
-                    </td>
-                    <td>@currency($r->rawatinap->ruangan->tarif_perhari)</td>
-                    <td> x {{$r->jumlah_hari}}</td>
-                    <td>
-                        @currency($r->rawatinap->dokter->tarif + $r->rawatinap->obat->sum('harga_obat') + ($r->rawatinap->ruangan->tarif_perhari * $r->jumlah_hari))
-                    </td> --}} --}}
-
-                        {{-- <td align="center" width="15%">
-
-                        <a href="{{route('cetak' ,[$r->id])}}"
-                            data-toggle="tooltip" title="Print"  class="d-none d-sm-inline-block btn btn-sm btn-success shadow-sm">
-                            <i class="fas fa-print fa-sm text-white-50"></i>
-                        </a>
-                        <a href="/transaksi/hapus/{{ $r->id }}"
-                            data-toggle="tooltip" title="Hapus" onclick="return confirm('Yakin Ingin menghapus data?')"
-                            class="d-none d-sm-inline-block btn btn-sm btn-danger shadow-sm">
-                            <i class="fas fa-trash-alt fa-sm text-white-50"></i>
-                        </a>
-                    </td> --}}
-                        {{-- @endforeach --}}
                     </tr>
                 @endforeach
 

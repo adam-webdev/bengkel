@@ -19,6 +19,7 @@ class CreatePindahBarangsTable extends Migration
             $table->foreignId('barang_id')->constrained('barangs')->onDelete("cascade")->onUpdate("cascade");
             $table->foreignId('ruangan_id')->constrained('ruangans')->onDelete("cascade")->onUpdate("cascade");
             $table->integer("jumlah");
+            $table->date("tanggal");
             $table->timestamps();
         });
     }

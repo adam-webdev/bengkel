@@ -28,5 +28,12 @@ class UserSeeder extends Seeder
             'password' => Hash::make('kaprodi123')
         ]);
         $direktur->assignRole('Kaprodi');
+
+        $kepala_lab = User::create([
+            'name' => 'kepala lab',
+            'email' => 'kepalalab@gmail.com',
+            'password' => Hash::make('kepalalab123')
+        ]);
+        $kepala_lab->assignRole('Kepala Lab');
     }
 }

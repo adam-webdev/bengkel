@@ -45,14 +45,14 @@
                         </div>
                     </a>
                 </div>
-                <div class="col-md-4">
+                {{-- <div class="col-md-4">
                     <a style="text-decoration:none; color:black; hover" href="{{ route('barang_rusak.index') }}">
                         <div class="card p-4">
                             <p style="font-weight: 700">Barang Rusak</p>
                             <p style="font-weight: 700; font-size:38px;">{{ $barang_rusak }}</p>
                         </div>
                     </a>
-                </div>
+                </div> --}}
 
             </div>
 

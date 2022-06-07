@@ -10,10 +10,7 @@ class Barang extends Model
     use HasFactory;
     protected $table = "barangs";
 
-    public function barang_rusak()
-    {
-        return $this->hasOne(BarangRusak::class);
-    }
+
     public function pindahbarang()
     {
         return $this->belongsTo(PindahBarang::class);
@@ -30,4 +27,8 @@ class Barang extends Model
     // {
     //     return $this->belongsToMany(Ruangan::class);
     // }
+    public static function getTakeImageAttribute()
+    {
+        return "/storage/";
+    }
 }

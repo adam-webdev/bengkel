@@ -17,6 +17,7 @@ class CreateBarangsTable extends Migration
             $table->id();
             $table->string('kode_barang');
             $table->string('nama_barang');
+            $table->string('image')->nullable();
             $table->string('jumlah_barang');
             $table->string('merk_type');
             $table->integer('tahun');

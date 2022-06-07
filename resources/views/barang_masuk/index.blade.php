@@ -22,7 +22,7 @@
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <form action="{{ route('barang_masuk.store') }}" method="POST">
+                <form action="{{ route('barang_masuk.store') }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     <div class="modal-body">
                         <div class="form-group">
@@ -37,7 +37,10 @@
                             <label for="jumlah_barang">Jumlah Barang :</label>
                             <input type="number" name="jumlah" class="form-control" id="jumlah_barang">
                         </div>
-
+                        <div class="form-group">
+                            <label for="foto">Foto Barang :</label>
+                            <input type="file" name="image" class="form-control" id="foto" required>
+                        </div>
 
                     </div>
                     <div class="modal-footer">
@@ -64,6 +67,7 @@
                             <th>Tanggal</th>
                             <th>Nama Barang</th>
                             <th>Jumlah Barang</th>
+                            <th>Foto Barang Masuk</th>
                             <th>Aksi</th>
                         </tr>
                     </thead>
@@ -74,6 +78,8 @@
                                 <td>{{ $bk->created_at->format('d-m-Y') }}</td>
                                 <td>{{ $bk->barang->nama_barang }}</td>
                                 <td>{{ $bk->jumlah }}</td>
+                                <td><img src="/storage/{{ $bk->image }}" alt="barang masuk foto" width="150"
+                                        height="150"></td>
 
                                 <td align="center" width="10%">
                                     @role('Admin')

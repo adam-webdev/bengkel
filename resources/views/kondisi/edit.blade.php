@@ -1,7 +1,7 @@
 @extends('layouts.layout')
 @section('content')
     @include('sweetalert::alert')
-    <form action="{{ route('kondisi.update', [$kondisi->id]) }}" method="POST">
+    <form action="{{ route('kondisi.update', [$kondisi->id]) }}" method="POST" enctype="multipart/form-data">
         @csrf
         <input type="hidden" name="_method" value="PUT">
         <fieldset>
@@ -35,8 +35,15 @@
                     <input type="number" value="{{ $kondisi->rusak_berat }}" name="rusak_berat" class="form-control"
                         id="rusak_berat">
                 </div>
-            </div>
 
+            </div>
+            <div class="form-group row">
+                <div class="col-md-5">
+                    <label for="foto">Foto Barang :</label><br>
+                    <img src="/storage/{{ $kondisi->image }}" alt="barang" width="150" height="150">
+                    <input type="file" name="image" class="form-control mt-2" id="foto">
+                </div>
+            </div>
             <input type="submit" class="btn btn-success btn-send" value="Update">
             <input type="Button" class="btn btn-primary btn-send" value="Kembali" onclick="history.go(-1)">
         </fieldset>

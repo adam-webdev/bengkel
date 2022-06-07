@@ -26,7 +26,6 @@
         hr {
             margin-bottom: 30px;
         }
-
     </style>
 </head>
 
@@ -42,7 +41,7 @@
     <hr>
     <div class="row">
         <h5 class="text-center">
-            {{ $periode == 'all' ? 'Laporan Kondisi barang ' : 'Laporan Kondisi Barang Periode ' . $tgl_awal . ' sampai dengan ' . $tgl_akhir }}
+            {{ $periode == 'all' ? 'Laporan Ruangan ' : 'Laporan Ruangan Perperiode ' . $tahun }}
         </h5>
     </div>
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
@@ -50,24 +49,19 @@
             <thead>
                 <tr align="center">
                     <th width="2%">No</th>
-                    <th>Kode Barang</th>
-                    <th>Nama Barang</th>
-                    <th>Kondis Baik </th>
-                    <th>Rusak Ringan</th>
-                    <th>Rusak Berat</th>
-                    <th>Foto Barang</th>
+                    <th>Tanggal</th>
+                    <th>Kode Ruangan</th>
+                    <th>Nama Ruangan</th>
+
                 </tr>
             </thead>
             <tbody>
                 @foreach ($data as $r)
                     <tr>
                         <td width="2%">{{ $loop->iteration }}</td>
-                        <td>{{ $r->barang->kode_barang }}</td>
-                        <td>{{ $r->barang->nama_barang }}</td>
-                        <td>{{ $r->baik }}</td>
-                        <td>{{ $r->rusak_ringan }}</td>
-                        <td>{{ $r->rusak_berat }}</td>
-                        <td><img src="/storage/{{ $r->image }}" alt="kondisi barang" width="150" height="150"></td>
+                        <td>{{ $r->created_at->format('Y-m-d') }}</td>
+                        <td>{{ $r->kode_ruangan }}</td>
+                        <td>{{ $r->nama_ruangan }}</td>
 
                     </tr>
                 @endforeach

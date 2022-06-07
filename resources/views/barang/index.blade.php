@@ -22,7 +22,7 @@
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <form action="{{ route('barang.store') }}" method="POST">
+                <form action="{{ route('barang.store') }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     <div class="modal-body">
                         <div class="form-group">
@@ -32,6 +32,10 @@
                         <div class="form-group">
                             <label for="barang">Nama Barang :</label>
                             <input type="text" name="nama_barang" class="form-control" id="barang" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="foto">Foto Barang :</label>
+                            <input type="file" name="image" class="form-control" id="foto" required>
                         </div>
                         <div class="form-group">
                             <label for="jumlah_barang">Jumlah Barang :</label>
@@ -84,6 +88,7 @@
                             <th>Jumlah</th>
                             <th>Merk/Type </th>
                             <th>Tahun Perolehan</th>
+                            <th>Foto Barang</th>
                             {{-- <th> Kodisi Baik </th>
                             <th>Rusak Ringan </th>
                             <th>Rusak Berat </th> --}}
@@ -98,6 +103,7 @@
                                 <td>{{ $b->jumlah_barang }}</td>
                                 <td>{{ $b->merk_type }}</td>
                                 <td>{{ $b->tahun }}</td>
+                                <td> <img width="150" height="150" src="/storage/{{ $b->image }}" alt="barang"></td>
                                 {{-- <td>{{ $b->baik }}</td>
                                 <td>{{ $b->rusak_ringan }}</td>
                                 <td>{{ $b->rusak_berat }}</td> --}}

@@ -54,6 +54,7 @@ class PindahBarangController extends Controller
                 'barang_id' => $barang_id[$index],
                 'ruangan_id' => $ruangan_id[$index],
                 'jumlah' => $jumlah[$index],
+                'tanggal' => $request->tanggal,
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now()
             ];
@@ -110,6 +111,7 @@ class PindahBarangController extends Controller
                 'barang_id' => $barang_id[$index],
                 'ruangan_id' => $ruangan_id[$index],
                 'jumlah' => $jumlah[$index],
+                'tanggal' => $request->tanggal,
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now()
             ];

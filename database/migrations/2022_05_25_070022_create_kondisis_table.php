@@ -16,6 +16,7 @@ class CreateKondisisTable extends Migration
         Schema::create('kondisis', function (Blueprint $table) {
             $table->id();
             $table->foreignId('barang_id')->constrained('barangs')->onDelete("cascade")->onUpdate("cascade");
+            $table->string('image')->nullable();
             $table->integer('baik')->nullable();
             $table->integer('rusak_ringan')->nullable();
             $table->integer('rusak_berat')->nullable();

@@ -22,7 +22,7 @@
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <form action="{{ route('kondisi.store') }}" method="POST">
+                <form action="{{ route('kondisi.store') }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     <div class="modal-body">
                         <div class="form-group">
@@ -45,7 +45,10 @@
                             <label for="rusak_berat">Kondisi Rusak Berat :</label>
                             <input type="number" name="rusak_berat" class="form-control" id="rusak_berat">
                         </div>
-
+                        <div class="form-group">
+                            <label for="foto">Foto Barang :</label>
+                            <input type="file" name="image" class="form-control" id="foto" required>
+                        </div>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal"> Batal</button>
@@ -73,6 +76,7 @@
                             <th>Kondisi Baik</th>
                             <th>Rusak Ringan</th>
                             <th>Rusak Berat</th>
+                            <th>Foto Barang </th>
                             <th>Aksi</th>
                         </tr>
                     </thead>
@@ -85,6 +89,7 @@
                                 <td>{{ $k->baik }}</td>
                                 <td>{{ $k->rusak_ringan }}</td>
                                 <td>{{ $k->rusak_berat }}</td>
+                                <td> <img width="150" height="150" src="/storage/{{ $k->image }}" alt="barang"></td>
                                 <td align="center" width="10%">
                                     @role('Admin')
                                         <a href="{{ route('kondisi.edit', [$k->id]) }}" data-toggle="tooltip" title="Edit"

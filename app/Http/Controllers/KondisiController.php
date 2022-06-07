@@ -6,6 +6,7 @@ use App\Models\Barang;
 use App\Models\BarangRusak;
 use App\Models\Kondisi;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use RealRashid\SweetAlert\Facades\Alert;
 
 class KondisiController extends Controller
@@ -40,11 +41,14 @@ class KondisiController extends Controller
      */
     public function store(Request $request)
     {
+        $foto = $request->file('image');
+        $foto = $foto->store('images/kondisi');
         $kondisi = new Kondisi();
         $kondisi->barang_id = $request->barang_id;
         $kondisi->baik = $request->baik;
         $kondisi->rusak_ringan = $request->rusak_ringan;
         $kondisi->rusak_berat = $request->rusak_berat;
+        $kondisi->image = $foto;
         $kondisi->save();
         Alert::success('Berhasil', 'Data Berhasil Ditambahkan');
         return redirect()->route('kondisi.index');
@@ -84,11 +88,20 @@ class KondisiController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $foto = $request->file('image');
+        $kondisi = Kondisi::findOrFail($id);
+        if ($foto) {
+            Storage::delete($kondisi->image);
+            $foto = $foto->store('images/kondisi');
+        } else {
+            $foto = $kondisi->image;
+        }
         $kondisi = Kondisi::findOrFail($id);
         $kondisi->barang_id = $request->barang_id;
         $kondisi->baik = $request->baik;
         $kondisi->rusak_ringan = $request->rusak_ringan;
         $kondisi->rusak_berat = $request->rusak_berat;
+        $kondisi->image = $foto;
         $kondisi->save();
         Alert::success('Berhasil', 'Data Berhasil Diubah');
         return redirect()->route('kondisi.index');
@@ -103,6 +116,7 @@ class KondisiController extends Controller
     public function destroy($id)
     {
         $kondisi = Kondisi::findOrFail($id);
+        Storage::delete($kondisi->image);
         $kondisi->delete();
         Alert::success('Berhasil', 'Data Berhasil DiHapus');
         return redirect()->route('kondisi.index');

@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\{BarangController, Barang_MasukController, BarangRusakController, DashboardController, KondisiController, LaporanController, UserController, Perusahaan, PindahBarangController, RuanganController};
+use App\Http\Controllers\{BarangController, Barang_MasukController, DashboardController, KondisiController, LaporanController, UserController, PindahBarangController, RuanganController};
 use Illuminate\Support\Facades\Route;
 use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 
@@ -25,14 +25,17 @@ Route::get('/dashboard', [DashboardController::class, "index"])->name('dashboard
 Route::resource('/user', UserController::class);
 Route::get('/user/hapus/{id}', [UserController::class, "delete"]);
 
-Route::get('/laporan/barang-masuk/', [LaporanController::class, "view_barang_masuk"])->name('laporan.barang_masuk');
-Route::post('/laporan/barang-masuk/', [LaporanController::class, "barang_masuk"])->name('laporan.barang_masuk');
+Route::get('/laporan/barang', [LaporanController::class, "view_barang"])->name('laporan.barang');
+Route::post('/laporan/barang', [LaporanController::class, "barang"])->name('laporan.barang');
 
 Route::get('/laporan/letak-barang/', [LaporanController::class, "view_letak_barang"])->name('laporan.letak-barang');
 Route::post('/laporan/letak-barang/', [LaporanController::class, "letak_barang"])->name('laporan.letak-barang');
 
 Route::get('/laporan/barang-rusak/', [LaporanController::class, "view_barang_rusak"])->name('laporan.barang_rusak');
 Route::post('/laporan/barang-rusak/', [LaporanController::class, "barang_rusak"])->name('laporan.rusak');
+
+Route::get('/laporan/ruangan/', [LaporanController::class, "view_ruangan"])->name('laporan.ruangan');
+Route::post('/laporan/ruangan/', [LaporanController::class, "ruangan"])->name('laporan.ruangan');
 
 Route::get('/laporan/kondisi/', [LaporanController::class, "view_kondisi"])->name('laporan.kondisi');
 Route::post('/laporan/kondisi/', [LaporanController::class, "kondisi"])->name('laporan.rusak');
@@ -52,8 +55,8 @@ Route::resource('/barang', BarangController::class);
 Route::resource('/barang_masuk', Barang_MasukController::class);
 
 Route::get('/barang_masuk/hapus/{id}', [Barang_MasukController::class, "delete"]);
-Route::resource('/barang_rusak', BarangRusakController::class);
-Route::get('/barang_rusak/hapus/{id}', [BarangRusakController::class, "delete"]);
+// Route::resource('/barang_rusak', BarangRusakController::class);
+// Route::get('/barang_rusak/hapus/{id}', [BarangRusakController::class, "delete"]);
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-Route::get('/pengaturan', [Perusahaan::class, "edit"]);
-Route::post('/pengaturan', [Perusahaan::class, "update"]);
+// Route::get('/pengaturan', [Perusahaan::class, "edit"]);
+// Route::post('/pengaturan', [Perusahaan::class, "update"]);

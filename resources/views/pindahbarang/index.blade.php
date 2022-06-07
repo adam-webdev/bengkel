@@ -46,11 +46,16 @@
                                 <label " for="jumlah">Jumlah :</label>
                                 <input type="number" name="jumlah[]" class="form-control" id="baik">
                             </div>
+
                             <div class="col-md-1 add">
                                 <label># </label>
-                                <button id="add" name="add" type="button" class="btn btn-sm btn-success"><i class="fas fa-plus"></i></button>
+                                <button id="add" name="add" type="button" class="btn btn-sm btn-success mb-2"><i class="fas fa-plus "></i></button>
                                 <button id="add" name="add" type="button" class="btn btn-sm btn-danger delete-one btn-danger"><i class="fas fa-trash-alt"></i></button>
                             </div>
+                        </div>
+                        <div class="form-group ">
+                            <label for="Tanggal">Tanggal :</label>
+                            <input type="date" name="tanggal" class="form-control" id="Tanggal">
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal"> Batal</button>

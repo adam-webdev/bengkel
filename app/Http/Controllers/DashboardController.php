@@ -16,14 +16,14 @@ class DashboardController extends Controller
 {
     public function index()
     {
-        $perusahaan = Perusahaan::get();
+        // $perusahaan = Perusahaan::get();
         $data = Auth::user()->name;
         $barang = Barang::count();
         $ruangan = Ruangan::count();
         $pengguna = User::count();
-        $barang_rusak = BarangRusak::count();
+        // $barang_rusak = BarangRusak::count();
         $barang_masuk = Barang_masuk::count();
 
-        return view("dashboard", compact("data", "perusahaan", "barang", "ruangan", "pengguna", "barang_rusak", "barang_masuk"));
+        return view("dashboard", compact("data", "barang", "ruangan", "pengguna", "barang_masuk"));
     }
 }

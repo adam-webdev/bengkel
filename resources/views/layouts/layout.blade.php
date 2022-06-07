@@ -60,8 +60,8 @@
                         <a class="collapse-item fas fa-folder" href="{{ route('barang.index') }}"> Master Barang </a>
                         <a class="collapse-item fas fa-arrow-circle-right" href="{{ route('barang_masuk.index') }}">
                             Barang masuk</a>
-                        <a class="collapse-item fas fa-arrow-circle-left" href="{{ route('barang_rusak.index') }}">
-                            Barang Rusak</a>
+                        {{-- <a class="collapse-item fas fa-arrow-circle-left" href="{{ route('barang_rusak.index') }}">
+                            Barang Rusak</a> --}}
                         <a class="collapse-item fas fa-arrow-circle-left" href="{{ route('kondisi.index') }}">
                             Kondisi Barang</a>
                         <a class="collapse-item fas fa-door-open" href="{{ route('ruangan.index') }}">
@@ -87,25 +87,25 @@
             <!-- Nav Item - Pages Collapse Menu -->
 
             <li class="nav-item">
-                <a class="nav-link collapsed text-white" href="{{ route('laporan.barang_masuk') }}"
-                    data-toggle="collapse" data-target="#collapsePages1" aria-expanded="true"
-                    aria-controls="collapsePages1">
+                <a class="nav-link collapsed text-white" href="{{ route('laporan.barang') }}" data-toggle="collapse"
+                    data-target="#collapsePages1" aria-expanded="true" aria-controls="collapsePages1">
                     <i class="far fa-file-pdf"></i>
                     <span>Laporan</span>
                 </a>
                 <div id="collapsePages1" class="collapse" aria-labelledby="headingPages"
                     data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <a class="collapse-item fas fa-arrow-circle-right"
-                            href="{{ route('laporan.barang_masuk') }}">
-                            Barang Masuk</a>
-                        <a class="collapse-item fas fa-arrow-circle-left" href="{{ route('laporan.barang_rusak') }}">
-                            Barang Rusak</a>
+                        <a class="collapse-item fas fa-arrow-circle-right" href="{{ route('laporan.barang') }}">
+                            Barang </a>
+                        {{-- <a class="collapse-item fas fa-arrow-circle-left" href="{{ route('laporan.barang_rusak') }}">
+                            Barang Rusak</a> --}}
                         <a class="collapse-item fas fa-calendar-check" href="{{ route('laporan.kondisi') }}">
                             Kondisi Barang</a>
                         <a class="collapse-item fas fas fa-map-marked-alt"
                             href="{{ route('laporan.letak-barang') }}">
                             Letak Barang</a>
+                        <a class="collapse-item fas fas fa-map-marked-alt" href="{{ route('laporan.ruangan') }}">
+                            Ruangan</a>
                     </div>
                 </div>
             </li>
