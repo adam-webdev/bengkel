@@ -43,8 +43,10 @@ class UserController extends Controller
         $new_user->password = bcrypt($request->password);
         if ($request->get('roles') === "Admin") {
             $new_user->assignRole("Admin");
+        } else if ($request->get('roles') === "Manager") {
+            $new_user->assignRole("Manager");
         } else {
-            $new_user->assignRole("Kaprodi");
+            $new_user->assignRole("User");
         }
         $new_user->save();
         Alert::success("Tersimpan", "Data Berhasil Disimpan!");
@@ -94,7 +96,7 @@ class UserController extends Controller
     {
         $user = User::findOrFail($id);
         $user->delete();
-        $user->removeRole("Admin", "Kaprodi");
+        $user->removeRole("Admin", "Manager", "User");
         Alert::success("Terhapus", "Data Berhasil Terhapus");
         return redirect()->route('user.index');
     }

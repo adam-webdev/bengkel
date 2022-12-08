@@ -30,8 +30,8 @@
                             <div class="col-lg-20">
                                 <div class="p-5">
                                     <div class="text-center">
-                                        <h1 class="h4 text-gray-900 mb-4">Sistem Informasi Inventory<br>Kampus<br>
-                                            <br><img src="{{ asset('asset/img/foto.jpg') }}" width="160">
+                                        <h1 class="h4 text-gray-900 mb-4">Sistem Informasi PT. Asahan Alumunium<br><br>
+                                            <br><img src="{{ asset('asset/img/inalum.png') }}" width="160">
                                         </h1>
                                     </div>
                                     <form method="POST" action="{{ route('login') }}">
@@ -88,12 +88,12 @@
                                                 @endif
                                             </div>
                                         </div>
-                                        <div class="form-group row mt-4">
+                                        {{-- <div class="form-group row mt-4">
                                             <div class="col-md-12 offset-md-12">
                                                 <a href="{{ route('register') }}">Belum Punya Akun ? silahkan
                                                     <b>Register</b></a>
                                             </div>
-                                        </div>
+                                        </div> --}}
                                     </form>
                                 </div>
                             </div>

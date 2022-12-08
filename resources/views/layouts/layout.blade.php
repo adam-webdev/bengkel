@@ -27,14 +27,14 @@
     <div id="wrapper">
 
         <!-- Sidebar -->
-        <ul class="navbar-nav sidebar accordion" id="accordionSidebar" style="background: #3344E2; color:#fff;">
+        <ul class="navbar-nav sidebar accordion" id="accordionSidebar" style="background: #ff8c09; color:#fff;">
 
             <!-- Sidebar - Brand -->
             <a class="sidebar-brand text-white d-flex align-items-center justify-content-center" href="#">
                 <div class="sidebar-brand-icon rotate-n-0">
-                    <img src="{{ asset('asset/img/foto.jpg') }}" width="60">
+                    <img src="{{ asset('asset/img/inalum.png') }}" width="120">
                 </div>
-                <div class="sidebar-brand-text mx-2">Inventory Kampus </div>
+                <div class="sidebar-brand-text mx-2">Company </div>
             </a>
 
             <!-- Divider -->
@@ -48,45 +48,52 @@
                     <i class="fa fa-tachometer-alt"></i>
                     <span>Dashboard</span></a>
             </li>
-            <li class="nav-item">
+            {{-- <li class="nav-item">
                 <a class="nav-link collapsed text-white" href="{{ route('user.index') }}" data-toggle="collapse"
                     data-target="#collapsePages" aria-expanded="true" aria-controls="collapsePages">
                     <i class="fas fa-fw fa-folder-open"></i>
                     <span>Menu Master</span>
                 </a>
-                <div id="collapsePages" class="collapse" aria-labelledby="headingPages"
-                    data-parent="#accordionSidebar">
+                <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <a class="collapse-item fas fa-folder" href="{{ route('barang.index') }}"> Master Barang </a>
-                        <a class="collapse-item fas fa-arrow-circle-right" href="{{ route('barang_masuk.index') }}">
-                            Barang masuk</a>
-                        {{-- <a class="collapse-item fas fa-arrow-circle-left" href="{{ route('barang_rusak.index') }}">
-                            Barang Rusak</a> --}}
-                        <a class="collapse-item fas fa-arrow-circle-left" href="{{ route('kondisi.index') }}">
-                            Kondisi Barang</a>
-                        <a class="collapse-item fas fa-door-open" href="{{ route('ruangan.index') }}">
-                            <span>Ruangan</span></a>
-                        {{-- <a class="collapse-item fas fa-arrow-circle-right" href="#"> Sub Menu 4</a>
-                        <a class="collapse-item fas fa-arrow-circle-right" href="#"> Sub Menu 5</a> --}}
+
                     </div>
                 </div>
-            </li>
+            </li> --}}
+
+            {{-- <li class="nav-item">
+                <a class="nav-link collapsed text-white" href="#" data-toggle="collapse"
+                    data-target="#collapsePages3" aria-expanded="true" aria-controls="collapsePages3">
+                    <i class="fas fa-fw fa-folder-open"></i>
+                    <span>Data History</span>
+                </a>
+                <div id="collapsePages3" class="collapse" aria-labelledby="headingPages"
+                    data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <a class="collapse-item fas fa-folder" href="{{ route('history-barang.index') }}"> History
+                            Barang </a>
+                        <a class="collapse-item fas fa-arrow-circle-left" href="{{ route('history-kondisi.index') }}">
+                            History Kondisi </a>
+
+                    </div>
+                </div>
+            </li> --}}
             @role('Admin')
                 <li class="nav-item">
                     <a class="nav-link text-white" href="{{ route('user.index') }}">
                         <i class="fas fa-users"></i>
                         <span>Data Pengguna</span></a>
                 </li>
-
                 <li class="nav-item">
-                    <a class="nav-link text-white" href="{{ route('pindah-barang.index') }}">
-                        <i class="fas fa-external-link-alt"></i>
-                        <span>Letak Barang</span></a>
+                    <a class="nav-link text-white" href="{{ route('transaksi.index') }}">
+                        <i class="fas fa-users"></i>
+                        <span>Transasi</span></a>
                 </li>
             @endrole
             <!-- Nav Item - Pages Collapse Menu -->
 
-            <li class="nav-item">
+            {{-- <li class="nav-item">
                 <a class="nav-link collapsed text-white" href="{{ route('laporan.barang') }}" data-toggle="collapse"
                     data-target="#collapsePages1" aria-expanded="true" aria-controls="collapsePages1">
                     <i class="far fa-file-pdf"></i>
@@ -97,18 +104,10 @@
                     <div class="bg-white py-2 collapse-inner rounded">
                         <a class="collapse-item fas fa-arrow-circle-right" href="{{ route('laporan.barang') }}">
                             Barang </a>
-                        {{-- <a class="collapse-item fas fa-arrow-circle-left" href="{{ route('laporan.barang_rusak') }}">
-                            Barang Rusak</a> --}}
-                        <a class="collapse-item fas fa-calendar-check" href="{{ route('laporan.kondisi') }}">
-                            Kondisi Barang</a>
-                        <a class="collapse-item fas fas fa-map-marked-alt"
-                            href="{{ route('laporan.letak-barang') }}">
-                            Letak Barang</a>
-                        <a class="collapse-item fas fas fa-map-marked-alt" href="{{ route('laporan.ruangan') }}">
-                            Ruangan</a>
+
                     </div>
                 </div>
-            </li>
+            </li> --}}
 
             <!-- Nav Item - Tables -->
             {{-- <li class="nav-item">
@@ -148,7 +147,7 @@
                         class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
                         <div class="input-group">
                             <div class="input-group-append">
-                                <h4>Sistem inventory Kampus</h4>
+                                <h4>Sistem informasi PT. Asahan Alumunium</h4>
                             </div>
                         </div>
                     </form>
@@ -208,7 +207,7 @@
                 <!-- End of Topbar -->
 
                 <!-- Begin Page Content -->
-                <div class="container-fluid">
+                <div class="container-fluid mb-4">
 
                     <!-- DataTales Example -->
                     <!-- Page Heading -->
@@ -221,10 +220,10 @@
             <!-- End of Main Content -->
 
             <!-- Footer -->
-            <footer class="sticky-footer bg-white">
+            <footer class="sticky-footer  bg-white">
                 <div class="container my-auto">
                     <div class="copyright text-center my-auto">
-                        <span>Create By: Nadya indah<br>Copyright &copy; Sistem Invetory Kampus. 2021</span>
+                        <span>Create By: Salsa<br>Copyright &copy; Sistem PT. Asahan Alumunium. </span>
                     </div>
                 </div>
             </footer>
