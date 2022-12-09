@@ -90,23 +90,22 @@
                         </tr>
                     </thead>
                     <tbody>
-                        {{-- @foreach ($transaksi as $t)
+                        @foreach ($shipment as $ship)
                             <tr align="center">
-                                <td>{{ $t->no_po }}</td>
-                                <td>{{ $t->judul_po }}</td>
-                                <td>{{ $t->nilai_po }}</td>
-                                <td>{{ $t->nohp }}</td>
-                                <td>{{ $t->nilai_import }}</td>
-                                <td>{{ $t->total_shipment }}</td>
-                                <td>{{ $t->total_nilai_impor }}</td>
-                                <td>{{ $t->remaining_amount }}</td>
+                                <td>{{ $loop->iteration }}</td>
+                                <td>{{ $ship->shipment_no }}</td>
+                                <td>{{ $ship->nama_barang }}</td>
+                                <td>{{ $ship->nilai_barang }}</td>
+                                <td>{{ $ship->etd_loading_port }}</td>
+                                <td>{{ $ship->eta_unloading_port }}</td>
+                                <td>{{ $ship->status }}</td>
                                 <td align="center" width="10%">
                                     @role('Admin')
-                                        <a href="{{ route('transaksi.edit', [$t->no_po]) }}" data-toggle="tooltip"
+                                        <a href="{{ route('transaksi.edit', [$ship->id]) }}" data-toggle="tooltip"
                                             title="Edit" class="d-none  d-sm-inline-block btn btn-sm btn-success shadow-sm">
                                             <i class="fas fa-edit fa-sm text-white-50"></i>
                                         </a>
-                                        <a href="/transaksi/hapus/{{ $t->no_po }}" data-toggle="tooltip" title="Hapus"
+                                        <a href="/transaksi/hapus/{{ $ship->id }}" data-toggle="tooltip" title="Hapus"
                                             onclick="return confirm('Yakin Ingin menghapus data?')"
                                             class="d-none d-sm-inline-block btn btn-sm btn-danger shadow-sm">
                                             <i class="fas fa-trash-alt fa-sm text-white-50"></i>
@@ -114,7 +113,7 @@
                                     @endrole
                                 </td>
                             </tr>
-                        @endforeach --}}
+                        @endforeach
                     </tbody>
                 </table>
             </div>

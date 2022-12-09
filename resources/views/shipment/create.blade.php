@@ -14,6 +14,7 @@
                         <td></td>
                     </tr>
                     <tr>
+                        <input type="hidden" name="transaksi_id" value="{{ $transaksi_id }}">
                         <td>a. Subjec Of Contract</td>
                         <td><input class="form-control" type="text" name="subject_of_contract" required></td>
                     </tr>
@@ -70,7 +71,7 @@
                     </tr>
                     <tr>
                         <td>j. Requester Section / PIC </td>
-                        <td><select class="form-control" name="term_of_payment" id="">
+                        <td><select class="form-control" name="pic" id="">
                                 <option value="section">Section</option>
                                 <option value="inisial">Inisial PIC</option>
                             </select>
@@ -95,6 +96,14 @@
                     <tr>
                         <td> Shipment Sequence (if Partial)</td>
                         <td><input class="form-control" type="text" name="shipment_sequence" required></td>
+                    </tr>
+                    <tr>
+                        <td> Nama Barang</td>
+                        <td><input class="form-control" type="text" name="nama_barang" required></td>
+                    </tr>
+                    <tr>
+                        <td> Nilai Barang</td>
+                        <td><input class="form-control" type="number" name="nilai_barang" required></td>
                     </tr>
                     <tr>
                         <td>b. Quantity Delivery</td>
@@ -133,31 +142,31 @@
 
                     <tr>
                         <td> Remaining contract amount</td>
-                        <td><input class="form-control" type="text" name="invoice_amount" required></td>
+                        <td><input class="form-control" type="text" name="remaining_contract_amount" required></td>
                     </tr>
                     <tr>
                     <tr>
                         <td>f. Name Of Vessel </td>
                         <td>
-                            <textarea class="form-control" rows="4" type="text" name="name_of_vessel" required></textarea>
+                            <input class="form-control" type="text" name="name_of_vessel" required>
                         </td>
                     </tr>
                     <tr>
                         <td>g. Shipper / Exportir </td>
                         <td>
-                            <textarea class="form-control" rows="4" type="text" name="shipper" required></textarea>
+                            <input class="form-control" type="text" name="shipper" required>
                         </td>
                     </tr>
                     <tr>
                         <td>h. Consignee / Notify party </td>
                         <td>
-                            <textarea class="form-control" rows="4" type="text" name="consignee" required></textarea>
+                            <input class="form-control" type="text" name="consignee" required>
                         </td>
                     </tr>
                     <tr>
                         <td>i. Issuing Insurance Company </td>
                         <td>
-                            <textarea class="form-control" rows="4" type="text" name="issuing_insurance_company" required></textarea>
+                            <input class="form-control" type="text" name="issuing_insurance_company" required>
                         </td>
                     </tr>
                     <tr>
@@ -221,12 +230,17 @@
                     </tr>
                     <tr>
                         <td> Upload </td>
-                        <td><input class="form-control" type="file" name="bl_file" required>
+                        <td><input class="form-control  @error('bl_file') is-invalid @enderror" type="file"
+                                name="bl_file" required>
+                            @error('bl_file')
+                                <div class="alert alert-danger">{{ $message }}</div>
+                            @enderror
                         </td>
                     </tr>
+
                     <tr>
                         <td>b. Invoice No </td>
-                        <td><input class="form-control" type="text" name="invoice_no" required>
+                        <td><input class="form-control " type="text" name="invoice_no" required>
                         </td>
                     </tr>
                     <tr>
@@ -236,7 +250,11 @@
                     </tr>
                     <tr>
                         <td> Upload </td>
-                        <td><input class="form-control" type="file" name="invoice_file" required>
+                        <td><input class="form-control @error('invoice_file') is-invalid @enderror" type="file"
+                                name="invoice_file" required>
+                            @error('invoice_file')
+                                <div class="alert alert-danger">{{ $message }}</div>
+                            @enderror
                         </td>
                     </tr>
                     <tr>
@@ -251,7 +269,11 @@
                     </tr>
                     <tr>
                         <td> Upload </td>
-                        <td><input class="form-control" type="file" name="packing_file" required>
+                        <td><input class="form-control @error('packing_file') is-invalid @enderror" type="file"
+                                name="packing_file" required>
+                            @error('packing_file')
+                                <div class="alert alert-danger">{{ $message }}</div>
+                            @enderror
                         </td>
                     </tr>
                     <tr>
@@ -267,7 +289,11 @@
                     </tr>
                     <tr>
                         <td> Upload </td>
-                        <td><input class="form-control" type="file" name="cert_of_origin_file" required>
+                        <td><input class="form-control @error('cert_of_origin_file') is-invalid @enderror" type="file"
+                                name="cert_of_origin_file" required>
+                            @error('cert_of_origin_file')
+                                <div class="alert alert-danger">{{ $message }}</div>
+                            @enderror
                         </td>
                     </tr>
                     <tr>
@@ -283,7 +309,11 @@
                     </tr>
                     <tr>
                         <td> Upload </td>
-                        <td><input class="form-control" type="file" name="cert_of_origin_preferensial_file" required>
+                        <td><input class="form-control @error('cert_of_origin_preferensial_file') is-invalid @enderror"
+                                type="file" name="cert_of_origin_preferensial_file" required>
+                            @error('cert_of_origin_preferensial_file')
+                                <div class="alert alert-danger">{{ $message }}</div>
+                            @enderror
                         </td>
                     </tr>
                     <tr>
@@ -293,7 +323,11 @@
                     </tr>
                     <tr>
                         <td> Upload </td>
-                        <td><input class="form-control" type="file" name="cert_of_weight_file" required>
+                        <td><input class="form-control @error('cert_of_weight_file') is-invalid @enderror" type="file"
+                                name="cert_of_weight_file" required>
+                            @error('cert_of_weight_file')
+                                <div class="alert alert-danger">{{ $message }}</div>
+                            @enderror
                         </td>
                     </tr>
                     <tr>
@@ -303,17 +337,25 @@
                     </tr>
                     <tr>
                         <td> Upload </td>
-                        <td><input class="form-control" type="file" name="insurance_document_file" required>
+                        <td><input class="form-control @error('insurance_file') is-invalid @enderror" type="file"
+                                name="insurance_file" required>
+                            @error('insurance_file')
+                                <div class="alert alert-danger">{{ $message }}</div>
+                            @enderror
                         </td>
                     </tr>
                     <tr>
                         <td>h. Fumigation Certificate</td>
-                        <td><input class="form-control" type="text" name="funingation_certificate">
+                        <td><input class="form-control" type="text" name="fumigation_certificate">
                         </td>
                     </tr>
                     <tr>
                         <td> Upload </td>
-                        <td><input class="form-control" type="file" name="funingation_file" required>
+                        <td><input class="form-control @error('fumigation_file') is-invalid @enderror" type="file"
+                                name="fumigation_file">
+                            @error('fumigation_file')
+                                <div class="alert alert-danger">{{ $message }}</div>
+                            @enderror
                         </td>
                     </tr>
                     <tr>
@@ -328,7 +370,11 @@
                     </tr>
                     <tr>
                         <td> Upload </td>
-                        <td><input class="form-control" type="file" name="letter_of_credit_file" required>
+                        <td><input class="form-control @error('letter_of_credit_file') is-invalid @enderror"
+                                type="file" name="letter_of_credit_file" required>
+                            @error('letter_of_credit_file')
+                                <div class="alert alert-danger">{{ $message }}</div>
+                            @enderror
                         </td>
                     </tr>
                     <tr>
@@ -338,7 +384,11 @@
                     </tr>
                     <tr>
                         <td> Upload </td>
-                        <td><input class="form-control" type="file" name="doc_budget_of_available_file" required>
+                        <td><input class="form-control @error('doc_budget_of_available_file') is-invalid @enderror"
+                                type="file" name="doc_budget_of_available_file" required>
+                            @error('doc_budget_of_available_file')
+                                <div class="alert alert-danger">{{ $message }}</div>
+                            @enderror
                         </td>
                     </tr>
                     <tr>
@@ -349,22 +399,38 @@
                     </tr>
                     <tr>
                         <td>a. SPI Besi & Baja No. & Date. </td>
-                        <td><input class="form-control" type="file" name="spi_besi_baja">
+                        <td><input class="form-control @error('spi_besi_baja') is-invalid @enderror" type="file"
+                                name="spi_besi_baja">
+                            @error('spi_besi_baja')
+                                <div class="alert alert-danger">{{ $message }}</div>
+                            @enderror
                         </td>
                     </tr>
                     <tr>
                         <td>b. Quota Kartu Kendali Atas SPI Besi & Baja No. & Date. </td>
-                        <td><input class="form-control" type="file" name="quota_kartu_kendali">
+                        <td><input class="form-control @error('quota_kartu_kendali') is-invalid @enderror" type="file"
+                                name="quota_kartu_kendali">
+                            @error('quota_kartu_kendali')
+                                <div class="alert alert-danger">{{ $message }}</div>
+                            @enderror
                         </td>
                     </tr>
                     <tr>
                         <td>c. NPIK No. & Date. </td>
-                        <td><input class="form-control" type="file" name="npik">
+                        <td><input class="form-control @error('npik') is-invalid @enderror" type="file"
+                                name="npik">
+                            @error('npik')
+                                <div class="alert alert-danger">{{ $message }}</div>
+                            @enderror
                         </td>
                     </tr>
                     <tr>
                         <td>d. Surat Pengecualin Import Lainnya. </td>
-                        <td><input class="form-control" type="file" name="surat_pengecualian_import">
+                        <td><input class="form-control @error('surat_pengecualian_import') is-invalid @enderror"
+                                type="file" name="surat_pengecualian_import">
+                            @error('surat_pengecualian_import')
+                                <div class="alert alert-danger">{{ $message }}</div>
+                            @enderror
                         </td>
                     </tr>
                     <tr>

@@ -45,6 +45,9 @@ class CreateShipmentsTable extends Migration
             // a
             $table->string('shipment_no', 10);
             $table->string('shipment_sequence', 10);
+
+            $table->string('nama_barang', 10);
+            $table->string('nilai_barang', 10);
             // b
             $table->string('quantity_delivery', 10);
             // c
@@ -126,8 +129,7 @@ class CreateShipmentsTable extends Migration
             $table->string('bm', 50);
             $table->string('ppn', 50);
             $table->string('pph', 50);
-            $table->string('status_approve', 50)->default('Belum di approve');
-            $table->string('status', 50);
+            $table->string('status', 50)->nullable();
 
             $table->timestamps();
         });

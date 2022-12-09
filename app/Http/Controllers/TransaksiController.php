@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Shipment;
 use App\Models\Transaksi;
 use Illuminate\Http\Request;
 use RealRashid\SweetAlert\Facades\Alert;
@@ -61,7 +62,8 @@ class TransaksiController extends Controller
     public function show($id)
     {
         $transaksi = Transaksi::findOrFail($id);
-        return view('transaksi.detail', compact('transaksi'));
+        $shipment = Shipment::where('transaksi_id', $id)->get();
+        return view('transaksi.detail', compact('transaksi', 'shipment'));
     }
 
     /**
