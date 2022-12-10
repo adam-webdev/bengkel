@@ -101,11 +101,11 @@
                                 <td>{{ $ship->status }}</td>
                                 <td align="center" width="10%">
                                     @role('Admin')
-                                        <a href="{{ route('transaksi.edit', [$ship->id]) }}" data-toggle="tooltip"
+                                        <a href="{{ route('shipment.edit', [$ship->id]) }}" data-toggle="tooltip"
                                             title="Edit" class="d-none  d-sm-inline-block btn btn-sm btn-success shadow-sm">
                                             <i class="fas fa-edit fa-sm text-white-50"></i>
                                         </a>
-                                        <a href="/transaksi/hapus/{{ $ship->id }}" data-toggle="tooltip" title="Hapus"
+                                        <a href="/shipment/hapus/{{ $ship->id }}" data-toggle="tooltip" title="Hapus"
                                             onclick="return confirm('Yakin Ingin menghapus data?')"
                                             class="d-none d-sm-inline-block btn btn-sm btn-danger shadow-sm">
                                             <i class="fas fa-trash-alt fa-sm text-white-50"></i>

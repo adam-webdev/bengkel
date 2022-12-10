@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\FileRequest;
+use App\Http\Requests\{FileRequest, UpdateFile};
 use App\Models\Shipment;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -200,7 +200,7 @@ class ShipmentController extends Controller
 
         $shipment->save();
         Alert::success('Berhasil', 'Data Berhasil disimpan.');
-        return redirect()->route('shipment.index');
+        return redirect()->route('transaksi.detail', [$request->transaksi_id]);
     }
 
 
@@ -223,7 +223,8 @@ class ShipmentController extends Controller
      */
     public function edit($id)
     {
-        //
+        $shipment = Shipment::findOrFail($id);
+        return view('shipment.edit', compact('shipment'));
     }
 
     /**
@@ -233,7 +234,7 @@ class ShipmentController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(FileRequest $request, $id)
+    public function update(UpdateFile $request, $id)
     {
         $shipment = Shipment::findOrFail($id);
         $shipment->transaksi_id = $shipment->transaksi_id;
@@ -276,13 +277,31 @@ class ShipmentController extends Controller
 
         //  3 Shipping Document file & 4. Goverment decree / if any
         $bl_file = $request->file('bl_file');
-        $bl_file = $bl_file->store('shipment/bl-file');
+        if ($bl_file) {
+            Storage::delete($shipment->bl_file);
+            $bl_file = $bl_file->store('shipment/bl-file');
+        } else {
+            $bl_file = $shipment->bl_file;
+        }
+
 
         $invoice_file = $request->file('invoice_file');
-        $invoice_file = $invoice_file->store('shipment/invoice-file');
+        if ($invoice_file) {
+            Storage::delete($shipment->invoice_file);
+            $invoice_file = $invoice_file->store('shipment/invoice-file');
+        } else {
+            $invoice_file = $shipment->invoice_file;
+        }
+
 
         $packing_file = $request->file('packing_file');
-        $packing_file = $packing_file->store('shipment/packing-file');
+        if ($packing_file) {
+            Storage::delete($shipment->packing_file);
+            $packing_file = $packing_file->store('shipment/packing-file');
+        } else {
+            $packing_file = $shipment->packing_file;
+        }
+
 
         $cert_of_origin_file = $request->file('cert_of_origin_file');
         if ($cert_of_origin_file) {
@@ -301,10 +320,20 @@ class ShipmentController extends Controller
         }
 
         $cert_of_weight_file = $request->file('cert_of_weight_file');
-        $cert_of_weight_file = $cert_of_weight_file->store('shipment/cert-of-weight-file');
+        if ($cert_of_weight_file) {
+            Storage::delete($shipment->cert_of_weight_file);
+            $cert_of_weight_file = $cert_of_weight_file->store('shipment/cert-of-weight-file');
+        } else {
+            $cert_of_weight_file = $shipment->cert_of_weight_file;
+        }
 
         $insurance_file = $request->file('insurance_file');
-        $insurance_file = $insurance_file->store('shipment/insurance-file');
+        if ($insurance_file) {
+            Storage::delete($shipment->insurance_file);
+            $insurance_file = $insurance_file->store('shipment/insurance-file');
+        } else {
+            $insurance_file = $shipment->insurance_file;
+        }
 
         $fumigation_file = $request->file('fumigation_file');
         if ($fumigation_file) {
@@ -315,10 +344,21 @@ class ShipmentController extends Controller
         }
 
         $letter_of_credit_file = $request->file('letter_of_credit_file');
-        $letter_of_credit_file = $letter_of_credit_file->store('shipment/letter-of-credit-file');
+        if ($letter_of_credit_file) {
+            Storage::delete($shipment->letter_of_credit_file);
+            $letter_of_credit_file = $letter_of_credit_file->store('shipment/letter-of-credit-file');
+        } else {
+            $letter_of_credit_file = $shipment->letter_of_credit_file;
+        }
+
 
         $doc_budget_of_available_file = $request->file('doc_budget_of_available_file');
-        $doc_budget_of_available_file = $doc_budget_of_available_file->store('shipment/doc-budget-of-available-file');
+        if ($doc_budget_of_available_file) {
+            Storage::delete($shipment->doc_budget_of_available_file);
+            $doc_budget_of_available_file = $doc_budget_of_available_file->store('shipment/doc-budget-of-available-file');
+        } else {
+            $doc_budget_of_available_file = $shipment->doc_budget_of_available_file;
+        }
 
         $spi_besi_baja = $request->file('spi_besi_baja');
         if ($spi_besi_baja) {
@@ -401,7 +441,7 @@ class ShipmentController extends Controller
 
         $shipment->save();
         Alert::success('Berhasil', 'Data Berhasil Diupdate.');
-        return redirect()->route('shipment.index');
+        return redirect()->route('transaksi.detail', [$shipment->transaksi_id]);
     }
 
     /**
