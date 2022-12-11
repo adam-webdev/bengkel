@@ -1,7 +1,32 @@
 @extends('layouts.layout')
 @section('content')
-    <div class="card">
+    <div class="card p-4">
         <h4 class="p-2">Selamat Datang <b>{{ $data }}</b></h4>
+        <div class="row p-4 mt-3 justify-content-between align-items-center">
+            <div class="col-md-3">
+                <img src="{{ asset('asset/img/approve.svg') }}" width="60px" alt="">
+                <p style="font-size: 20px; margin-top:10px"> 5</p>
+                <p>PIB Proses</p>
+            </div>
+
+            <div class="col-md-3">
+                <img src="{{ asset('asset/img/pembayaran.svg') }}" width="60px" alt="">
+                <p style="font-size: 20px; margin-top:10px"> 5</p>
+                <p>PIB Proses</p>
+            </div>
+            <div class="col-md-3">
+                <img src="{{ asset('asset/img/merah.svg') }}" width="60px"alt="">
+                <p style="font-size: 20px; margin-top:10px"> 5</p>
+                <p>PIB Proses</p>
+
+            </div>
+            <div class="col-md-3">
+                <img src="{{ asset('asset/img/delivery.svg') }}" width="60px" alt="">
+                <p style="font-size: 20px; margin-top:10px"> 5</p>
+                <p>PIB Proses</p>
+            </div>
+        </div>
+
     </div>
 
     <div class="row align-items-center">

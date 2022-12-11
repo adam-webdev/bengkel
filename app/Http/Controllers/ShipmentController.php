@@ -236,6 +236,7 @@ class ShipmentController extends Controller
      */
     public function update(UpdateFile $request, $id)
     {
+        ddd($request->all());
         $shipment = Shipment::findOrFail($id);
         $shipment->transaksi_id = $shipment->transaksi_id;
         // General information

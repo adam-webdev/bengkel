@@ -5,11 +5,11 @@
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
         <h1 class="h3 mb-0 text-gray-800">Detail Transaksi </h1>
         <!-- Button trigger modal -->
-        @role('Admin')
-            <a href="{{ route('transaksi.edit', [$transaksi->id]) }}" class="btn btn-secondary">
-                Edit Transaksi
-            </a>
-        @endrole
+        {{-- @role('Admin') --}}
+        <a href="{{ route('transaksi.edit', [$transaksi->id]) }}" class="btn btn-secondary">
+            Edit Transaksi
+        </a>
+        {{-- @endrole --}}
 
     </div>
 
@@ -100,17 +100,17 @@
                                 <td>{{ $ship->eta_unloading_port }}</td>
                                 <td>{{ $ship->status }}</td>
                                 <td align="center" width="10%">
-                                    @role('Admin')
-                                        <a href="{{ route('shipment.edit', [$ship->id]) }}" data-toggle="tooltip"
-                                            title="Edit" class="d-none  d-sm-inline-block btn btn-sm btn-success shadow-sm">
-                                            <i class="fas fa-edit fa-sm text-white-50"></i>
-                                        </a>
-                                        <a href="/shipment/hapus/{{ $ship->id }}" data-toggle="tooltip" title="Hapus"
-                                            onclick="return confirm('Yakin Ingin menghapus data?')"
-                                            class="d-none d-sm-inline-block btn btn-sm btn-danger shadow-sm">
-                                            <i class="fas fa-trash-alt fa-sm text-white-50"></i>
-                                        </a>
-                                    @endrole
+                                    {{-- @role('Admin') --}}
+                                    <a href="{{ route('shipment.edit', [$ship->id]) }}" data-toggle="tooltip"
+                                        title="Edit" class="d-none  d-sm-inline-block btn btn-sm btn-success shadow-sm">
+                                        <i class="fas fa-edit fa-sm text-white-50"></i>
+                                    </a>
+                                    <a href="/shipment/hapus/{{ $ship->id }}" data-toggle="tooltip" title="Hapus"
+                                        onclick="return confirm('Yakin Ingin menghapus data?')"
+                                        class="d-none d-sm-inline-block btn btn-sm btn-danger shadow-sm">
+                                        <i class="fas fa-trash-alt fa-sm text-white-50"></i>
+                                    </a>
+                                    {{-- @endrole --}}
                                 </td>
                             </tr>
                         @endforeach

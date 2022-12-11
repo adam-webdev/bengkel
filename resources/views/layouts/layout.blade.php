@@ -79,18 +79,18 @@
                     </div>
                 </div>
             </li> --}}
-            @role('Admin')
-                <li class="nav-item">
-                    <a class="nav-link text-white" href="{{ route('user.index') }}">
-                        <i class="fas fa-users"></i>
-                        <span>Data Pengguna</span></a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link text-white" href="{{ route('transaksi.index') }}">
-                        <i class="fas fa-users"></i>
-                        <span>Transasi</span></a>
-                </li>
-            @endrole
+            {{-- @role('Admin') --}}
+            <li class="nav-item">
+                <a class="nav-link text-white" href="{{ route('user.index') }}">
+                    <i class="fas fa-users"></i>
+                    <span>Data Pengguna</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-white" href="{{ route('transaksi.index') }}">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span>Transaksi</span></a>
+            </li>
+            {{-- @endrole --}}
             <!-- Nav Item - Pages Collapse Menu -->
 
             {{-- <li class="nav-item">
