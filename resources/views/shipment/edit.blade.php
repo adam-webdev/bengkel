@@ -3,18 +3,17 @@
 @section('content')
     @include('sweetalert::alert')
     <div class="card p-4">
-        {{-- <h3>{{ $transaksi_id }}</h3> --}}
+        <h4>Edit shipment</h4>
         <form action="{{ route('shipment.update', [$shipment->id]) }}" method="POST" enctype="multipart/form-data">
             @method('put')
             @csrf
-            <div class="row">
-                <p>(*) Wajib di isi!</p> <br>
-                <p></p>
-                <p class="ml-4">(PDF) File harus berformat PDF!</p>
+            <div class="row pl-2">
+                <small>(*) Wajib di isi!</small> <br>
+                <small class="ml-4">(PDF) File harus berformat PDF!</small>
             </div>
             <table class="table ">
                 <tbody>
-                    @hasanyrole('Admin|User')
+                    @hasanyrole('Admin|User|Manager')
                         <tr>
                             <td>
                                 <h4> <b> 1. General Information </b></h4>
@@ -603,7 +602,7 @@
                                     class="form-control @error('surat_pengecualian_import') is-invalid @enderror"
                                     type="file" name="surat_pengecualian_import">
                                 @if ($shipment->surat_pengecualian_import != '-')
-                                      <iframe allowfullscreen="true" loading="lazy" class="mt-2" type="application/pdf"
+                                    <iframe allowfullscreen="true" loading="lazy" class="mt-2" type="application/pdf"
                                         src="/storage/{{ $shipment->surat_pengecualian_import }} " frameBorder="0"
                                         scrolling="auto" height="100%" width="100%"></iframe>
                                 @endif

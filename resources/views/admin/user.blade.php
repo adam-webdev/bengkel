@@ -17,34 +17,44 @@
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                     <thead>
                         <tr align="center">
-                            <th width="5%">User Id</th>
+                            <th width="5%">No</th>
                             <th width="25%">Nama</th>
+                            <th width="25%">Nik</th>
+                            <th width="25%">Jenis Kelamin</th>
                             <th width="20%">Email</th>
-                            <th width="15%">Roles/Akses</th>
-                            <th width="25%">Aksi</th>
+                            <th width="15%">Roles</th>
+                            <th width="15%">Foto</th>
+                            <th>Aksi</th>
                         </tr>
                     </thead>
                     <tbody>
                         @foreach ($user as $row)
                             <tr>
-                                <td>{{ $row->id }}</td>
+                                <td>{{ $loop->iteration }}</td>
                                 <td>{{ $row->name }}</td>
+                                <td>{{ $row->nik }}</td>
+                                <td>{{ $row->jenis_kelamin }}</td>
                                 <td>{{ $row->email }}</td>
-                                @foreach ($row->roles as $r)
+                                @foreach ($row->roles->pluck('name') as $r)
                                     <td>
-                                        {{ $r->id }}
+                                        {{ $r }}
                                     </td>
                                 @endforeach
-                                @role('Admin')
-                                    <td align="center">
+                                <td> <img src="storage/{{ $row->foto }}" width="200px" alt="profile"> </td>
+                                <td width="15%" align="center">
+                                    @role('Admin')
+                                        {{-- <a href="{{ route('user.edit', [$row->id]) }}" data-toggle="tooltip" title="Edit"
+                                            class="d-none  d-sm-inline-block btn btn-sm btn-success shadow-sm">
+                                            <i class="fas fa-edit fa-sm text-white-50"></i>
+                                        </a> --}}
                                         <a href="/user/hapus/{{ $row->id }}"
                                             onclick="return confirm('Yakin Ingin menghapus data?')"
-                                            class="d-none d-sm-inline-block btn btn-sm btn-danger shadow-sm">
-                                            <i class="fas fa-trash-alt fa-sm text-white-50"></i> Hapus
+                                            class="d-none d-sm-inline-block mt-2 btn btn-sm btn-danger shadow-sm">
+                                            <i class="fas fa-trash-alt fa-sm text-white-50"></i>
                                         </a>
-                                    </td>
-                                </tr>
-                            @endrole
+                                    @endrole
+                                </td>
+                            </tr>
                         @endforeach
                     </tbody>
                 </table>
@@ -63,32 +73,78 @@
                     </div>
                     <div class="modal-body">
                         <div class="form-group">
-                            <label control-label">Nama User :</label>
-                            <input type="text" name="name" required class="form-control" autocomplete="off">
+                            <label>Nama User :</label>
+                            <input type="text" name="name" required class="form-control">
                         </div>
                         <div class="form-group">
-                            <label control-label">Email User :</label>
+                            <label>NIK :</label>
+                            <input type="text" name="nik" required class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label>Email User :</label>
                             <input type="email" name="email" required class="form-control">
                         </div>
                         <div class="form-group">
-                            <label control-label">Roles/Akses :</label>
+                            <label>Jenis Kelamin :</label>
+                            <select id="roles" name="jenis_kelamin" class="form-control" required>
+                                <option value="">--Pilih Jenis Kelamin--</option>
+                                <option value="Laki laki">Laki laki</option>
+                                <option value="Perempuan">Perempuan</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Foto :</label>
+                            <input type="file" name="foto" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label>Roles/Akses :</label>
                             <select id="roles" name="roles" class="form-control" required>
                                 <option value="">--Pilih Roles--</option>
                                 <option value="Admin">Admin</option>
                                 <option value="Manager">Manager</option>
                                 <option value="User">User</option>
+                                <option value="Staff">Staff</option>
                             </select>
                         </div>
                         <div class="form-group">
-                            <label control-label">Password :</label>
+                            <label>Posisi :</label>
+                            <select name="posisi_id" class="form-control" required>
+                                <option value="">--Pilih Posisi--</option>
+                                @foreach ($posisi as $p)
+                                    <option value="{{ $p->id }}">{{ $p->nama_posisi }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Seksi :</label>
+                            <select name="seksi_id" class="form-control" required>
+                                <option value="">--Pilih Seksi--</option>
+                                @foreach ($seksi as $s)
+                                    <option value="{{ $s->id }}">{{ $s->nama_seksi }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>PGR :</label>
+                            <select name="pgr_id" class="form-control" required>
+                                <option value="">--Pilih PGR--</option>
+                                @foreach ($pgr as $pgr)
+                                    <option value="{{ $pgr->id }}">{{ $pgr->kode_pgr }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Password :</label>
                             <input type="password" name="password" required class="form-control">
                         </div>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-light" data-dismiss="modal">Tutup</button>
-                        <button type="submit" class="btn btn-primary">Simpan</button>
+                        @role('Admin')
+                            <button type="submit" class="btn btn-primary">Simpan</button>
+                        @endrole
                     </div>
-                </div>
             </form>
         </div>
     </div>

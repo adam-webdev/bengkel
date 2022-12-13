@@ -7,7 +7,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
-
+    <link rel="apple-touch-icon" sizes="57x57" href="/apple-icon-57x57.png">
+    <link rel="apple-touch-icon" sizes="60x60" href="/apple-icon-60x60.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="/apple-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="/apple-icon-76x76.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="/apple-icon-114x114.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="/apple-icon-120x120.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="/apple-icon-144x144.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="/apple-icon-152x152.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-icon-180x180.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="/android-icon-192x192.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96x96.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/manifest.json">
+    <meta name="msapplication-TileColor" content="#ffffff">
+    <meta name="msapplication-TileImage" content="/ms-icon-144x144.png">
+    <meta name="theme-color" content="#ffffff">
     <title>Beranda</title>
     <link href="{{ asset('asset/vendor/select2/dist/css/select2.min.css') }}" rel="stylesheet">
     <link href="{{ asset('asset/vendor/fontawesome-free/css/all.min.css') }}" rel="stylesheet" type="text/css">
@@ -27,14 +43,14 @@
     <div id="wrapper">
 
         <!-- Sidebar -->
-        <ul class="navbar-nav sidebar accordion" id="accordionSidebar" style="background: #ff8c09; color:#fff;">
+        <ul class="navbar-nav sidebar accordion" id="accordionSidebar"
+            style="background: hsl(217, 87%, 26%); color:#fff;">
 
             <!-- Sidebar - Brand -->
             <a class="sidebar-brand text-white d-flex align-items-center justify-content-center" href="#">
                 <div class="sidebar-brand-icon rotate-n-0">
                     <img src="{{ asset('asset/img/inalum.png') }}" width="120">
                 </div>
-                <div class="sidebar-brand-text mx-2">Company </div>
             </a>
 
             <!-- Divider -->
@@ -79,17 +95,34 @@
                     </div>
                 </div>
             </li> --}}
-            {{-- @role('Admin') --}}
-            <li class="nav-item">
-                <a class="nav-link text-white" href="{{ route('user.index') }}">
-                    <i class="fas fa-users"></i>
-                    <span>Data Pengguna</span></a>
-            </li>
+            @role('Admin')
+                <li class="nav-item">
+                    <a class="nav-link text-white" href="{{ route('user.index') }}">
+                        <i class="fas fa-users"></i>
+                        <span>Data Pengguna</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-white" href="{{ route('posisi.index') }}">
+                        <i class="fas fa-user-alt "></i>
+                        <span>Posisi</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-white" href="{{ route('seksi.index') }}">
+                        <i class="fas fa-folder"></i>
+                        <span>Seksi</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-white" href="{{ route('pgr.index') }}">
+                        <i class="fas fa-file"></i>
+                        <span>PGR</span></a>
+                </li>
+            @endrole
             <li class="nav-item">
                 <a class="nav-link text-white" href="{{ route('transaksi.index') }}">
                     <i class="fas fa-shopping-cart"></i>
                     <span>Transaksi</span></a>
             </li>
+
             {{-- @endrole --}}
             <!-- Nav Item - Pages Collapse Menu -->
 
@@ -147,7 +180,7 @@
                         class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
                         <div class="input-group">
                             <div class="input-group-append">
-                                <h4>Sistem informasi PT. Asahan Alumunium</h4>
+                                <h4>Sistem informasi customs clearance</h4>
                             </div>
                         </div>
                     </form>
@@ -191,12 +224,13 @@
                             <!-- Dropdown - User Information -->
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
                                 aria-labelledby="userDropdown">
-                                {{-- <a class="dropdown-item" href="#">
+                                <a class="dropdown-item" href="{{ route('user.show', [Auth::user()->id]) }}">
                                     <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                                     Profile
                                 </a>
-                                <div class="dropdown-divider"></div> --}}
-                                <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="#" data-toggle="modal"
+                                    data-target="#logoutModal">
                                     <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
                                     Logout
                                 </a>

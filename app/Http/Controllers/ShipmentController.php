@@ -60,7 +60,7 @@ class ShipmentController extends Controller
         $shipment->shipment_no = $request->shipment_no;
         $shipment->shipment_sequence = $request->shipment_sequence;
         $shipment->nama_barang = $request->nama_barang;
-        $shipment->nilai_barang = $request->nilai_barang;
+        $shipment->nilai_barang = $request->invoice_amount_curr;
         $shipment->quantity_delivery = $request->quantity_delivery;
         $shipment->invoice_amount_curr = $request->invoice_amount_curr;
         $shipment->invoice_amount = $request->invoice_amount;
@@ -200,7 +200,7 @@ class ShipmentController extends Controller
 
         $shipment->save();
         Alert::success('Berhasil', 'Data Berhasil disimpan.');
-        return redirect()->route('transaksi.detail', [$request->transaksi_id]);
+        return redirect()->route('transaksi.show', [$request->transaksi_id]);
     }
 
 
@@ -236,8 +236,22 @@ class ShipmentController extends Controller
      */
     public function update(UpdateFile $request, $id)
     {
-        ddd($request->all());
+        $roleManager = auth()->user()->roles->pluck('name')->contains('Manager');
         $shipment = Shipment::findOrFail($id);
+
+        if ($roleManager) {
+            Shipment::where('id', $id)->update(['status' => $request->status]);
+            Alert::success('Berhasil', 'Data Berhasil Diupdate.');
+            return redirect()->route('transaksi.show', [$shipment->transaksi_id]);
+        }
+
+        $roleStaff = auth()->user()->roles->pluck('name')->contains('Staff');
+        if ($roleStaff) {
+            Shipment::where('id', $id)->update(['status' => $request->status]);
+            Alert::success('Berhasil', 'Data Berhasil Diupdate.');
+            return redirect()->route('transaksi.show', [$shipment->transaksi_id]);
+        }
+
         $shipment->transaksi_id = $shipment->transaksi_id;
         // General information
         $shipment->supplier = $request->supplier;
@@ -256,7 +270,7 @@ class ShipmentController extends Controller
         $shipment->shipment_no = $request->shipment_no;
         $shipment->shipment_sequence = $request->shipment_sequence;
         $shipment->nama_barang = $request->nama_barang;
-        $shipment->nilai_barang = $request->nilai_barang;
+        $shipment->nilai_barang = $request->invoice_amount_curr;
         $shipment->quantity_delivery = $request->quantity_delivery;
         $shipment->invoice_amount_curr = $request->invoice_amount_curr;
         $shipment->invoice_amount = $request->invoice_amount;
@@ -457,6 +471,6 @@ class ShipmentController extends Controller
         Storage::delete([$shipment->bl_file, $shipment->invoice_file, $shipment->packing_file, $shipment->cert_of_origin_file, $shipment->cert_of_origin_preferensial_file, $shipment->cert_of_weight_file, $shipment->insurance_file, $shipment->fumigation_file, $shipment->letter_of_credit_file, $shipment->doc_budget_of_available_file, $shipment->spi_besi_baja, $shipment->quota_kartu_kendali, $shipment->npik, $shipment->surat_pengecualian_import]);
         $shipment->delete();
         Alert::success('Berhasil', 'Data Berhasil Dihapus.');
-        return redirect()->route('shipment.index');
+        return redirect()->route('transaksi.detail', [$shipment->transaksi_id]);
     }
 }

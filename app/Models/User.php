@@ -41,4 +41,17 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function seksi()
+    {
+        return $this->belongsTo(Seksi::class);
+    }
+    public function posisi()
+    {
+        return $this->belongsTo(Posisi::class);
+    }
+    public function pgr()
+    {
+        return $this->belongsTo(Pgr::class);
+    }
 }

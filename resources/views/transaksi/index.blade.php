@@ -5,11 +5,11 @@
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
         <h1 class="h3 mb-0 text-gray-800">Data Transaksi </h1>
         <!-- Button trigger modal -->
-        {{-- @role('Admin') --}}
-        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
-            + Tambah
-        </button>
-        {{-- @endrole --}}
+        @hasanyrole('Admin')
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+                + Tambah
+            </button>
+        @endhasanyrole
 
     </div>
 
@@ -52,7 +52,7 @@
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label for="nilai_impor">Nila Impor :</label>
+                                    <label for="nilai_impor">Nilai Impor :</label>
                                     <input type="number" name="nilai_impor" class="form-control" id="nilai_impor" required>
                                 </div>
                             </div>
@@ -69,7 +69,7 @@
                         </div>
                         <div class="form-group">
                             <label for="remaining_amount">Remaining Amount :</label>
-                            <input type="number" name="remaining_amount" class="form-control" id="remaining_amount"
+                            <input type="text" name="remaining_amount" class="form-control" id="remaining_amount"
                                 required>
                         </div>
 
@@ -117,21 +117,21 @@
                                 <td>{{ $t->total_nilai_import }}</td>
                                 <td>{{ $t->remaining_amount }}</td>
                                 <td align="center" width="15%">
-                                    {{-- @role('Admin') --}}
                                     <a href="{{ route('transaksi.show', [$t->id]) }}" data-toggle="tooltip" title="Detail"
                                         class="d-none  d-sm-inline-block btn btn-sm btn-warning shadow-sm">
                                         <i class="fas fa-eye fa-sm text-white-50"></i>
                                     </a>
-                                    <a href="{{ route('transaksi.edit', [$t->id]) }}" data-toggle="tooltip" title="Edit"
-                                        class="d-none  d-sm-inline-block btn btn-sm btn-success shadow-sm">
-                                        <i class="fas fa-edit fa-sm text-white-50"></i>
-                                    </a>
-                                    <a href="/transaksi/hapus/{{ $t->id }}" data-toggle="tooltip" title="Hapus"
-                                        onclick="return confirm('Yakin Ingin menghapus data?')"
-                                        class="d-none d-sm-inline-block btn btn-sm btn-danger shadow-sm">
-                                        <i class="fas fa-trash-alt fa-sm text-white-50"></i>
-                                    </a>
-                                    {{-- @endrole --}}
+                                    @hasanyrole('Admin|User')
+                                        <a href="{{ route('transaksi.edit', [$t->id]) }}" data-toggle="tooltip" title="Edit"
+                                            class="d-none  d-sm-inline-block btn btn-sm btn-success shadow-sm">
+                                            <i class="fas fa-edit fa-sm text-white-50"></i>
+                                        </a>
+                                        <a href="/transaksi/hapus/{{ $t->id }}" data-toggle="tooltip" title="Hapus"
+                                            onclick="return confirm('Yakin Ingin menghapus data?')"
+                                            class="d-none d-sm-inline-block btn btn-sm btn-danger shadow-sm">
+                                            <i class="fas fa-trash-alt fa-sm text-white-50"></i>
+                                        </a>
+                                    @endhasanyrole
                                 </td>
                             </tr>
                         @endforeach

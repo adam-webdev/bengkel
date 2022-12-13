@@ -21,7 +21,7 @@ class CreateTransaksisTable extends Migration
             $table->integer('nilai_impor');
             $table->integer('total_shipment');
             $table->integer('total_nilai_import');
-            $table->integer('remaining_amount');
+            $table->string('remaining_amount');
             $table->timestamps();
         });
     }

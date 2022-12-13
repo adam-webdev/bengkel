@@ -65,8 +65,10 @@
 
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal"> Batal</button>
-                <input type="submit" class="btn btn-primary btn-send" value="Simpan">
+                <button type="button" class="btn btn-secondary" onclick="history.back(-1)"> Batal</button>
+                @hasanyrole('Admin|User')
+                    <input type="submit" class="btn btn-primary btn-send" value="Simpan">
+                @endhasanyrole
             </div>
         </form>
     </div>

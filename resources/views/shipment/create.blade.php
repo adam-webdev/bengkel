@@ -566,7 +566,10 @@
                 </tbody>
 
             </table>
-            <button type="submit" class="btn btn-primary">Simpan</button>
+
+            @hasanyrole('Admin|Gudang')
+                <button type="submit" class="btn btn-primary">Simpan</button>
+            @endhasanyrole
         </form>
     </div>
 

@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\{DashboardController, ShipmentController, TransaksiController, UserController};
+use App\Http\Controllers\{DashboardController, PgrController, PosisiController, SeksiController, ShipmentController, TransaksiController, UserController};
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -17,7 +17,6 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('auth.login');
 });
-
 Auth::routes();
 Route::get('/dashboard', [DashboardController::class, "index"])->name('dashboard');
 // hanya admin yang dapat akses route ini
@@ -32,3 +31,12 @@ Route::get('/transaksi/hapus/{id}', [TransaksiController::class, "delete"]);
 Route::resource('shipment', ShipmentController::class);
 Route::get('/shipment/hapus/{id}', [ShipmentController::class, "delete"]);
 Route::get('/shipment/tambah/{id}', [ShipmentController::class, "create"])->name('shipment.tambah');
+
+Route::resource('/posisi', PosisiController::class);
+Route::get('/posisi/hapus/{id}', [PosisiController::class, "delete"]);
+
+Route::resource('/seksi', SeksiController::class);
+Route::get('/seksi/hapus/{id}', [SeksiController::class, "delete"]);
+
+Route::resource('pgr', PgrController::class);
+Route::get('pgr/hapus/{id}', [PgrController::class, "delete"]);
