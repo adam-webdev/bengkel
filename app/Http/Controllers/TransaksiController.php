@@ -40,14 +40,14 @@ class TransaksiController extends Controller
 
     public function store(Request $request)
     {
-        $request->validate([
-            'no_po' => 'required|integer',
-            'judul_po' => 'required',
-            'nilai_po' => 'required|integer',
-            'total_shipment' => 'required|integer',
-            'total_nilai_import' => 'required|integer',
-            'total_remaining_amount' => 'required|integer'
-        ]);
+        // $request->validate([
+        //     'no_po' => 'required|integer',
+        //     'judul_po' => 'required',
+        //     'nilai_po' => 'required|integer',
+        //     'total_shipment' => 'required|integer',
+        //     'total_nilai_import' => 'required|integer',
+        //     'total_remaining_amount' => 'required|integer'
+        // ]);
 
         $transaksi = new Transaksi();
         $transaksi->no_po = $request->no_po;

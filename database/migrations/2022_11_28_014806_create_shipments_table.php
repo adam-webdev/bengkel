@@ -19,96 +19,96 @@ class CreateShipmentsTable extends Migration
 
             /** 1. general information */
             // a
-            $table->string('subject_of_contract', 50);
+            $table->string('subject_of_contract', 250);
             // b
-            $table->string('supplier', 50);
+            $table->string('supplier', 250);
             // c
-            $table->string('contract_no', 50);
+            $table->string('contract_no', 250);
             // d
-            $table->string('quantity_contract', 50);
+            $table->string('quantity_contract', 250);
             // e
-            $table->string('contract_amount', 50);
+            $table->string('contract_amount', 250);
             // f
-            $table->string('retention_money', 50)->nullable();
+            $table->string('retention_money', 250)->nullable();
             // g
-            $table->string('term_of_payment', 50);
+            $table->string('term_of_payment', 250);
             // h
-            $table->string('issuing_bank_lc', 50)->nullable();
+            $table->string('issuing_bank_lc', 250)->nullable();
             // i
-            $table->string('delivery_term_condition', 20);
+            $table->string('delivery_term_condition', 250);
             // j
-            $table->string('pic', 50);
+            $table->string('pic', 250);
             // k
-            $table->string('function_of_good', 50);
+            $table->string('function_of_good', 250);
 
             /** 2. information  for customs clearance*/
             // a
-            $table->string('shipment_no', 10);
-            $table->string('shipment_sequence', 10);
+            $table->string('shipment_no', 250);
+            $table->string('shipment_sequence', 250);
 
-            $table->string('nama_barang', 10);
-            $table->string('nilai_barang', 10);
+            $table->string('nama_barang', 250);
+            $table->string('nilai_barang', 250);
             // b
-            $table->string('quantity_delivery', 10);
+            $table->string('quantity_delivery', 250);
             // c
-            $table->string('invoice_amount_curr', 10);
-            $table->string('invoice_amount', 10);
+            $table->string('invoice_amount_curr', 250);
+            $table->string('invoice_amount', 250);
             // d
             $table->string('quantity_balance',)->nullable();
             // e
             $table->string('remaining_contract_curr', 10);
-            $table->string('remaining_contract_amount', 10);
+            $table->string('remaining_contract_amount', 250);
             // f
-            $table->string('name_of_vessel', 50);
+            $table->string('name_of_vessel', 250);
             // g
-            $table->string('shipper', 50);
+            $table->string('shipper', 250);
             // h
-            $table->string('consignee', 50);
+            $table->string('consignee', 250);
             // i
-            $table->string('issuing_insurance_company', 50);
+            $table->string('issuing_insurance_company', 250);
             // j
-            $table->string('amount_of_insurance_curr', 50);
-            $table->string('amount_of_insurance', 10);
+            $table->string('amount_of_insurance_curr', 250);
+            $table->string('amount_of_insurance', 250);
             // k
-            $table->string('loading_port', 50);
+            $table->string('loading_port', 250);
             // l
-            $table->date('etd_loading_port', 10);
+            $table->date('etd_loading_port', 50);
             // m
-            $table->string('unloading_port', 50);
+            $table->string('unloading_port', 250);
             // n
-            $table->date('eta_unloading_port', 10);
+            $table->date('eta_unloading_port', 50);
             // o
-            $table->date('exp_delivery_time', 10);
+            $table->date('exp_delivery_time', 50);
 
             /** 3. shipping document */
             // a.
-            $table->string('bl_no', 50);
+            $table->string('bl_no', 250);
             $table->date('bl_date');
             $table->string('bl_file');
             // b.
-            $table->string('invoice_no', 50);
+            $table->string('invoice_no', 250);
             $table->string('invoice_date');
             $table->string('invoice_file');
             // c.
             $table->string('packing_date');
             $table->string('packing_file');
             // d.
-            $table->string('cert_of_origin', 50)->nullable();
+            $table->string('cert_of_origin', 250)->nullable();
             $table->string('cert_of_origin_file')->nullable();
             // e
-            $table->string('cert_of_origin_preferensial', 50)->nullable();
+            $table->string('cert_of_origin_preferensial', 250)->nullable();
             $table->string('cert_of_origin_preferensial_file')->nullable();
             // f.
-            $table->string('cert_of_weight', 50);
+            $table->string('cert_of_weight', 250);
             $table->string('cert_of_weight_file');
             // g.
-            $table->string('insurance_document', 50);
+            $table->string('insurance_document', 250);
             $table->string('insurance_file');
             // h.
-            $table->string('fumigation_certificate', 50)->nullable();
+            $table->string('fumigation_certificate', 250)->nullable();
             $table->string('fumigation_file')->nullable();
             // i.
-            $table->string('letter_of_credit', 50);
+            $table->string('letter_of_credit', 250);
             $table->string('letter_of_credit_file');
             $table->date('letter_of_credit_date');
             // j.

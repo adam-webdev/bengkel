@@ -17,7 +17,8 @@ class DashboardController extends Controller
             "pembayaran" => Shipment::where('status', 'Pembayaran')->count(),
             "approve" => Shipment::where('status', 'Approve')->count(),
             "delivery" => Shipment::where('status', 'Delivery')->count(),
-            "jalur_merah" => Shipment::where('status', 'Jalur Merah')->count()
+            "jalur_merah" => Shipment::where('status', 'Jalur Merah')->count(),
+            "spv_verif" => Shipment::where('status', 'spv-verification')->count()
         ];
         return view("dashboard", $data);
     }
