@@ -26,8 +26,7 @@
                 <p>Delivery</p>
             </div>
             <div class="col-md-2">
-                {{-- <img src="{{ asset('asset/img/delivery.svg') }}" width="50px" alt=""> --}}
-                <span class="fas fa-clipboard-check" width="200px" height="200px"></span>
+                <img src="{{ asset('asset/img/ceklis.png') }}" width="50px" alt="">
                 <p style="font-size: 20px; margin-top:10px"> {{ $spv_verif }}</p>
                 <p>Spv Verification</p>
             </div>
