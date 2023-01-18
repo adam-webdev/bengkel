@@ -22,8 +22,8 @@
                     <tr>
                         <input type="hidden" name="transaksi_id" value="{{ $transaksi_id }}">
                         <td>a. Subjec Of Contract (*)</td>
-                        <td><input value="{{ old('subject_of_contract') }}" class="form-control" type="text"
-                                name="subject_of_contract" required></td>
+                        <td><input value="{{ $transaksi->judul_po }}" class="form-control" type="text"
+                                name="subject_of_contract" required readonly></td>
                     </tr>
                     <tr>
                         <td>b. Supplier / Vendor (*)</td>
@@ -33,8 +33,8 @@
                     </tr>
                     <tr>
                         <td>c. Contract No (*)</td>
-                        <td><input value="{{ old('contract_no') }}" class="form-control" type="number" name="contract_no"
-                                required></td>
+                        <td><input value="{{ $transaksi->nilai_po }}" class="form-control" type="number" name="contract_no"
+                                required readonly></td>
                     </tr>
                     <tr>
                         <td>d. Quantity Contract (*)</td>
@@ -120,13 +120,13 @@
                     </tr>
                     <tr>
                         <td> Nilai Barang (*)</td>
-                        <td><input value="{{ old('nilai_barang') }}" class="form-control" type="number"
-                                name="nilai_barang" required></td>
+                        <td><input value="{{ $transaksi->total_nilai_import }}" class="form-control" type="number"
+                                name="nilai_barang" required readonly></td>
                     </tr>
                     <tr>
                         <td>c. Quantity Delivery (*)</td>
-                        <td><input value="{{ old('quantity_delivery') }}" class="form-control" type="text"
-                                name="quantity_delivery" required></td>
+                        <td><input id="quantity_delivery" class="form-control" type="text" name="quantity_delivery"
+                                required></td>
                     </tr>
                     <tr>
                         <td>d. Invoice Amount Currency (*)</td>
@@ -141,13 +141,13 @@
 
                     <tr>
                         <td> Invoice amount (*)</td>
-                        <td><input value="{{ old('invoice_amount') }}" class="form-control" type="text"
-                                name="invoice_amount" required></td>
+                        <td><input value="{{ old('invoice_amount') }}" id="invoice_amount" class="form-control"
+                                type="text" name="invoice_amount" required></td>
                     </tr>
                     <tr>
                         <td>e. Quantity Balance (*)</td>
-                        <td><input value="{{ old('quantity_balance') }}" class="form-control" type="number"
-                                name="quantity_balance" required></td>
+                        <td><input id="quantity_balance" class="form-control" type="number" name="quantity_balance"
+                                required readonly></td>
                     </tr>
 
                     <tr>
@@ -163,8 +163,9 @@
 
                     <tr>
                         <td> Remaining contract amount (*)</td>
-                        <td><input value="{{ old('remaining_contract_amount') }}" class="form-control" type="text"
-                                name="remaining_contract_amount" required></td>
+                        <td><input value="{{ old('remaining_contract_amount') }}" id="remaining_amount"
+                                class="form-control" type="text" name="remaining_contract_amount" required readonly>
+                        </td>
                     </tr>
                     <tr>
                     <tr>
@@ -567,10 +568,32 @@
 
             </table>
 
-            @hasanyrole('Admin|Gudang')
+            @hasanyrole('Admin|User')
                 <button type="submit" class="btn btn-primary">Simpan</button>
             @endhasanyrole
         </form>
     </div>
 
+@endsection
+@section('scripts')
+    <script>
+        $(document).ready(function() {
+            var totalNilaiImpor = "{{ $transaksi->total_nilai_import }}";
+            console.log(totalNilaiImpor)
+            var remaining_amount = 0;
+            var quantity_balance = 0;
+            $('#invoice_amount').on('input', function() {
+                var invoice = $(this).val()
+                remaining_amount = totalNilaiImpor - invoice
+                $('#remaining_amount').val(remaining_amount)
+
+            })
+            $('#quantity_delivery').on('input', function() {
+                var quantity = $(this).val()
+                quantity_balance = totalNilaiImpor - quantity
+                $('#quantity_balance').val(quantity_balance)
+
+            })
+        })
+    </script>
 @endsection

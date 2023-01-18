@@ -129,7 +129,7 @@ class CreateShipmentsTable extends Migration
             $table->string('bm', 50);
             $table->string('ppn', 50);
             $table->string('pph', 50);
-            $table->string('status', 50)->nullable();
+            $table->string('status', 50)->default('spv-verification')->nullable();
 
             $table->timestamps();
         });

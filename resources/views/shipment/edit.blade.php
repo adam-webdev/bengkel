@@ -647,7 +647,6 @@
                         <tr>
                             <td> Status (*)</td>
                             <td><select class="form-control" name="status" id="">
-
                                     <option value="Pembayaran" {{ $shipment->status == 'Pembayaran' ? 'selected' : '' }}>
                                         Pembayaran
                                     </option>
@@ -656,8 +655,6 @@
                                     </option>
                                     <option value="Delivery" {{ $shipment->status == 'Delivery' ? 'selected' : '' }}>Delivery
                                     </option>
-
-
                                 </select>
                             </td>
                         </tr>

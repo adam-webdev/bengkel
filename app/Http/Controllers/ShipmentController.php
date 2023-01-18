@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\{FileRequest, UpdateFile};
 use App\Models\Shipment;
+use App\Models\Transaksi;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use RealRashid\SweetAlert\Facades\Alert;
@@ -28,7 +29,8 @@ class ShipmentController extends Controller
     public function create($id)
     {
         $transaksi_id = $id;
-        return view('shipment.create', compact('transaksi_id'));
+        $transaksi = Transaksi::findOrFail($id);
+        return view('shipment.create', compact('transaksi_id', 'transaksi'));
     }
 
     /**
@@ -196,7 +198,7 @@ class ShipmentController extends Controller
         $shipment->bm = $request->bm;
         $shipment->ppn = $request->ppn;
         $shipment->pph = $request->pph;
-        $shipment->status = $request->status;
+        // $shipment->status = $request->status;
 
         $shipment->save();
         Alert::success('Berhasil', 'Data Berhasil disimpan.');
