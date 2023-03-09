@@ -113,9 +113,9 @@
                 </li>
             @endrole
             <li class="nav-item">
-                <a class="nav-link text-white" href="{{ route('transaksi.index') }}">
+                <a class="nav-link text-white" href="{{ route('bengkel.index') }}">
                     <i class="fas fa-shopping-cart"></i>
-                    <span>Transaksi</span></a>
+                    <span>Bengkel</span></a>
             </li>
 
 
