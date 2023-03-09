@@ -2,15 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Pgr;
-use App\Models\Posisi;
-use App\Models\Seksi;
-use App\Models\User;
+use App\Models\Bengkel;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
 use RealRashid\SweetAlert\Facades\Alert;
 
-class UserController extends Controller
+class BengkelController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -19,8 +15,8 @@ class UserController extends Controller
      */
     public function index()
     {
-        $user = User::all();
-        return view('admin.user', compact('user'));
+        $bengkel = Bengkel::all();
+        return view('bengkel.index', compact('bengkel'));
     }
 
     /**
@@ -41,33 +37,34 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        $foto = $request->file('foto');
-        if ($foto) {
-            $foto = $foto->storeAs('user/profil', $request->file('foto')->getClientOriginalName());
+
+        $foto_bengkel = $request->file('foto_bengkel');
+
+        if ($foto_bengkel) {
+            $foto_bengkel = $foto_bengkel->storeAs('bengkel', $request->file('foto_bengkel')->getClientOriginalName());
         } else {
             $foto = 'default.jpg';
         }
 
-        $new_user = new User;
-        $new_user->name = $request->name;
-        $new_user->no_hp = $request->no_hp;
-        $new_user->tipe_user = $request->tipe_user;
-        $new_user->provinsi_id = $request->provinsi_id;
-        $new_user->kota_id = $request->kota_id;
-        $new_user->kecamatan_id = $request->kecamatan_id;
-        $new_user->desa_id = $request->desa_id;
-        $new_user->email = $request->email;
-        $new_user->jenis_kelamin = $request->jenis_kelamin;
-        $new_user->foto = $foto;
-        $new_user->password = bcrypt($request->password);
-        if ($request->get('roles') === "Admin") {
-            $new_user->assignRole("Admin");
-        } else if ($request->get('roles') === "Admin Bengkel") {
-            $new_user->assignRole("Admin Bengkel");
-        } else {
-            $new_user->assignRole("User");
-        }
-        $new_user->save();
+        $newbengkel = new Bengkel;
+        $newbengkel->nama_bengkel = $request->nama_bengkel;
+        $newbengkel->jam_buka = $request->jam_buka;
+        $newbengkel->jam_tutup = $request->jam_tutup;
+        $newbengkel->no_hp = $request->no_hp;
+        $newbengkel->alamat_lengkap = $request->alamat_lengkap;
+        $newbengkel->angka_ulasan = $request->angka_ulasan;
+        $newbengkel->ulasan = $request->ulasan;
+        $newbengkel->longitude = $request->longitude;
+        $newbengkel->latitude = $request->latitude;
+        $newbengkel->provinsi_id = $request->provinsi_id;
+        $newbengkel->kota_id = $request->kota_id;
+        $newbengkel->kecamatan_id = $request->kecamatan_id;
+        $newbengkel->desa_id = $request->desa_id;
+        $newbengkel->email = $request->email;
+        $newbengkel->jenis_kelamin = $request->jenis_kelamin;
+        $newbengkel->foto = $foto;
+
+        $newbengkel->save();
         Alert::success("Tersimpan", "Data Berhasil Disimpan!");
         return redirect()->route('user.index');
     }

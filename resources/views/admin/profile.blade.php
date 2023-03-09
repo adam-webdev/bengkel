@@ -20,31 +20,35 @@
                         <td> <b>{{ $user->name }}</b></td>
                     </tr>
                     <tr>
+                        <td>No HP</td>
+                        <td> <b>{{ $user->no_hp }}</b></td>
+                    </tr>
+                    <tr>
                         <td>Email</td>
                         <td> <b>{{ $user->email }}</b></td>
                     </tr>
-                    <tr>
-                        <td>Nik</td>
-                        <td> <b>{{ $user->nik }}</b></td>
-                    </tr>
+
                     <tr>
                         <td>Jenis Kelamin</td>
                         <td> <b>{{ $user->jenis_kelamin }}</b></td>
                     </tr>
                     <tr>
-                        <td>Posisi</td>
-                        <td> <b>{{ $user->posisi->nama_posisi }}</b></td>
+                        <td>Provinsi</td>
+                        <td> <b>Jawa Barat</b></td>
+                    </tr>
+                    <tr>
+                        <td>Kota / Kabupaten</td>
+                        <td> <b>Bekasi</b></td>
+                    </tr>
+                    <tr>
+                        <td>Kecamatan</td>
+                        <td> <b>Tambun Selatan</b></td>
+                    </tr>
+                    <tr>
+                        <td>Desa</td>
+                        <td> <b>Jatimulya</b></td>
                     </tr>
 
-                    <tr>
-                        <td>Seksi</td>
-                        <td> <b>{{ $user->seksi->nama_seksi }}</b></td>
-                    </tr>
-
-                    <tr>
-                        <td>Kode PGR</td>
-                        <td> <b>{{ $user->pgr->kode_pgr }}</b></td>
-                    </tr>
 
                 </table>
 

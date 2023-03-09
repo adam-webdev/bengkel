@@ -3,27 +3,27 @@
     @include('sweetalert::alert')
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
         <h1 class="h3 mb-0 text-gray-800">Data Pengguna</h1>
+        @role('Admin')
+            <div class="card-header py-3" align="right">
+                <button class="btn btn-primary btn-sm btn-flat" data-toggle="modal" data-target="#modal-add"><i
+                        class="fa fa-plus"></i>Tambah</button>
+            </div>
+        @endrole
     </div>
-    <hr>
-    @role('Admin')
-        <div class="card-header py-3" align="right">
-            <button class="btn btn-primary btn-sm btn-flat" data-toggle="modal" data-target="#modal-add"><i
-                    class="fa fa-plus"></i>Tambah</button>
-        </div>
-    @endrole
+
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
         <div class="card-body">
             <div class="table-responsive">
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                     <thead>
                         <tr align="center">
-                            <th width="5%">No</th>
-                            <th width="25%">Nama</th>
-                            <th width="25%">Nik</th>
-                            <th width="25%">Jenis Kelamin</th>
-                            <th width="20%">Email</th>
-                            <th width="15%">Roles</th>
-                            <th width="15%">Foto</th>
+                            <th>No</th>
+                            <th>Nama</th>
+                            <th>No HP</th>
+                            <th>Jenis Kelamin</th>
+                            <th>Email</th>
+                            <th>Roles</th>
+                            <th>Foto</th>
                             <th>Aksi</th>
                         </tr>
                     </thead>
@@ -32,7 +32,7 @@
                             <tr>
                                 <td>{{ $loop->iteration }}</td>
                                 <td>{{ $row->name }}</td>
-                                <td>{{ $row->nik }}</td>
+                                <td>{{ $row->no_hp }}</td>
                                 <td>{{ $row->jenis_kelamin }}</td>
                                 <td>{{ $row->email }}</td>
                                 @foreach ($row->roles->pluck('name') as $r)
@@ -43,12 +43,12 @@
                                 <td> <img src="storage/{{ $row->foto }}" width="200px" alt="profile"> </td>
                                 <td width="15%" align="center">
                                     @role('Admin')
-                                        {{-- <a href="{{ route('user.edit', [$row->id]) }}" data-toggle="tooltip" title="Edit"
-                                            class="d-none  d-sm-inline-block btn btn-sm btn-success shadow-sm">
-                                            <i class="fas fa-edit fa-sm text-white-50"></i>
-                                        </a> --}}
+                                        <a href="{{ route('user.show', [$row->id]) }}" data-toggle="tooltip" title="Detail"
+                                            class="d-none  d-sm-inline-block mt-2 btn btn-sm btn-success shadow-sm">
+                                            <i class="fas fa-eye   fa-sm text-white-50"></i>
+                                        </a>
                                         <a href="/user/hapus/{{ $row->id }}"
-                                            onclick="return confirm('Yakin Ingin menghapus data?')"
+                                            onclick="return confirm('Yakin Ingin menghapus data?')" title="Hapus"
                                             class="d-none d-sm-inline-block mt-2 btn btn-sm btn-danger shadow-sm">
                                             <i class="fas fa-trash-alt fa-sm text-white-50"></i>
                                         </a>
@@ -77,8 +77,8 @@
                             <input type="text" name="name" required class="form-control">
                         </div>
                         <div class="form-group">
-                            <label>NIK :</label>
-                            <input type="text" name="nik" required class="form-control">
+                            <label>No HP :</label>
+                            <input type="number" name="no_hp" required class="form-control">
                         </div>
                         <div class="form-group">
                             <label>Email User :</label>
@@ -101,36 +101,8 @@
                             <select id="roles" name="roles" class="form-control" required>
                                 <option value="">--Pilih Roles--</option>
                                 <option value="Admin">Admin</option>
-                                <option value="Manager">Manager</option>
+                                <option value="Admin Bengkel">Admin Bengkel</option>
                                 <option value="User">User</option>
-                                <option value="Staff">Staff</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label>Posisi :</label>
-                            <select name="posisi_id" class="form-control" required>
-                                <option value="">--Pilih Posisi--</option>
-                                @foreach ($posisi as $p)
-                                    <option value="{{ $p->id }}">{{ $p->nama_posisi }}</option>
-                                @endforeach
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label>Seksi :</label>
-                            <select name="seksi_id" class="form-control" required>
-                                <option value="">--Pilih Seksi--</option>
-                                @foreach ($seksi as $s)
-                                    <option value="{{ $s->id }}">{{ $s->nama_seksi }}</option>
-                                @endforeach
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label>PGR :</label>
-                            <select name="pgr_id" class="form-control" required>
-                                <option value="">--Pilih PGR--</option>
-                                @foreach ($pgr as $pgr)
-                                    <option value="{{ $pgr->id }}">{{ $pgr->kode_pgr }}</option>
-                                @endforeach
                             </select>
                         </div>
 

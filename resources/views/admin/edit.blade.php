@@ -11,18 +11,19 @@
             @method('put')
             @csrf
             <div class="modal-content">
-                <div class="modal-header">
+                {{-- <div class="modal-header">
                     <h4 class="modal-title">Edit</h4>
-                </div>
+                </div> --}}
                 <div class="modal-body">
                     <div class="form-group">
                         <label>Nama User :</label>
                         <input type="text" value="{{ $user->name }}" name="name" required class="form-control">
                     </div>
                     <div class="form-group">
-                        <label>NIK :</label>
-                        <input type="text" value="{{ $user->nik }}" name="nik" required class="form-control">
+                        <label>No HP :</label>
+                        <input type="text" value="{{ $user->no_hp }}" name="no_hp" required class="form-control">
                     </div>
+
                     <div class="form-group">
                         <label>Email User :</label>
                         <input type="email" value="{{ $user->email }}" name="email" required class="form-control">
@@ -47,39 +48,7 @@
                             </option>
                         </select>
                     </div>
-                    <div class="form-group">
-                        <label>Posisi :</label>
-                        <select name="posisi_id" class="form-control" required>
-                            <option value="">--Pilih Posisi--</option>
-                            @foreach ($posisi as $p)
-                                <option value="{{ $p->id }}" {{ $p->id == $user->posisi->id ? 'selected' : '' }}>
-                                    {{ $p->nama_posisi == $user->posisi->nama_posisi ? $user->posisi->nama_posisi : $p->nama_posisi }}
-                                </option>
-                            @endforeach
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label>Seksi :</label>
-                        <select name="seksi_id" class="form-control" required>
-                            <option value="">--Pilih Seksi--</option>
-                            @foreach ($seksi as $s)
-                                <option value="{{ $s->id }}" {{ $s->id == $user->seksi->id ? 'selected' : '' }}>
-                                    {{ $s->nama_seksi == $user->seksi->nama_seksi ? $user->seksi->nama_seksi : $s->nama_seksi }}
-                                </option>
-                            @endforeach
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label>Pgr :</label>
-                        <select name="pgr_id" class="form-control" required>
-                            <option value="">--Pilih Pgr--</option>
-                            @foreach ($pgr as $pgr)
-                                <option value="{{ $pgr->id }}" {{ $pgr->id == $user->pgr->id ? 'selected' : '' }}>
-                                    {{ $pgr->kode_pgr == $user->pgr->kode_pgr ? $user->pgr->kode_pgr : $pgr->kode_pgr }}
-                                </option>
-                            @endforeach
-                        </select>
-                    </div>
+
                     <div class="form-group">
                         <label>Password :</label>
                         <input type="password" name="password" class="form-control">

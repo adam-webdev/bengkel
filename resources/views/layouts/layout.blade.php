@@ -7,6 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
+    <title>Beranda</title>
     <link rel="apple-touch-icon" sizes="57x57" href="/apple-icon-57x57.png">
     <link rel="apple-touch-icon" sizes="60x60" href="/apple-icon-60x60.png">
     <link rel="apple-touch-icon" sizes="72x72" href="/apple-icon-72x72.png">
@@ -24,7 +25,6 @@
     <meta name="msapplication-TileColor" content="#ffffff">
     <meta name="msapplication-TileImage" content="/ms-icon-144x144.png">
     <meta name="theme-color" content="#ffffff">
-    <title>Beranda</title>
     <link href="{{ asset('asset/vendor/select2/dist/css/select2.min.css') }}" rel="stylesheet">
     <link href="{{ asset('asset/vendor/fontawesome-free/css/all.min.css') }}" rel="stylesheet" type="text/css">
     <link
@@ -34,7 +34,19 @@
     <link href="{{ asset('asset/css/sb-admin-2.min.css') }}" rel="stylesheet">
     <link href="{{ asset('asset/vendor/datatables/dataTables.bootstrap4.min.css') }}" rel="stylesheet">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
+    <style>
+        ul li a.nav-link:hover {
+            background: hsl(217, 91%, 31%);
+        }
 
+        ul li a.profile-link:hover {
+            background: hsl(0, 0%, 96%);
+        }
+
+        ul li a.active {
+            background: hsl(217, 91%, 31%);
+        }
+    </style>
 </head>
 
 <body id="page-top">
@@ -44,38 +56,35 @@
 
         <!-- Sidebar -->
         <ul class="navbar-nav sidebar accordion" id="accordionSidebar"
-            style="background: hsl(217, 87%, 26%); color:#fff;">
+            style="background:#070a97; color:hsl(217, 87%, 26%);">
 
             <!-- Sidebar - Brand -->
-            <a class="sidebar-brand text-white d-flex align-items-center justify-content-center" href="#">
-                <div class="sidebar-brand-icon rotate-n-0">
-                    <img src="{{ asset('asset/img/inalum.png') }}" width="120">
+            <a class="sidebar-brand  mt-4 text-white d-flex align-items-center justify-content-center" href="#">
+                <div class="sidebar-brand-icon rotate-n-0" style="margin-top:30px">
+                    <img src="{{ asset('asset/img/mechanic.png') }}" width="100px" height="100px"
+                        style="marign-top:30px">
                 </div>
             </a>
 
             <!-- Divider -->
-            <hr class="sidebar-divider my-0">
 
             <!-- Divider -->
-            <hr class="sidebar-divider">
+            <hr class="sidebar-divider d-none d-md-block">
 
-            <li class="nav-item">
-                <a class="nav-link text-white" href="{{ route('dashboard') }}">
+            <li class="nav-item" style="margin-top:50px">
+                <a class="nav-link text-white {{ request()->is('dashboard') ? 'active' : '' }}"
+                    href="{{ route('dashboard') }}">
                     <i class="fa fa-tachometer-alt"></i>
                     <span>Dashboard</span></a>
             </li>
+
             {{-- <li class="nav-item">
                 <a class="nav-link collapsed text-white" href="{{ route('user.index') }}" data-toggle="collapse"
                     data-target="#collapsePages" aria-expanded="true" aria-controls="collapsePages">
                     <i class="fas fa-fw fa-folder-open"></i>
                     <span>Menu Master</span>
                 </a>
-                <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                        <a class="collapse-item fas fa-folder" href="{{ route('barang.index') }}"> Master Barang </a>
 
-                    </div>
-                </div>
             </li> --}}
 
             {{-- <li class="nav-item">
@@ -97,24 +106,10 @@
             </li> --}}
             @role('Admin')
                 <li class="nav-item">
-                    <a class="nav-link text-white" href="{{ route('user.index') }}">
+                    <a class="nav-link text-white {{ request()->is('user') ? 'active' : '' }}"
+                        href="{{ route('user.index') }}">
                         <i class="fas fa-users"></i>
                         <span>Data Pengguna</span></a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link text-white" href="{{ route('posisi.index') }}">
-                        <i class="fas fa-user-alt "></i>
-                        <span>Posisi</span></a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link text-white" href="{{ route('seksi.index') }}">
-                        <i class="fas fa-folder"></i>
-                        <span>Seksi</span></a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link text-white" href="{{ route('pgr.index') }}">
-                        <i class="fas fa-file"></i>
-                        <span>PGR</span></a>
                 </li>
             @endrole
             <li class="nav-item">
@@ -123,31 +118,6 @@
                     <span>Transaksi</span></a>
             </li>
 
-            {{-- @endrole --}}
-            <!-- Nav Item - Pages Collapse Menu -->
-
-            {{-- <li class="nav-item">
-                <a class="nav-link collapsed text-white" href="{{ route('laporan.barang') }}" data-toggle="collapse"
-                    data-target="#collapsePages1" aria-expanded="true" aria-controls="collapsePages1">
-                    <i class="far fa-file-pdf"></i>
-                    <span>Laporan</span>
-                </a>
-                <div id="collapsePages1" class="collapse" aria-labelledby="headingPages"
-                    data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                        <a class="collapse-item fas fa-arrow-circle-right" href="{{ route('laporan.barang') }}">
-                            Barang </a>
-
-                    </div>
-                </div>
-            </li> --}}
-
-            <!-- Nav Item - Tables -->
-            {{-- <li class="nav-item">
-                <a class="nav-link text-white" href="/pengaturan/1">
-                    <i class="fas fa-cog"></i>
-                    <span>Pengaturan</span></a>
-            </li> --}}
 
 
             <!-- Divider -->
@@ -180,7 +150,7 @@
                         class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
                         <div class="input-group">
                             <div class="input-group-append">
-                                <h4>Sistem informasi customs clearance</h4>
+                                <h4>Dashboard Bengkel Kita</h4>
                             </div>
                         </div>
                     </form>
@@ -257,7 +227,7 @@
             <footer class="sticky-footer  bg-white">
                 <div class="container my-auto">
                     <div class="copyright text-center my-auto">
-                        <span>Create By: Salsa<br>Copyright &copy; Sistem PT. Asahan Alumunium. </span>
+                        <span>Create By: User<br>Copyright &copy; Bengkel Kita. </span>
                     </div>
                 </div>
             </footer>
