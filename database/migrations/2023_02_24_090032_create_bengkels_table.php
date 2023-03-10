@@ -18,6 +18,7 @@ class CreateBengkelsTable extends Migration
             $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
             $table->string('nama_bengkel');
             $table->string('foto_bengkel');
+            $table->string('email')->unique();
             $table->time('jam_buka');
             $table->time('jam_tutup');
             $table->string('no_hp');
@@ -27,10 +28,10 @@ class CreateBengkelsTable extends Migration
             $table->string('ulasan')->nullable();
             $table->string('longitude')->nullable();
             $table->string('latitude')->nullable();
-            $table->integer('provinsi_id')->nullable();
-            $table->integer('kota_id')->nullable();
-            $table->integer('kecamatan_id')->nullable();
-            $table->integer('desa_id')->nullable();
+            $table->string('provinsi_id')->nullable();
+            $table->string('kota_id')->nullable();
+            $table->string('kecamatan_id')->nullable();
+            $table->string('desa_id')->nullable();
             $table->timestamps();
         });
     }

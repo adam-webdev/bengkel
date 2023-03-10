@@ -5,12 +5,29 @@ namespace App\Http\Controllers;
 use App\Models\Bengkel;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use RealRashid\SweetAlert\Facades\Alert;
 
 class BengkelController extends Controller
 {
+
+    public function kota(Request $request)
+    {
+        $kota = DB::table('regencies')->where('province_id', $request->id)->get();
+        return $kota;
+    }
+    public function kecamatan(Request $request)
+    {
+        $kecamatan = DB::table('districts')->where('regency_id', $request->id)->get();
+        return $kecamatan;
+    }
+    public function desa(Request $request)
+    {
+        $desa = DB::table('villages')->where('district_id', $request->id)->get();
+        return $desa;
+    }
 
     public function index()
     {
@@ -37,10 +54,11 @@ class BengkelController extends Controller
         if ($foto_bengkel) {
             $foto_bengkel = $foto_bengkel->storeAs('bengkel', $request->file('foto_bengkel')->getClientOriginalName());
         } else {
-            $foto = 'default.jpg';
+            $foto_bengkel = 'default.jpg';
         }
-
+        // ddd($request->desa_id);
         $newbengkel = new Bengkel;
+        $newbengkel->user_id = Auth::user()->id;
         $newbengkel->nama_bengkel = $request->nama_bengkel;
         $newbengkel->jam_buka = $request->jam_buka;
         $newbengkel->jam_tutup = $request->jam_tutup;
@@ -55,7 +73,7 @@ class BengkelController extends Controller
         $newbengkel->kecamatan_id = $request->kecamatan_id;
         $newbengkel->desa_id = $request->desa_id;
         $newbengkel->email = $request->email;
-        $newbengkel->foto = $foto;
+        $newbengkel->foto_bengkel = $foto_bengkel;
         $newbengkel->save();
         Alert::success("Tersimpan", "Data Berhasil Disimpan!");
         return redirect()->route('bengkel.index');
@@ -70,19 +88,23 @@ class BengkelController extends Controller
 
     public function edit($id)
     {
+        $provinsi = DB::table('provinces')->get();
         $bengkel = Bengkel::findOrfail($id);
-        return view('bengkel.edit', compact('bengkel'));
+        $kota = DB::table('regencies')->where('id', $bengkel->kota_id)->first();
+        $kecamatan = DB::table('districts')->where('id', $bengkel->kecamatan_id)->first();
+        $desa = DB::table('villages')->where('id', $bengkel->desa_id)->first();
+        return view('bengkel.edit', compact('bengkel', 'provinsi', 'kota', 'kecamatan', 'desa'));
     }
 
     public function update(Request $request, $id)
     {
         $bengkel = Bengkel::findOrfail($id);
-        $foto = $request->file('foto');
+        $foto = $request->file('foto_bengkel');
         if ($foto) {
             Storage::delete($bengkel->foto);
             $foto = $foto->storeAs('bengkel', $request->file('foto_bengkel')->getClientOriginalName());
         } else {
-            $foto = $bengkel->foto;
+            $foto = $bengkel->foto_bengkel;
         }
 
         $bengkel->nama_bengkel = $request->nama_bengkel;
@@ -99,10 +121,10 @@ class BengkelController extends Controller
         $bengkel->kecamatan_id = $request->kecamatan_id;
         $bengkel->desa_id = $request->desa_id;
         $bengkel->email = $request->email;
-        $bengkel->foto = $foto;
+        $bengkel->foto_bengkel = $foto;
         $bengkel->save();
         Alert::success("Tersimpan", "Data Berhasil Disimpan!");
-        return redirect()->route('bengkel.index', [$id]);
+        return redirect()->route('bengkel.index');
     }
 
     public function delete($id)
@@ -110,7 +132,6 @@ class BengkelController extends Controller
         $bengkel = Bengkel::findOrFail($id);
         Storage::delete($bengkel->foto);
         $bengkel->delete();
-        $bengkel->removeRole("Admin", "Admin Bengkel", "User");
         Alert::success("Terhapus", "Data Berhasil Terhapus");
         return redirect()->route('bengkel.index');
     }

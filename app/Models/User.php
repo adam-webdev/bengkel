@@ -54,4 +54,8 @@ class User extends Authenticatable
     {
         return $this->belongsTo(Pgr::class);
     }
+    public function bengkel()
+    {
+        return $this->hasOne(Bengkel::class);
+    }
 }

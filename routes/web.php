@@ -27,5 +27,9 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 
 Route::resource('/bengkel', BengkelController::class);
 Route::get('/bengkel/hapus/{id}', [BengkelController::class, "delete"]);
+
+Route::get('/kota', [BengkelController::class, "kota"]);
+Route::get('/kecamatan', [BengkelController::class, "kecamatan"]);
+Route::get('/desa', [BengkelController::class, "desa"]);
 // Route::resource('transaksi', TransaksiController::class);
 // Route::get('/transaksi/hapus/{id}', [TransaksiController::class, "delete"]);

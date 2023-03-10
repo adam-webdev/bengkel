@@ -114,8 +114,8 @@
             @endrole
             <li class="nav-item">
                 <a class="nav-link text-white" href="{{ route('bengkel.index') }}">
-                    <i class="fas fa-shopping-cart"></i>
-                    <span>Bengkel</span></a>
+                    <i class="fas fa-warehouse"></i>
+                    <span>Data Bengkel</span></a>
             </li>
 
 
