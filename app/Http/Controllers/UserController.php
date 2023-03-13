@@ -7,6 +7,7 @@ use App\Models\Posisi;
 use App\Models\Seksi;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use RealRashid\SweetAlert\Facades\Alert;
 
@@ -19,8 +20,9 @@ class UserController extends Controller
      */
     public function index()
     {
+        $provinsi = DB::table('provinces')->get();
         $user = User::all();
-        return view('admin.user', compact('user'));
+        return view('admin.user', compact('user', 'provinsi'));
     }
 
     /**
@@ -51,7 +53,7 @@ class UserController extends Controller
         $new_user = new User;
         $new_user->name = $request->name;
         $new_user->no_hp = $request->no_hp;
-        $new_user->tipe_user = $request->tipe_user;
+        // $new_user->tipe_user = $request->tipe_user;
         $new_user->provinsi_id = $request->provinsi_id;
         $new_user->kota_id = $request->kota_id;
         $new_user->kecamatan_id = $request->kecamatan_id;
@@ -80,7 +82,13 @@ class UserController extends Controller
     public function show($id)
     {
         $user = User::where('id', $id)->first();
-        return view('admin.profile', compact('user'));
+
+        $provinsi = DB::table('provinces')->where('id', $user->provinsi_id)->first();
+        $kota = DB::table('regencies')->where('id', $user->kota_id)->first();
+        $kecamatan = DB::table('districts')->where('id', $user->kecamatan_id)->first();
+        $desa = DB::table('villages')->where('id', $user->desa_id)->first();
+
+        return view('admin.profile', compact('user', 'provinsi', 'kota', 'kecamatan', 'desa'));
     }
 
     /**
@@ -115,7 +123,7 @@ class UserController extends Controller
 
         $user->name = $request->name;
         $user->no_hp = $request->no_hp;
-        $user->tipe_user = $request->tipe_user;
+        // $user->tipe_user = $request->tipe_user;
         $user->provinsi_id = $request->provinsi_id;
         $user->kota_id = $request->kota_id;
         $user->kecamatan_id = $request->kecamatan_id;
@@ -136,7 +144,7 @@ class UserController extends Controller
         }
         $user->save();
         Alert::success("Tersimpan", "Data Berhasil Disimpan!");
-        return redirect()->route('user.index', [$id]);
+        return redirect()->route('user.index');
     }
 
     /**

@@ -5,12 +5,12 @@
         <div class="row">
             <div class="col-md-3" style="display: flex; justify-content:space-between; flex-direction:column;">
                 @if ($user->foto != 'default.jpg')
-                    <img class="flex-1" src="/storage/{{ $user->foto }}" width="200px" alt="foto profile">
+                    <img class="flex-1 ml-4" src="/storage/{{ $user->foto }}" width="200px" alt="foto profile">
                 @else
-                    <img class="flex-1" src="{{ asset('asset/img/profile.png') }}" width="200px" alt="foto profile">
+                    <img class="flex-1 ml-4" src="{{ asset('asset/img/profile.png') }}" width="200px" alt="foto profile">
                 @endif
                 <a style="margin-top:100px; display:block;" class=" btn btn-secondary"
-                    href="{{ route('user.edit', [$user->id]) }}">Edit
+                    href="{{ route('user.edit', [$user->id]) }}"><i class="far fa-edit mr-2"></i>Edit
                     Profile</a>
             </div>
             <div class="col-md-6">
@@ -34,19 +34,19 @@
                     </tr>
                     <tr>
                         <td>Provinsi</td>
-                        <td> <b>Jawa Barat</b></td>
+                        <td> <b>{{ $provinsi->name ?? '-' }}</b></td>
                     </tr>
                     <tr>
                         <td>Kota / Kabupaten</td>
-                        <td> <b>Bekasi</b></td>
+                        <td> <b>{{ $kota->name ?? '-' }}</b></td>
                     </tr>
                     <tr>
                         <td>Kecamatan</td>
-                        <td> <b>Tambun Selatan</b></td>
+                        <td> <b>{{ $kecamatan->name ?? '-' }}</b></td>
                     </tr>
                     <tr>
                         <td>Desa</td>
-                        <td> <b>Jatimulya</b></td>
+                        <td> <b>{{ $desa->name ?? '-' }}</b></td>
                     </tr>
 
 

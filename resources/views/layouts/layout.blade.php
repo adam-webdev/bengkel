@@ -113,7 +113,8 @@
                 </li>
             @endrole
             <li class="nav-item">
-                <a class="nav-link text-white" href="{{ route('bengkel.index') }}">
+                <a class="nav-link text-white {{ request()->is('bengkel') ? 'active' : '' }}"
+                    href="{{ route('bengkel.index') }}">
                     <i class="fas fa-warehouse"></i>
                     <span>Data Bengkel</span></a>
             </li>

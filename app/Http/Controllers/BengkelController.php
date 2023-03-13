@@ -64,8 +64,6 @@ class BengkelController extends Controller
         $newbengkel->jam_tutup = $request->jam_tutup;
         $newbengkel->no_hp = $request->no_hp;
         $newbengkel->alamat_lengkap = $request->alamat_lengkap;
-        $newbengkel->angka_ulasan = $request->angka_ulasan;
-        $newbengkel->ulasan = $request->ulasan;
         $newbengkel->longitude = $request->longitude;
         $newbengkel->latitude = $request->latitude;
         $newbengkel->provinsi_id = $request->provinsi_id;
@@ -112,8 +110,6 @@ class BengkelController extends Controller
         $bengkel->jam_tutup = $request->jam_tutup;
         $bengkel->no_hp = $request->no_hp;
         $bengkel->alamat_lengkap = $request->alamat_lengkap;
-        $bengkel->angka_ulasan = $request->angka_ulasan;
-        $bengkel->ulasan = $request->ulasan;
         $bengkel->longitude = $request->longitude;
         $bengkel->latitude = $request->latitude;
         $bengkel->provinsi_id = $request->provinsi_id;

@@ -98,7 +98,7 @@
 
                 </div>
 
-                <div class="row">
+                {{-- <div class="row">
                     <div class="col-md-6">
                         <div class="form-group">
                             <label for="angka_ulasan">Angka Ulasan :</label>
@@ -116,7 +116,7 @@
 
                         </div>
                     </div>
-                </div>
+                </div> --}}
                 <div class="row">
                     <div class="col-md-12" id="provinsi_id">
                         <div class="form-group">
