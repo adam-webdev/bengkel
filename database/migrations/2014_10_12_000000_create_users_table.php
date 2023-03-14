@@ -19,7 +19,7 @@ class CreateUsersTable extends Migration
             $table->id();
             $table->string('no_hp');
             $table->string('name');
-            $table->string('tipe_user')->nullable();
+            // $table->string('tipe_user')->nullable();
             $table->integer('provinsi_id')->nullable();
             $table->integer('kota_id')->nullable();
             $table->integer('kecamatan_id')->nullable();

@@ -2,19 +2,19 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Http\Controllers\Controller as Controller;
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
 class BaseController extends Controller
 {
-    public function success($result, $message)
+    public function success($result, $message, $code = 200)
     {
         $response = [
             "success" => true,
             "data" => $result,
             "message" => $message
         ];
-        return response()->json($response, 200);
+        return response()->json($response, $code, [], JSON_UNESCAPED_SLASHES);
     }
 
     public function error($error, $messageError = [], $code = 404)
