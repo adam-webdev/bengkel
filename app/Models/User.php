@@ -43,20 +43,13 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function seksi()
-    {
-        return $this->belongsTo(Seksi::class);
-    }
-    public function posisi()
-    {
-        return $this->belongsTo(Posisi::class);
-    }
-    public function pgr()
-    {
-        return $this->belongsTo(Pgr::class);
-    }
+
     public function bengkel()
     {
         return $this->hasOne(Bengkel::class);
+    }
+    public function ulasan()
+    {
+        return $this->hasMany(Ulasan::class);
     }
 }

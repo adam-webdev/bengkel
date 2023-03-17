@@ -5,15 +5,15 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Bengkel extends Model
+class Ulasan extends Model
 {
     use HasFactory;
     public function user()
     {
         return $this->belongsTo(User::class);
     }
-    public function ulasan()
+    public function bengkel()
     {
-        return $this->hasMany(Ulasan::class);
+        return $this->belongsTo(Bengkel::class);
     }
 }
