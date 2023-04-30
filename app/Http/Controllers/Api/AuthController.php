@@ -19,6 +19,10 @@ class AuthController extends BaseController
             "password" => "required|min:6|max:20",
             "confirm_password" => "required|same:password"
         ]);
+        $exist_email = User::where('email', $request->email)->first();
+        if ($exist_email) {
+            return $this->error("Email sudah digunakan!");
+        }
         if ($validator->fails()) {
             return $this->error("Register Gagal", $validator->errors());
         }
@@ -46,17 +50,32 @@ class AuthController extends BaseController
     }
     public function login(Request $request)
     {
+
+        // if (empty($request->email) && empty($request->password)) {
+        //     return $this->error("Email atau password tidak boleh kosong");
+        // }
+        $pesan = [
+            'required' => 'Email harus di isi!',
+            'password.required' => 'Password harus di isi!',
+            'email' => 'Email tidak valid!'
+        ];
         $validateUser = Validator::make(
             $request->all(),
             [
                 'email' => 'required|email',
                 'password' => 'required'
-            ]
+            ],
+            $pesan
         );
-        if ($validateUser->fails()) {
-            return $this->error("Login Gagal", $validateUser->errors());
-        }
 
+
+        if ($validateUser->fails()) {
+            return $this->error($validateUser->errors());
+        }
+        $exist_email = User::where('email', $request->email)->first();
+        if (!$exist_email) {
+            return $this->error("Email tidak ditemukan!");
+        }
         if (Auth::attempt(["email" => $request->email, "password" => $request->password])) {
             $user = Auth::user();
             $token = $user->createToken("MyToken")->plainTextToken;
@@ -67,7 +86,7 @@ class AuthController extends BaseController
             ];
             return $this->success($response, "Login Berhasil.");
         } else {
-            return $this->error("Unauthorised", "Login Gagal");
+            return $this->error("Password salah!");
         }
     }
     public function logout(Request $request)

@@ -15,9 +15,9 @@ class BengkelController extends BaseController
 {
     public function index()
     {
-        $bengkel = Bengkel::inRandomOrder()->limit(3)->get();
+        $bengkel = Bengkel::with('user')->inRandomOrder()->limit(5)->get();
         if ($bengkel) {
-            return $this->success(BengkelResource::collection($bengkel), "data berhasil dikirim",);
+            return $this->success($bengkel, "data berhasil dikirim",);
         } else {
             return $this->error("Data tidak ditemukan");
         }

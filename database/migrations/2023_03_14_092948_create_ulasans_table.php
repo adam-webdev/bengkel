@@ -20,6 +20,7 @@ class CreateUlasansTable extends Migration
             $table->string('ulasan');
             $table->string('angka_ulasan');
             $table->date('tanggal_ulasan');
+            $table->string('public_id')->nullable();
             $table->string('foto_ulasan')->nullable();
             $table->timestamps();
         });
