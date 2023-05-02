@@ -12,19 +12,31 @@ class AuthController extends BaseController
 {
     public function register(Request $request)
     {
+        $pesanError = [
+            "name.required" => "Username wajib di isi!",
+            "no_hp.required" => "Nomor hp wajib di isi!",
+            "email.required" => "Email wajib di isi!",
+            "email.email" => "Email tidak valid! ",
+            "password.required" => "password wajib di isi!",
+            // "password.min" => "Password minimal 6 huruf",
+            // "confirm_password.required" => "konfirmasi password wajib di isi!",
+            // "confirm_password" => "Konfirmasi password beda",
+        ];
+
         $validator = Validator::make($request->all(), [
             "name" => "required",
             "no_hp" => "required",
             "email" => "required|email",
-            "password" => "required|min:6|max:20",
-            "confirm_password" => "required|same:password"
-        ]);
+            "password" => "required",
+            // "confirm_password" => "same:password"
+        ], $pesanError);
+
         $exist_email = User::where('email', $request->email)->first();
         if ($exist_email) {
             return $this->error("Email sudah digunakan!");
         }
         if ($validator->fails()) {
-            return $this->error("Register Gagal", $validator->errors());
+            return $this->error($validator->errors());
         }
         $password = bcrypt($request->password);
 
@@ -33,20 +45,30 @@ class AuthController extends BaseController
         $user->no_hp = $request->no_hp;
         $user->email = $request->email;
         $user->password = $password;
-        if ($input['type_user'] = "Admin Bengkel") {
+        if ($request['type_user'] = "Admin Bengkel") {
             $user->assignRole("Admin Bengkel");
         } else {
             $user->asignRole("User");
         }
-        $save_user  = $user->save();
-
-        $token = $user->createToken("MyToken")->plainTextToken;
-        $response = [
-            "user" => $save_user,
-            "token" => $token,
-            "token_type" => "Bearer"
-        ];
-        return $this->success($response, "Register user berhasil.");
+        $user->save();
+        if (Auth::attempt(["email" => $request->email, "password" => $request->password])) {
+            $user = Auth::user();
+            $token = $user->createToken("MyToken")->plainTextToken;
+            $response = [
+                "user" => $user,
+                "token" => $token,
+                "token_type" => "Bearer"
+            ];
+            return $this->success($response, "Register Berhasil.");
+        } else {
+            return $this->error("Register Gagal!");
+        }
+        // $response = [
+        //     "user" => $save_user,
+        //     "token" => $token,
+        //     "token_type" => "Bearer"
+        // ];
+        // return $this->success($response, "Register user berhasil.");
     }
     public function login(Request $request)
     {
