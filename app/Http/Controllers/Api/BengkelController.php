@@ -186,4 +186,44 @@ class BengkelController extends BaseController
         }
         return $this->error('Data tidak ditemukan', 404);
     }
+
+    public function provinsiName(Request $request)
+    {
+        $provinsii = DB::table('provinces')->where('id', $request->id)->get();
+        // ddd(count($provinsi));
+        if (count($provinsii) == 0) {
+            return $this->error("Data tidak ditemukan");
+        } else {
+            return $this->success($provinsii, "data berhasil dikirim");
+        }
+    }
+    public function kotaName(Request $request)
+    {
+        $kota = DB::table('regencies')->where('id', $request->id)->get();
+        if (count($kota) == 0) {
+            return $this->error("data tidak ditemukan.");
+        } else {
+            return $this->success($kota, "data berhasil dikirim");
+        }
+    }
+    public function kecamatanName(Request $request)
+    {
+
+        $kecamatan = DB::table('districts')->where('id', $request->id)->get();
+        if (count($kecamatan) == 0) {
+            return $this->success($kecamatan, "data berhasil dikirim");
+        } else {
+            return $this->error("data ditemukan.");
+        }
+    }
+
+    public function desaName(Request $request)
+    {
+        $kecamatan = DB::table('villages')->where('id', $request->id)->get();
+        if (count($kecamatan) == 0) {
+            return $this->success($kecamatan, "data berhasil dikirim");
+        } else {
+            return $this->error("data tidak ditemukan.");
+        }
+    }
 }

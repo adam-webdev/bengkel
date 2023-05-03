@@ -23,9 +23,14 @@ Route::post('/v1/login', [AuthController::class, 'login']);
 Route::middleware('auth:sanctum')->group(function () {
     // route daerah indonesia
     Route::post('/v1/daerah/provinsi', [BengkelController::class, 'provinsi']);
-    Route::get('/v1/daerah/kota', [BengkelController::class, 'kota']);
-    Route::get('/v1/daerah/kecamatan', [BengkelController::class, 'kecamatan']);
-    Route::get('/v1/daerah/desa', [BengkelController::class, 'desa']);
+    Route::post('/v1/daerah/kota', [BengkelController::class, 'kota']);
+    Route::post('/v1/daerah/kecamatan', [BengkelController::class, 'kecamatan']);
+    Route::post('/v1/daerah/desa', [BengkelController::class, 'desa']);
+    // get nama daerah
+    Route::post('/v1/nama-daerah/provinsi', [BengkelController::class, 'provinsiName']);
+    Route::post('/v1/nama-daerah/kota', [BengkelController::class, 'kotaName']);
+    Route::post('/v1/nama-daerah/kecamatan', [BengkelController::class, 'kecamatanName']);
+    Route::post('/v1/nama-daerah/desa', [BengkelController::class, 'desaName']);
     // route bengkel
     Route::get('/v1/bengkel', [BengkelController::class, 'index']);
     Route::get('/v1/bengkel/{id}', [BengkelController::class, 'show']);
