@@ -47,6 +47,7 @@ class AuthController extends BaseController
         $user->password = $password;
         if ($request['type_user'] = "Admin Bengkel") {
             $user->assignRole("Admin Bengkel");
+            $user->tipe_user = $request->type_user;
         } else {
             $user->asignRole("User");
         }
@@ -54,6 +55,7 @@ class AuthController extends BaseController
         if (Auth::attempt(["email" => $request->email, "password" => $request->password])) {
             $user = Auth::user();
             $token = $user->createToken("MyToken")->plainTextToken;
+            $user = $user->with('roles')->first();
             $response = [
                 "user" => $user,
                 "token" => $token,
@@ -101,6 +103,7 @@ class AuthController extends BaseController
         if (Auth::attempt(["email" => $request->email, "password" => $request->password])) {
             $user = Auth::user();
             $token = $user->createToken("MyToken")->plainTextToken;
+            $user = $user->with('roles')->first();
             $response = [
                 "user" => $user,
                 "token" => $token,
