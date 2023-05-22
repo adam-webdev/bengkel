@@ -103,10 +103,11 @@ class AuthController extends BaseController
         if (Auth::attempt(["email" => $request->email, "password" => $request->password])) {
             $user = Auth::user();
             $token = $user->createToken("MyToken")->plainTextToken;
-            $user = $user->with('roles')->first();
+            $role = $user->roles->pluck('name');
             $response = [
                 "user" => $user,
                 "token" => $token,
+                "role" => $role,
                 "token_type" => "Bearer"
             ];
             return $this->success($response, "Login Berhasil.");

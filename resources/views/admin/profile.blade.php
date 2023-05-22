@@ -4,12 +4,14 @@
         <h4 class="mb-4">Profile</h4>
         <div class="row">
             <div class="col-md-3" style="display: flex; justify-content:space-between; flex-direction:column;">
-                @if ($user->foto != 'default.jpg')
-                    <img class="flex-1 ml-4" src="/storage/{{ $user->foto }}" width="200px" alt="foto profile">
+                @if ($user->foto)
+                    <img class="flex-1 mr-4 border-1"
+                        style="border-radius: 8px;border:4px solid grey;height:400px;object-fit:cover"
+                        src="{{ $user->foto }}" width="100%" alt="foto profile">
                 @else
                     <img class="flex-1 ml-4" src="{{ asset('asset/img/profile.png') }}" width="200px" alt="foto profile">
                 @endif
-                <a style="margin-top:100px; display:block;" class=" btn btn-secondary"
+                <a style="margin-top:10px; display:block;" class=" btn btn-secondary"
                     href="{{ route('user.edit', [$user->id]) }}"><i class="far fa-edit mr-2"></i>Edit
                     Profile</a>
             </div>

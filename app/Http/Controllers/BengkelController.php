@@ -52,7 +52,10 @@ class BengkelController extends Controller
         $foto_bengkel = $request->file('foto_bengkel');
 
         if ($foto_bengkel) {
-            $foto_bengkel = $foto_bengkel->storeAs('bengkel', $request->file('foto_bengkel')->getClientOriginalName());
+            $uploadedImgeUrl = cloudinary()->upload($request->file('foto_bengkel')->getRealPath());
+            $secure_url = $uploadedImgeUrl->getSecurePath();
+            $public_id = $uploadedImgeUrl->getPublicId();
+            // $foto_bengkel = $foto_bengkel->storeAs('bengkel', $request->file('foto_bengkel')->getClientOriginalName());
         } else {
             $foto_bengkel = 'default.jpg';
         }
@@ -69,9 +72,10 @@ class BengkelController extends Controller
         $newbengkel->provinsi_id = $request->provinsi_id;
         $newbengkel->kota_id = $request->kota_id;
         $newbengkel->kecamatan_id = $request->kecamatan_id;
+        $newbengkel->public_id = $public_id;
         $newbengkel->desa_id = $request->desa_id;
         $newbengkel->email = $request->email;
-        $newbengkel->foto_bengkel = $foto_bengkel;
+        $newbengkel->foto_bengkel = $secure_url;
         $newbengkel->save();
         Alert::success("Tersimpan", "Data Berhasil Disimpan!");
         return redirect()->route('bengkel.index');
@@ -86,38 +90,53 @@ class BengkelController extends Controller
 
     public function edit($id)
     {
-        $provinsi = DB::table('provinces')->get();
         $bengkel = Bengkel::findOrfail($id);
+        $provinsi = DB::table('provinces')->get();
         $kota = DB::table('regencies')->where('id', $bengkel->kota_id)->first();
         $kecamatan = DB::table('districts')->where('id', $bengkel->kecamatan_id)->first();
         $desa = DB::table('villages')->where('id', $bengkel->desa_id)->first();
         return view('bengkel.edit', compact('bengkel', 'provinsi', 'kota', 'kecamatan', 'desa'));
     }
 
+
     public function update(Request $request, $id)
     {
         $bengkel = Bengkel::findOrfail($id);
         $foto = $request->file('foto_bengkel');
-        if ($foto) {
-            Storage::delete($bengkel->foto);
-            $foto = $foto->storeAs('bengkel', $request->file('foto_bengkel')->getClientOriginalName());
-        } else {
-            $foto = $bengkel->foto_bengkel;
-        }
+        // if ($foto) {
+        //     Storage::delete($bengkel->foto);
+        //     $foto = $foto->storeAs('bengkel', $request->file('foto_bengkel')->getClientOriginalName());
+        // } else {
+        //     $foto = $bengkel->foto_bengkel;
+        // }
+        if ($request->file('foto_bengkel')) {
+            // delete picture on cloudinary
+            if ($bengkel->public_id) {
+                cloudinary()->destroy($bengkel->public_id);
+            }
+            // upload picture on cloudinary
+            $uploadedImgeUrl = cloudinary()->upload($request->file('foto_bengkel')->getRealPath());
 
+            $secure_url = $uploadedImgeUrl->getSecurePath();
+            $public_id = $uploadedImgeUrl->getPublicId();
+        } else {
+            $secure_url = $bengkel->foto_bengkel ?? "-";
+            $public_id = $bengkel->public_id ?? "-";
+        }
         $bengkel->nama_bengkel = $request->nama_bengkel;
         $bengkel->jam_buka = $request->jam_buka;
         $bengkel->jam_tutup = $request->jam_tutup;
         $bengkel->no_hp = $request->no_hp;
         $bengkel->alamat_lengkap = $request->alamat_lengkap;
         $bengkel->longitude = $request->longitude;
+        $bengkel->public_id = $public_id;
         $bengkel->latitude = $request->latitude;
         $bengkel->provinsi_id = $request->provinsi_id;
         $bengkel->kota_id = $request->kota_id;
         $bengkel->kecamatan_id = $request->kecamatan_id;
         $bengkel->desa_id = $request->desa_id;
         $bengkel->email = $request->email;
-        $bengkel->foto_bengkel = $foto;
+        $bengkel->foto_bengkel = $secure_url;
         $bengkel->save();
         Alert::success("Tersimpan", "Data Berhasil Disimpan!");
         return redirect()->route('bengkel.index');
@@ -125,8 +144,11 @@ class BengkelController extends Controller
 
     public function delete($id)
     {
+
         $bengkel = Bengkel::findOrFail($id);
-        Storage::delete($bengkel->foto);
+        if ($bengkel) {
+            cloudinary()->destroy($bengkel->public_id);
+        }
         $bengkel->delete();
         Alert::success("Terhapus", "Data Berhasil Terhapus");
         return redirect()->route('bengkel.index');

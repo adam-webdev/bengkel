@@ -40,7 +40,7 @@
                                             {{ $r }}
                                         </td>
                                     @endforeach
-                                    <td> <img src="storage/{{ $row->foto }}" width="120px" alt="profile"> </td>
+                                    <td> <img src="{{ $row->foto }}" width="120px" alt="profile"> </td>
                                     <td width="15%" align="center">
                                         @role('Admin')
                                             <a href="{{ route('user.show', [$row->id]) }}" data-toggle="tooltip" title="Detail"

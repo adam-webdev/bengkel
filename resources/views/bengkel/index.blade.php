@@ -249,7 +249,7 @@
                                     <td>{{ $t->nama_bengkel }}</td>
                                     <td>{{ $t->no_hp }}</td>
                                     <td>{{ $t->user->name }}</td>
-                                    <td> <img src="storage/{{ $t->foto_bengkel }}" width="150px" alt="Foto Bengkel">
+                                    <td> <img src="{{ $t->foto_bengkel }}" width="150px" alt="Foto Bengkel">
                                     </td>
                                     <td align="center" width="15%">
                                         {{-- <a href="{{ route('bengkel.show', [$t->id]) }}" data-toggle="tooltip" title="Detail"

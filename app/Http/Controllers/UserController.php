@@ -43,14 +43,22 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        $foto = $request->file('foto');
-        if ($foto) {
-            $foto = $foto->storeAs('user/profil', $request->file('foto')->getClientOriginalName());
+        // $foto = $request->file('foto');
+        // if ($foto) {
+        //     $foto = $foto->storeAs('user/profil', $request->file('foto')->getClientOriginalName());
+        // } else {
+        //     $foto = 'default.jpg';
+        // }
+        if ($request->file('foto')) {
+            $foto = cloudinary()->upload($request->file('foto')->getRealPath());
+            $secure_url = $foto->getSecurePath();
+            $public_id = $foto->getPublicId();
         } else {
-            $foto = 'default.jpg';
+            $secure_url = "";
+            $public_id = "";
         }
-
         $new_user = new User;
+
         $new_user->name = $request->name;
         $new_user->no_hp = $request->no_hp;
         // $new_user->tipe_user = $request->tipe_user;
@@ -60,7 +68,8 @@ class UserController extends Controller
         $new_user->desa_id = $request->desa_id;
         $new_user->email = $request->email;
         $new_user->jenis_kelamin = $request->jenis_kelamin;
-        $new_user->foto = $foto;
+        $new_user->foto = $secure_url;
+        $new_user->public_id = $public_id;
         $new_user->password = bcrypt($request->password);
         if ($request->get('roles') === "Admin") {
             $new_user->assignRole("Admin");
@@ -100,7 +109,11 @@ class UserController extends Controller
     public function edit($id)
     {
         $user = User::findOrfail($id);
-        return view('admin.edit', compact('user'));
+        $provinsi = DB::table('provinces')->get();
+        $kota = DB::table('regencies')->where('id', $user->kota_id)->first();
+        $kecamatan = DB::table('districts')->where('id', $user->kecamatan_id)->first();
+        $desa = DB::table('villages')->where('id', $user->desa_id)->first();
+        return view('admin.edit', compact('user', 'provinsi', 'kota', 'kecamatan', 'desa'));
     }
 
     /**
@@ -112,39 +125,80 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $user = User::findOrfail($id);
-        $foto = $request->file('foto');
-        if ($foto) {
-            Storage::delete($user->foto);
-            $foto = $foto->storeAs('user/profil', $request->file('foto')->getClientOriginalName());
-        } else {
-            $foto = $user->foto;
-        }
 
-        $user->name = $request->name;
-        $user->no_hp = $request->no_hp;
-        // $user->tipe_user = $request->tipe_user;
-        $user->provinsi_id = $request->provinsi_id;
-        $user->kota_id = $request->kota_id;
-        $user->kecamatan_id = $request->kecamatan_id;
-        $user->desa_id = $request->desa_id;
-        $user->email = $request->email;
-        $user->jenis_kelamin = $request->jenis_kelamin;
-        $user->foto = $foto;
-        $user->password = bcrypt($request->password);
-        if ($request->get('roles') === "Admin") {
-            $user->removeRole("Admin", "Admin Bengkel", "User");
-            $user->assignRole("Admin");
-        } else if ($request->get('roles') === "Admin Bengkel") {
-            $user->removeRole("Admin", "Admin Bengkel", "User");
-            $user->assignRole("Admin Bengkel");
+        // $user = User::findOrfail($id);
+        // $foto = $request->file('foto');
+        // if ($foto) {
+        //     Storage::delete($user->foto);
+        //     $foto = $foto->storeAs('user/profil', $request->file('foto')->getClientOriginalName());
+        // } else {
+        //     $foto = $user->foto;
+        // }
+        $user = User::findOrFail($id);
+        if ($user) {
+            if ($user->foto) {
+                if ($request->file('foto')) {
+                    if ($user->public_id == null) {
+                        $foto = cloudinary()->upload($request->file('foto')->getRealPath());
+                        $secure_url = $foto->getSecurePath();
+                        $public_id = $foto->getPublicId();
+                    } else {
+
+                        cloudinary()->destroy($user->public_id);
+                        $foto = cloudinary()->upload($request->file('foto')->getRealPath());
+                        $secure_url = $foto->getSecurePath();
+                        $public_id = $foto->getPublicId();
+                    }
+                } else {
+                    $secure_url = $user->foto;
+                    $public_id = $user->foto;
+                }
+            } else {
+                $foto = cloudinary()->upload($request->file('foto')->getRealPath());
+                $secure_url = $foto->getSecurePath();
+                $public_id = $foto->getPublicId();
+            }
+            $user->name = $request->name;
+            $user->foto = $secure_url;
+            $user->public_id = $public_id;
+            $user->no_hp = $request->no_hp;
+            $user->jenis_kelamin = $request->jenis_kelamin;
+            $user->provinsi_id = $request->provinsi_id;
+            $user->kota_id = $request->kota_id;
+            $user->kecamatan_id = $request->kecamatan_id;
+            $user->desa_id = $request->desa_id;
+            $user->email = $request->email;
+            // ddd($request->all());
+            // $user->name = $request->name;
+            // $user->no_hp = $request->no_hp;
+            // $user->tipe_user = $request->tipe_user;
+            // $user->provinsi_id = $request->provinsi_id;
+            // $user->kota_id = $request->kota_id;
+            // $user->kecamatan_id = $request->kecamatan_id;
+            // $user->desa_id = $request->desa_id;
+            // $user->email = $request->email;
+            // $user->jenis_kelamin = $request->jenis_kelamin;
+            // $user->foto = $foto;
+            if ($request->password) {
+                $user->password = bcrypt($request->password);
+            }
+            if ($request->get('roles') === "Admin") {
+                $user->removeRole("Admin", "Admin Bengkel", "User");
+                $user->assignRole("Admin");
+            } else if ($request->get('roles') === "Admin Bengkel") {
+                $user->removeRole("Admin", "Admin Bengkel", "User");
+                $user->assignRole("Admin Bengkel");
+            } else {
+                $user->removeRole("Admin", "Admin Bengkel", "User");
+                $user->assignRole("User");
+            }
+            $user->save();
+            Alert::success("Tersimpan", "Data Berhasil Disimpan!");
+            return redirect()->route('user.index');
         } else {
-            $user->removeRole("Admin", "Admin Bengkel", "User");
-            $user->assignRole("User");
+            Alert::error("Gagal", "Data Gagal Disimpan!");
+            return redirect()->route('user.index');
         }
-        $user->save();
-        Alert::success("Tersimpan", "Data Berhasil Disimpan!");
-        return redirect()->route('user.index');
     }
 
     /**
