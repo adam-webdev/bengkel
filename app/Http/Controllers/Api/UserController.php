@@ -81,26 +81,27 @@ class UserController extends BaseController
     public function update(Request $request, $id)
     {
         $user = User::findOrFail($id);
+        // return $request->all();
         if ($user) {
             if ($user->foto) {
-                if ($request->file('foto')) {
+                if ($request->foto) {
                     if ($user->public_id == null) {
-                        $foto = cloudinary()->upload($request->file('foto')->getRealPath());
+                        $foto = cloudinary()->upload($request->foto->getRealPath());
                         $secure_url = $foto->getSecurePath();
                         $public_id = $foto->getPublicId();
                     } else {
 
                         cloudinary()->destroy($user->public_id);
-                        $foto = cloudinary()->upload($request->file('foto')->getRealPath());
+                        $foto = cloudinary()->upload($request->foto->getRealPath());
                         $secure_url = $foto->getSecurePath();
                         $public_id = $foto->getPublicId();
                     }
                 } else {
                     $secure_url = $user->foto;
-                    $public_id = $user->foto;
+                    $public_id = $user->public_id;
                 }
             } else {
-                $foto = cloudinary()->upload($request->file('foto')->getRealPath());
+                $foto = cloudinary()->upload($request->foto->getRealPath());
                 $secure_url = $foto->getSecurePath();
                 $public_id = $foto->getPublicId();
             }
@@ -116,7 +117,7 @@ class UserController extends BaseController
             $user->desa_id = $request->desa_id;
             $user->email = $request->email;
             if ($user->save()) {
-                return $this->success("Data berhasil diubah", 201);
+                return $this->success($user, "Data berhasil diubah", 201);
             } else {
                 return $this->error("Data gagal diubah");
             }
