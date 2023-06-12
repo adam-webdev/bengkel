@@ -87,23 +87,27 @@
 
             </li> --}}
 
-            {{-- <li class="nav-item">
+            <li class="nav-item">
                 <a class="nav-link collapsed text-white" href="#" data-toggle="collapse"
                     data-target="#collapsePages3" aria-expanded="true" aria-controls="collapsePages3">
-                    <i class="fas fa-fw fa-folder-open"></i>
-                    <span>Data History</span>
+                    {{-- <i class="fa-solid fa-message-bot"></i> --}}
+                    <i class="fas fa-solid fa-robot"></i>
+                    <span>Data ChatBot</span>
                 </a>
                 <div id="collapsePages3" class="collapse" aria-labelledby="headingPages"
                     data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <a class="collapse-item fas fa-folder" href="{{ route('history-barang.index') }}"> History
-                            Barang </a>
-                        <a class="collapse-item fas fa-arrow-circle-left" href="{{ route('history-kondisi.index') }}">
-                            History Kondisi </a>
+                        {{-- <i class="fa-solid fa-question"></i> --}}
+                        <a class="collapse-item fas fa-solid fa-question"
+                            {{ request()->is('pertanyaan') ? 'active' : '' }} href="{{ route('pertanyaan.index') }}">
+                            Pertanyaan </a>
+                        <a class="collapse-item fas fa-solid fa-clipboard"
+                            {{ request()->is('jawaban') ? 'active' : '' }} href="{{ route('jawaban.index') }}">
+                            Jawaban</a>
 
                     </div>
                 </div>
-            </li> --}}
+            </li>
             @role('Admin')
                 <li class="nav-item">
                     <a class="nav-link text-white {{ request()->is('user') ? 'active' : '' }}"
@@ -118,6 +122,7 @@
                     <i class="fas fa-warehouse"></i>
                     <span>Data Bengkel</span></a>
             </li>
+
 
 
 

@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\{BengkelController, DashboardController,  UserController};
+use App\Http\Controllers\{BengkelController, DashboardController, JawabanController, PertanyaanController, UserController};
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -22,6 +22,12 @@ Route::get('/dashboard', [DashboardController::class, "index"])->name('dashboard
 // hanya admin yang dapat akses route ini
 Route::resource('/user', UserController::class);
 Route::get('/user/hapus/{id}', [UserController::class, "delete"]);
+
+Route::resource('/pertanyaan', PertanyaanController::class);
+Route::get('/pertanyaan/hapus/{id}', [PertanyaanController::class, "delete"]);
+
+Route::resource('/jawaban', JawabanController::class);
+Route::get('/jawaban/hapus/{id}', [JawabanController::class, "delete"]);
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 

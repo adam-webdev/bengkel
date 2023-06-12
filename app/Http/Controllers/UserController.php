@@ -182,15 +182,16 @@ class UserController extends Controller
             if ($request->password) {
                 $user->password = bcrypt($request->password);
             }
+            // ddd($request->all());
             if ($request->get('roles') === "Admin") {
-                $user->removeRole("Admin", "Admin Bengkel", "User");
-                $user->assignRole("Admin");
+                // $user->removeRole("Admin", "Admin Bengkel", "User");
+                $user->syncRoles("Admin");
             } else if ($request->get('roles') === "Admin Bengkel") {
-                $user->removeRole("Admin", "Admin Bengkel", "User");
-                $user->assignRole("Admin Bengkel");
+                // $user->removeRole("Admin", "Admin Bengkel", "User");
+                $user->syncRoles("Admin Bengkel");
             } else {
-                $user->removeRole("Admin", "Admin Bengkel", "User");
-                $user->assignRole("User");
+                // $user->removeRole("Admin", "Admin Bengkel", "User");
+                $user->syncRoles("User");
             }
             $user->save();
             Alert::success("Tersimpan", "Data Berhasil Disimpan!");

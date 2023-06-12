@@ -5,7 +5,10 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Api\BaseController;
 use App\Http\Resources\UserResource;
 use App\Models\User;
+use App\Rules\MatchOldPassword;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 
 class UserController extends BaseController
@@ -137,5 +140,32 @@ class UserController extends BaseController
         } else {
             return $this->error('Data Tidak ditemukan', 404);
         }
+    }
+
+    public function password(Request $request, $id)
+    {
+        // $user = Auth::user(); // Assuming the user is authenticated
+        $user = User::findOrFail($id);
+        // ddd($user);
+        $validator = Validator::make(
+            $request->all(),
+            [
+                'current_password' => 'required',
+                'new_password' => 'required|string|min:6',
+                'confirm_new_password' => 'required|string|min:6|same:new_password',
+            ],
+        );
+
+        if ($validator->fails()) {
+            return $this->error("terjadi kesalahan berikut", $validator->errors());
+        }
+        // Verify the current password
+        if (!Hash::check($request->current_password, $user->password)) {
+            return $this->error('Current password tidak sama ', 401);
+        }
+        // Update the user's password
+        $user->password = Hash::make($request->new_password);
+        $user->save();
+        return $this->success($user, 'Password berhasil diubah', 200);
     }
 }

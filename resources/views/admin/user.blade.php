@@ -35,11 +35,19 @@
                                     <td>{{ $row->no_hp }}</td>
                                     <td>{{ $row->jenis_kelamin }}</td>
                                     <td>{{ $row->email }}</td>
-                                    @foreach ($row->roles->pluck('name') as $r)
+                                    @php
+                                        $string = $row->roles->pluck('name');
+                                        
+                                        $role = substr($string, 2, -2);
+                                    @endphp
+                                    <td>
+                                        {{ $role }}
+                                    </td>
+                                    {{-- @foreach ($row->roles->pluck('name') as $r)
                                         <td>
                                             {{ $r }}
                                         </td>
-                                    @endforeach
+                                    @endforeach --}}
                                     <td> <img src="{{ $row->foto }}" width="120px" alt="profile"> </td>
                                     <td width="15%" align="center">
                                         @role('Admin')

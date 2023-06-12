@@ -1,6 +1,8 @@
 <?php
 
-use App\Http\Controllers\Api\{AuthController, BengkelController, UserController};
+use App\Http\Controllers\Api\UserController;
+use App\Http\Controllers\Api\BengkelController;
+use App\Http\Controllers\Api\AuthController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -43,6 +45,7 @@ Route::middleware('auth:sanctum')->group(function () {
     // Route::post('/v1/user', [UserController::class, 'store']);
     Route::post('/v1/user/{id}', [UserController::class, 'update']);
     Route::delete('/v1/user/{id}', [UserController::class, 'delete']);
+    Route::post('/v1/user/change-password/{id}', [UserController::class, 'password']);
 
     // Route::post('/v1/image', [BengkelController::class, 'image']);
 });

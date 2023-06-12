@@ -89,7 +89,7 @@
                                     <option value="Admin" {{ $role == 'Admin' ? 'selected' : '' }}>
                                         Admin
                                     </option>
-                                    <option value="Admin Bengkeui bl" {{ $role == 'Admin Bengkel' ? 'selected' : '' }}>
+                                    <option value="Admin Bengkel" {{ $role == 'Admin Bengkel' ? 'selected' : '' }}>
                                         Admin Bengkel
                                     </option>
                                     <option value="User" {{ $role == 'User' ? 'selected' : '' }}>
