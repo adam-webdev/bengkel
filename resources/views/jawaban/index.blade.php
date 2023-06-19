@@ -57,12 +57,12 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="isi_jawaban">Jawaban :</label>
-                                    <input type="text" name="isi_jawaban" value="{{ old('isi_jawaban') }}"
-                                        class="form-control @error('isi_jawaban')  is-invalid @enderror" id="isi_jawaban"
-                                        required>
-                                    @error('isi_pertanyaan')
+                                    <textarea rows="5" type="text" name="isi_jawaban"
+                                        class="form-control @error('isi_jawaban')  is-invalid @enderror" id="isi_jawaban" required>
+                                    </textarea>
+                                    {{-- @error('isi_pertanyaan')
                                         <span class="text-danger">{{ $message }}</span>
-                                    @enderror
+                                    @enderror --}}
                                 </div>
                             </div>
                         </div>
