@@ -50,6 +50,7 @@ Route::middleware('auth:sanctum')->group(function () {
 
     Route::get('/v1/pertanyaan', [PertanyaanController::class, 'index']);
     Route::get('/v1/jawaban/{id}', [PertanyaanController::class, 'jawaban']);
+    Route::get('/v1/jawaban/{id}/{query}', [PertanyaanController::class, 'jawabanwithquery']);
 
     Route::get('/v1/pertanyaan/{id}', [PertanyaanController::class, 'pertanyaan']);
 
