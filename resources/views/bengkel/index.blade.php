@@ -8,9 +8,11 @@
             <h1 class="h3 mb-0 text-gray-800">Data Bengkel </h1>
             <!-- Button trigger modal -->
             @hasanyrole('Admin')
-                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
-                    + Tambah
-                </button>
+                <a href="{{ route('bengkel.create') }}">
+                    <button type="button" class="btn btn-primary">
+                        + Tambah
+                    </button>
+                </a>
             @endhasanyrole
 
         </div>

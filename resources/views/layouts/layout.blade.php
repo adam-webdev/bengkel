@@ -23,6 +23,7 @@
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
     <link rel="manifest" href="/manifest.json">
     <meta name="msapplication-TileColor" content="#ffffff">
+
     <meta name="msapplication-TileImage" content="/ms-icon-144x144.png">
     <meta name="theme-color" content="#ffffff">
     <link href="{{ asset('asset/vendor/select2/dist/css/select2.min.css') }}" rel="stylesheet">
@@ -30,6 +31,9 @@
     <link
         href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
         rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+        integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet-geosearch@3.0.0/dist/geosearch.css" />
     <!-- Custom styles for this template-->
     <link href="{{ asset('asset/css/sb-admin-2.min.css') }}" rel="stylesheet">
     <link href="{{ asset('asset/vendor/datatables/dataTables.bootstrap4.min.css') }}" rel="stylesheet">
@@ -46,7 +50,13 @@
         ul li a.active {
             background: hsl(217, 91%, 31%);
         }
+
+        #map {
+            height: 350px;
+            margin-bottom: 30px;
+        }
     </style>
+    @yield('css')
 </head>
 
 <body id="page-top">
@@ -275,7 +285,9 @@
             </div>
         </div>
     </div>
-
+    <script src="https://unpkg.com/leaflet-geosearch@3.0.0/dist/geosearch.umd.js"></script>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+        integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
     <!-- Bootstrap core JavaScript-->
     <script src="{{ asset('asset/vendor/jquery/jquery.min.js') }}"></script>
     <script src="{{ asset('asset/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
@@ -296,6 +308,7 @@
     <script src="{{ asset('asset/js/demo/chart-pie-demo.js') }}"></script>
     <script src="{{ asset('asset/js/demo/datatables-demo.js') }}"></script>
     <script src="{{ asset('asset/vendor/select2/dist/js/select2.min.js') }}"></script>
+
     @yield('scripts')
 
 </body>

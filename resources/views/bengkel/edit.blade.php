@@ -70,6 +70,7 @@
                     </div>
 
                 </div>
+                <div id="map"></div>
                 <div class="row">
                     <div class="col-md-6">
                         <div class="form-group">
@@ -228,6 +229,35 @@
             $('#kecamatan').on('change', function() {
                 onChangeSelect("{{ url('/desa') }}", $(this).val(), 'desa')
             })
+
         })
+        var mymap = L.map('map').setView([-6.2088, 106.8456], 9);
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: 'Map data © <a href="https://openstreetmap.org">OpenStreetMap</a> contributors',
+            maxZoom: 18,
+        }).addTo(mymap);
+
+
+        // const marker = L.marker([51.49709527744871, -0.13574047552899815]).addTo(mymap)
+        const marker = L.marker([-6.2088, 106.8456]).addTo(mymap)
+
+
+        function onMapClick(e) {
+            // alert("You clicked the map at " + e.latlng);
+            // console.log(e)
+            var bengkelIcon = L.icon({
+                iconUrl: 'mechanic.png',
+                // shadowUrl: '../../../public/asset/img/mechanic.png',
+
+
+            });
+            marker.setLatLng([e.latlng.lat, e.latlng.lng])
+            $(document).ready(function() {
+                $('#longitude').val(e.latlng.lng)
+                $('#latitude').val(e.latlng.lat)
+            })
+        }
+
+        mymap.on('click', onMapClick);
     </script>
 @endsection

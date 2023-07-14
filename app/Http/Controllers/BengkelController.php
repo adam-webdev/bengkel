@@ -44,7 +44,9 @@ class BengkelController extends Controller
 
     public function create()
     {
-        //
+        $provinsi = DB::table('provinces')->get();
+
+        return view('bengkel.create', compact('provinsi'));
     }
 
     public function store(Request $request)
