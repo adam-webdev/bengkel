@@ -4,6 +4,8 @@ use App\Http\Controllers\Api\UserController;
 use App\Http\Controllers\Api\BengkelController;
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\PertanyaanController;
+use App\Http\Controllers\Api\TransaksiController;
+use App\Http\Controllers\TransaksiController as ControllersTransaksiController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -54,5 +56,7 @@ Route::middleware('auth:sanctum')->group(function () {
 
     Route::get('/v1/pertanyaan/{id}', [PertanyaanController::class, 'pertanyaan']);
 
+    Route::post('/v1/order/', [TransaksiController::class, 'store']);
+    Route::get('/v1/order/{user_id}', [TransaksiController::class, 'orderByUser']);
     // Route::post('/v1/image', [BengkelController::class, 'image']);
 });

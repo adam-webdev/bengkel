@@ -12,6 +12,10 @@ class Bengkel extends Model
     {
         return $this->belongsTo(User::class);
     }
+    public function order()
+    {
+        return $this->hasOne(Order::class);
+    }
     public function ulasan()
     {
         return $this->hasMany(Ulasan::class);

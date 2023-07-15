@@ -18,7 +18,8 @@ class CreateOrdersTable extends Migration
             $table->date('tanggal');
             $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
             $table->foreignId('bengkel_id')->constrained('bengkels')->onDelete('cascade');
-            $table->string('alamat_order')->nullable();
+            $table->string('lng')->nullable();
+            $table->string('lat')->nullable();
             $table->string('status')->nullable();
             $table->string('keterangan')->nullable();
             $table->timestamps();
