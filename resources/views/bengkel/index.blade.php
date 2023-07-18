@@ -238,6 +238,7 @@
                             <tr align="center">
                                 <th>No</th>
                                 <th>Nama Bengkel </th>
+                                <th>Deskripsi</th>
                                 <th>No HP </th>
                                 <th>Admin Bengkel</th>
                                 <th>Foto </th>
@@ -249,6 +250,7 @@
                                 <tr align="center">
                                     <td>{{ $loop->iteration }}</td>
                                     <td>{{ $t->nama_bengkel }}</td>
+                                    <td>{{ $t->deskripsi }}</td>
                                     <td>{{ $t->no_hp }}</td>
                                     <td>{{ $t->user->name }}</td>
                                     <td> <img src="{{ $t->foto_bengkel }}" width="150px" alt="Foto Bengkel">

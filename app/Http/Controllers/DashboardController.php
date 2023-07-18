@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Bengkel;
+use App\Models\Order;
 use App\Models\Shipment;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -11,15 +13,14 @@ class DashboardController extends Controller
 {
     public function index()
     {
-        // $data = [
-        //     "user" => Auth::user()->name,
-        //     "pengguna" => User::count(),
-        //     "pembayaran" => Shipment::where('status', 'Pembayaran')->count(),
-        //     "approve" => Shipment::where('status', 'Approve')->count(),
-        //     "delivery" => Shipment::where('status', 'Delivery')->count(),
-        //     "jalur_merah" => Shipment::where('status', 'Jalur Merah')->count(),
-        //     "spv_verif" => Shipment::where('status', 'spv-verification')->count()
-        // ];
-        return view("dashboard");
+        $data = [
+            // "notifications" => $notifications,
+            "user" => Auth::user()->name,
+            "pengguna" => User::count(),
+            "order" => Order::count(),
+            "bengkel" => Bengkel::count(),
+
+        ];
+        return view("dashboard", $data);
     }
 }

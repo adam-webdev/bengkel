@@ -65,6 +65,7 @@ class BengkelController extends Controller
         $newbengkel = new Bengkel;
         $newbengkel->user_id = Auth::user()->id;
         $newbengkel->nama_bengkel = $request->nama_bengkel;
+        $newbengkel->deskripsi = $request->deskripsi;
         $newbengkel->jam_buka = $request->jam_buka;
         $newbengkel->jam_tutup = $request->jam_tutup;
         $newbengkel->no_hp = $request->no_hp;
@@ -126,6 +127,7 @@ class BengkelController extends Controller
             $public_id = $bengkel->public_id ?? "-";
         }
         $bengkel->nama_bengkel = $request->nama_bengkel;
+        $bengkel->deskripsi = $request->deskripsi;
         $bengkel->jam_buka = $request->jam_buka;
         $bengkel->jam_tutup = $request->jam_tutup;
         $bengkel->no_hp = $request->no_hp;

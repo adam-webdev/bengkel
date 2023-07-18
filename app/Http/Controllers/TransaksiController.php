@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Order;
 use App\Models\Shipment;
 use App\Models\Transaksi;
 use Illuminate\Http\Request;
@@ -17,10 +18,15 @@ class TransaksiController extends Controller
     public function index()
     {
 
-        $transaksi = Transaksi::all();
-        return view('transaksi.index', compact('transaksi'));
+        $order = Order::with('user', 'bengkel')->orderBy('created_at', 'desc')->get();
+        return view('order.index', compact('order'));
     }
+    public function notification()
+    {
+        $notifications = auth()->user()->unreadNotifications;
 
+        return view('layout', compact('notifications'));
+    }
     /**
      * Show the form for creating a new resource.
      *
@@ -40,25 +46,6 @@ class TransaksiController extends Controller
 
     public function store(Request $request)
     {
-        // $request->validate([
-        //     'no_po' => 'required|integer',
-        //     'judul_po' => 'required',
-        //     'nilai_po' => 'required|integer',
-        //     'total_shipment' => 'required|integer',
-        //     'total_nilai_import' => 'required|integer',
-        //     'total_remaining_amount' => 'required|integer'
-        // ]);
-
-        $transaksi = new Transaksi();
-        $transaksi->no_po = $request->no_po;
-        $transaksi->judul_po = $request->judul_po;
-        $transaksi->nilai_po = $request->nilai_po;
-        $transaksi->total_shipment = $request->total_shipment;
-        $transaksi->total_nilai_import = $request->total_nilai_impor;
-        $transaksi->remaining_amount = $request->remaining_amount;
-        $transaksi->save();
-        Alert::success("Berhasil", "Data Berhasil ditambahkan");
-        return redirect()->route('transaksi.index');
     }
 
     /**
@@ -69,9 +56,8 @@ class TransaksiController extends Controller
      */
     public function show($id)
     {
-        $transaksi = Transaksi::findOrFail($id);
-        $shipment = Shipment::where('transaksi_id', $id)->get();
-        return view('transaksi.detail', compact('transaksi', 'shipment'));
+        $order = order::findOrFail($id);
+        return view('order.detail', compact('order'));
     }
 
     /**
@@ -82,8 +68,8 @@ class TransaksiController extends Controller
      */
     public function edit($id)
     {
-        $transaksi = Transaksi::findOrFail($id);
-        return view('transaksi.edit', compact('transaksi'));
+        $order = Order::findOrFail($id);
+        return view('order.edit', compact('order'));
     }
 
     /**
@@ -95,17 +81,15 @@ class TransaksiController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $transaksi = Transaksi::findOrFail($id);
-        $transaksi->no_po = $request->no_po;
-        $transaksi->judul_po = $request->judul_po;
-        $transaksi->nilai_po = $request->nilai_po;
-        $transaksi->nilai_impor = $request->nilai_impor;
-        $transaksi->total_shipment = $request->total_shipment;
-        $transaksi->total_nilai_import = $request->total_nilai_impor;
-        $transaksi->remaining_amount = $request->remaining_amount;
-        $transaksi->save();
+        $order = order::findOrFail($id);
+        $order->tanggal = $order->tanggal;
+        $order->bengkel_id = $order->bengkel_id;
+        $order->user_id = $order->user_id;
+        $order->status = $request->status;
+        $order->keterangan = $request->keterangan;
+        $order->save();
         Alert::success("Berhasil", "Data Berhasil diupdate");
-        return redirect()->route('transaksi.index');
+        return redirect()->route('order.index');
     }
 
     /**
@@ -116,9 +100,9 @@ class TransaksiController extends Controller
      */
     public function delete($id)
     {
-        $transaksi = Transaksi::findOrFail($id);
-        $transaksi->delete();
+        $order = order::findOrFail($id);
+        $order->delete();
         Alert::success("Berhasil", "Data Berhasil dihapus");
-        return redirect()->route('transaksi.index');
+        return redirect()->route('order.index');
     }
 }

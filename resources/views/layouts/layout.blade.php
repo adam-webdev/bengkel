@@ -132,6 +132,12 @@
                     <i class="fas fa-warehouse"></i>
                     <span>Data Bengkel</span></a>
             </li>
+            <li class="nav-item">
+                <a class="nav-link text-white {{ request()->is('order') ? 'active' : '' }}"
+                    href="{{ route('order.index') }}">
+                    <i class="fas fa-money-check"></i>
+                    <span>Data Order</span></a>
+            </li>
 
 
 
@@ -196,6 +202,43 @@
                                     </div>
                                 </form>
                             </div>
+                            {{-- </li>
+                        <lia class="nav-item dropdown">
+                        </lia> --}}
+                            <!-- Nav Item - User Information -->
+                        <li class="nav-item dropdown no-arrow">
+                            <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="fas fa-bell" style="position: relative;color:#000;width:28px;">
+                                    <span class="badge badge-danger "
+                                        style="position: absolute;top:20">{{ auth()->user()->unreadNotifications->count() }}
+                                    </span>
+                                </i>
+                            </a>
+                            <!-- Dropdown - User Information -->
+                            <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
+                                style="height: 280px;overflow:auto" aria-labelledby="userDropdown">
+                                <h6 class="dropdown-item text-bold">Notifikasi masuk</h6>
+                                <div class="dropdown-divider"></div>
+                                @php
+                                    $notifications = auth()
+                                        ->user()
+                                        ->notifications()
+                                        ->orderBy('read_at', 'asc')
+                                        ->orderBy('created_at', 'desc')
+                                        ->limit(15)
+                                        ->get();
+                                @endphp
+                                @foreach ($notifications as $notif)
+                                    <a class="dropdown-item text-dark"
+                                        style="font-weight:<?php echo $notif->read_at === null ? 'bold' : 'normal'; ?>;color:<?php echo $notif->read_at !== null ? 'black' : 'grey'; ?>"
+                                        {{-- onclick="{{ $notif->markAsRead() }}" --}} href="{{ route('order.show', [$notif->id]) }}">
+                                        <i class="fas fa-user fa-sm fa-fw mr-2 "></i>
+                                        {{ $notif->data['name'] }}
+                                    </a>
+                                @endforeach
+
+                            </div>
                         </li>
                         <div class="topbar-divider d-none d-sm-block"></div>
 
@@ -205,7 +248,8 @@
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <span
                                     class="mr-2 d-none d-lg-inline text-gray-600 small">{{ Auth::user()->name }}</span>
-                                <img class="img-profile rounded-circle" src="{{ asset('asset/img/avatar2.png') }}">
+                                <img class="img-profile rounded-circle" style="object-fit: cover"
+                                    src="{{ Auth::user()->foto }}">
                             </a>
                             <!-- Dropdown - User Information -->
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"

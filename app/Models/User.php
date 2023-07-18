@@ -48,6 +48,10 @@ class User extends Authenticatable
     {
         return $this->hasOne(Bengkel::class);
     }
+    public function order()
+    {
+        return $this->hasOne(Order::class);
+    }
     public function ulasan()
     {
         return $this->hasMany(Ulasan::class);

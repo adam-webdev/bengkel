@@ -21,6 +21,7 @@ class BengkelResource extends JsonResource
             "user_id" => $this->id,
             "nama_bengkel" => $this->nama_bengkel,
             "foto_bengkel" => $this->foto_bengkel,
+            "deskripsi" => $this->foto_bengkel,
             // "foto_bengkel" => url(stripslashes($this->foto_bengkel)),
             "jam_buka" => $this->jam_buka,
             // "foto" => $foto,

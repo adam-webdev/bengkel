@@ -18,6 +18,7 @@ class CreateBengkelsTable extends Migration
             $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
             $table->string('nama_bengkel');
             $table->string('foto_bengkel');
+            $table->string('deskripsi')->nullable();
             $table->string('public_id')->nullable();
             $table->string('email')->unique();
             $table->time('jam_buka');

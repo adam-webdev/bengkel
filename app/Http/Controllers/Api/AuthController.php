@@ -45,23 +45,13 @@ class AuthController extends BaseController
         $user->no_hp = $request->no_hp;
         $user->email = $request->email;
         $user->password = $password;
-        if ($request['type_user'] = "Admin Bengkel") {
-            $user->assignRole("Admin Bengkel");
-            $user->tipe_user = $request->type_user;
-        } else {
-            $user->asignRole("User");
-        }
-        $user->save();
-        if (Auth::attempt(["email" => $request->email, "password" => $request->password])) {
-            $user = Auth::user();
-            $token = $user->createToken("MyToken")->plainTextToken;
-            $user = $user->with('roles')->first();
-            $response = [
-                "user" => $user,
-                "token" => $token,
-                "token_type" => "Bearer"
-            ];
-            return $this->success($response, "Register Berhasil.");
+        $user->assignRole('User');
+        $user->tipe_user = 'User';
+
+        // $user = User::where('email', $request->email)->first();
+        if ($user->save()) {
+
+            return $this->success($user, "Register Berhasil.");
         } else {
             return $this->error("Register Gagal!");
         }

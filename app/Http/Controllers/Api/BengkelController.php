@@ -107,6 +107,7 @@ class BengkelController extends BaseController
         $newbengkel = new Bengkel();
         $newbengkel->user_id = $request->user_id;
         $newbengkel->nama_bengkel = $request->nama_bengkel;
+        $newbengkel->deskripsi = $request->deskripsi;
         $newbengkel->foto_bengkel = $secure_url;
         $newbengkel->public_id = $public_id;
         $newbengkel->jam_buka = $request->jam_buka;
@@ -151,7 +152,9 @@ class BengkelController extends BaseController
                 $public_id = $bengkel->public_id;
             }
             $bengkel->nama_bengkel = $request->nama_bengkel;
-            $bengkel->foto_bengkel = $secure_url;
+            // $bengkel->foto_bengkel = $secure_url;
+            $bengkel->deskripsi = $request->deskripsi;
+
             $bengkel->foto_bengkel = $secure_url;
             $bengkel->email = $request->email;
             $bengkel->no_hp = $request->no_hp;

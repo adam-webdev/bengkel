@@ -168,7 +168,13 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-md-12" id="alamat">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="deskripsi"> Deskripsi Bengkel :</label>
+                            <textarea class="form-control" name="deskripsi" id="deskripsi" cols="30" rows="5">{{ $bengkel->deskripsi }}</textarea>
+                        </div>
+                    </div>
+                    <div class="col-md-6" id="alamat">
                         <div class="form-group">
                             <label for="alamat">Alamat Lengkap :</label>
                             <textarea class="form-control" name="alamat_lengkap" id="alamat" cols="5" rows="5">{{ $bengkel->alamat_lengkap }}</textarea>

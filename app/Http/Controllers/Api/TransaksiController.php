@@ -7,8 +7,12 @@ use App\Http\Controllers\Api\BaseController;
 
 use App\Http\Controllers\Controller;
 use App\Models\Order;
+use App\Models\User;
+use App\Notifications\NewOrderNotification;
 use Carbon\Carbon;
+use Notification;
 use Illuminate\Http\Request;
+// use Illuminate\Notifications\Notification;
 
 class TransaksiController extends BaseController
 {
@@ -26,8 +30,20 @@ class TransaksiController extends BaseController
         $new_order->keterangan = $request->keterangan;
         $new_order->lng = $request->lng;
         $new_order->lat = $request->lat;
+
+        $userid = User::where('id', $request->user_id)->first();
+        $adminBengkel = User::where('id', $request->admin_bengkel)->first();
+        $admin = User::whereHas(
+            'roles',
+            function ($q) {
+                $q->where('name', 'Admin');
+            }
+        )->get();
+
         // var_dump($new_order);
         if ($new_order->save()) {
+            $id = $new_order->id;
+            Notification::send($admin, new NewOrderNotification($userid, $id));
             return $this->success('Data berhasil tersimpan', 201);
         } else {
             return $this->error('Data gagal tersimpan', 401);
@@ -41,6 +57,15 @@ class TransaksiController extends BaseController
             return $this->success($order,  200);
         } else {
             return $this->error("Terjadi kesalahan periksa koneksi anda", 401);
+        }
+    }
+    public function orderDetail($order_id)
+    {
+        $orderDetail = Order::where('id', $order_id)->with('bengkel')->first();
+        if ($orderDetail) {
+            return $this->success($orderDetail, "Data Order Berhasil dikirim");
+        } else {
+            return $this->error('Data Gagal Terkirim.', 401);
         }
     }
 }

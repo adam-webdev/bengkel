@@ -5,7 +5,7 @@ use App\Http\Controllers\Api\BengkelController;
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\PertanyaanController;
 use App\Http\Controllers\Api\TransaksiController;
-use App\Http\Controllers\TransaksiController as ControllersTransaksiController;
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -49,14 +49,12 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('/v1/user/{id}', [UserController::class, 'update']);
     Route::delete('/v1/user/{id}', [UserController::class, 'delete']);
     Route::post('/v1/user/change-password/{id}', [UserController::class, 'password']);
-
     Route::get('/v1/pertanyaan', [PertanyaanController::class, 'index']);
     Route::get('/v1/jawaban/{id}', [PertanyaanController::class, 'jawaban']);
     Route::get('/v1/jawaban/{id}/{query}', [PertanyaanController::class, 'jawabanwithquery']);
-
     Route::get('/v1/pertanyaan/{id}', [PertanyaanController::class, 'pertanyaan']);
-
-    Route::post('/v1/order/', [TransaksiController::class, 'store']);
+    Route::post('/v1/order', [TransaksiController::class, 'store']);
     Route::get('/v1/order/{user_id}', [TransaksiController::class, 'orderByUser']);
+    Route::get('/v1/detail-order/{order_id}', [TransaksiController::class, 'orderDetail']);
     // Route::post('/v1/image', [BengkelController::class, 'image']);
 });

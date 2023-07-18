@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\{BengkelController, DashboardController, JawabanController, PertanyaanController, UserController};
+use App\Http\Controllers\{BengkelController, DashboardController, JawabanController, PertanyaanController, UserController, TransaksiController};
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -33,6 +33,9 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 
 Route::resource('/bengkel', BengkelController::class);
 Route::get('/bengkel/hapus/{id}', [BengkelController::class, "delete"]);
+
+Route::resource('/order', TransaksiController::class);
+Route::get('/order/hapus/{id}', [TransaksiController::class, "delete"]);
 
 Route::get('/kota', [BengkelController::class, "kota"]);
 Route::get('/kecamatan', [BengkelController::class, "kecamatan"]);
