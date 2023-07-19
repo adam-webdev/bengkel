@@ -8,8 +8,9 @@
     </div>
 
     <div class="card p-4">
-        <h5>Lokasi user</h5>
-        <div id="map"></div>
+        <h5 id="lokasi">Lokasi user :</h5>
+        <div id="mapdetail"></div>
+
         <div class="row">
             <div class="col-md-6">
                 <div class="left">
@@ -36,8 +37,34 @@
             </div>
         </div>
     </div>
+    <div id="temp"></div>
+
+    <div class="card p-4 mt-2 col-md-3">
+        <p>No order :<b> ORDERB3N600{{ $order->id }}</b></p>
+        <p>Tanggal :<b> {{ $order->tanggal }}</b></p>
+
+        <p>Status :
+            @if ($order->status == 'Diproses')
+                <b style="background-color:orange; color:white;padding:4px 8px; border-radius:4px;font-weigh:bold">
+                    {{ $order->status }}
+                </b>
+                </td>
+            @elseif($order->status === 'Ditolak')
+                <b style="background-color:red; color:white;padding:4px 8px; border-radius:4px;font-weigh:bold">
+                    {{ $order->status }}
+                </b>
+            @else
+                <b style="background-color:green; color:white;padding:4px 8px; border-radius:4px;font-weigh:bold">
+                    {{ $order->status }}
+                </b>
+            @endif
+        </p>
+        <p>Pemesan : <b>{{ $order->user->name }}</b></p>
+        <p>Kontak : <b>{{ $order->user->no_hp }}</b></p>
+        <p>Email : <b>{{ $order->user->email }}</b></p>
 
 
+    </div>
 
     {{-- <div class="row m-3 ">
         @hasanyrole('Admin|User')
@@ -53,11 +80,20 @@
         const latitude = {{ $order->lat }}
         const longitude = {{ $order->lng }}
         console.log("Kordinat: ", longitude, latitude)
-        var mymap = L.map('map').setView([latitude, longitude], 13);
-        const marker = L.marker([latitude, longitude]).addTo(mymap)
+        var mymap = L.map('mapdetail').setView([latitude, longitude], 13);
+        // const marker = L.marker([latitude, longitude]).addTo(mymap)
         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
             attribution: 'Map data © <a href="https://openstreetmap.org">OpenStreetMap</a> contributors',
             maxZoom: 18,
+        }).addTo(mymap);
+
+        L.Routing.control({
+            waypoints: [
+                // 6.9175° S, 107.6191°
+                L.latLng(6.9175, 107.6191),
+                L.latLng(latitude, longitude)
+            ]
+            // routeWhileDragging: true
         }).addTo(mymap);
 
         // "latitude": -6.2382683, "longitude": 106.9755717,
@@ -82,5 +118,4 @@
 
         // mymap.on('click', onMapClick);
     </script>
-    // provider: new GeoSearch.OpenStreetMapProvider(),
 @endsection
