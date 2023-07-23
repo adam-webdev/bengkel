@@ -90,12 +90,11 @@
         L.Routing.control({
             waypoints: [
                 // 6.9175° S, 107.6191°
-                L.latLng(6.9175, 107.6191),
+                L.latLng(-7.2575, 112.7521),
                 L.latLng(latitude, longitude)
             ]
             // routeWhileDragging: true
         }).addTo(mymap);
-
         // "latitude": -6.2382683, "longitude": 106.9755717,
         // // const marker = L.marker([51.49709527744871, -0.13574047552899815]).addTo(mymap)
         // const marker = L.marker([-6.2088, 106.8456]).addTo(mymap)
@@ -116,6 +115,17 @@
         //     })
         // }
 
+        var marker;
+        mymap.on('locationfound', function(ev) {
+            console.log("ev:", ev)
+            if (!marker) {
+                marker = L.marker(ev.latlng);
+            } else {
+                marker.setLatLng(ev.latlng);
+            }
+        })
+
+        console.log("marker", marker)
         // mymap.on('click', onMapClick);
     </script>
 @endsection

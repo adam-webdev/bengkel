@@ -237,7 +237,9 @@
             })
 
         })
-        var mymap = L.map('map').setView([-6.2088, 106.8456], 9);
+        const lat = {{ $bengkel->latitude ?? -6.2088 }}
+        const lng = {{ $bengkel->longitude ?? 106.8456 }}
+        var mymap = L.map('map').setView([lat, lng], 9);
         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
             attribution: 'Map data © <a href="https://openstreetmap.org">OpenStreetMap</a> contributors',
             maxZoom: 18,
@@ -245,7 +247,7 @@
 
 
         // const marker = L.marker([51.49709527744871, -0.13574047552899815]).addTo(mymap)
-        const marker = L.marker([-6.2088, 106.8456]).addTo(mymap)
+        const marker = L.marker([lat, lng]).addTo(mymap)
 
 
         function onMapClick(e) {

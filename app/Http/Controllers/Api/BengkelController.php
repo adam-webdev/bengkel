@@ -189,7 +189,20 @@ class BengkelController extends BaseController
         }
         return $this->error('Data tidak ditemukan', 404);
     }
+    // 'LIKE','%'.$term.'%')
+    //   ->get();
+    public function search($kota)
+    {
+        $kota_id = DB::table('regencies')->where('name', 'LIKE', '%' . $kota . '%')->pluck('id');
+        // var_dump($kota_id);
 
+        $bengkel = Bengkel::whereIn('kota_id', $kota_id)->get();
+        if ($bengkel) {
+            return $this->success($bengkel, 'Data Berhasil dikirim');
+        } else {
+            return $this->error('Data tidak ditemukan');
+        }
+    }
     public function provinsiName(Request $request)
     {
         $provinsii = DB::table('provinces')->where('id', $request->id)->get();

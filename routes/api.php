@@ -38,6 +38,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('/v1/nama-daerah/desa', [BengkelController::class, 'desaName']);
     // route bengkel
     Route::get('/v1/bengkel', [BengkelController::class, 'index']);
+    Route::get('/v1/bengkel-search/{kota}', [BengkelController::class, 'search']);
     Route::get('/v1/bengkel/{id}', [BengkelController::class, 'show']);
     Route::post('/v1/bengkel', [BengkelController::class, 'store']);
     Route::post('/v1/bengkel/{id}', [BengkelController::class, 'update']);
