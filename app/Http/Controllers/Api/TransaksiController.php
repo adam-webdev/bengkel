@@ -6,6 +6,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Api\BaseController;
 
 use App\Http\Controllers\Controller;
+use App\Models\Bengkel;
 use App\Models\Order;
 use App\Models\User;
 use App\Notifications\NewOrderNotification;
@@ -33,6 +34,7 @@ class TransaksiController extends BaseController
 
         $userid = User::where('id', $request->user_id)->first();
         $adminBengkel = User::where('id', $request->admin_bengkel)->first();
+
         $admin = User::whereHas(
             'roles',
             function ($q) {
@@ -43,7 +45,12 @@ class TransaksiController extends BaseController
         // var_dump($new_order);
         if ($new_order->save()) {
             $id = $new_order->id;
-            Notification::send($admin, new NewOrderNotification($userid, $id));
+            $userid['order_id'] = $id;
+            $sendNotifToAdmin = [$admin, $adminBengkel];
+            foreach ($sendNotifToAdmin as $sendNotifToAdmin) {
+                Notification::send($sendNotifToAdmin, new NewOrderNotification($userid));
+                // Notification::send($adminBengkel, new NewOrderNotification($userid, $id));
+            }
             return $this->success('Data berhasil tersimpan', 201);
         } else {
             return $this->error('Data gagal tersimpan', 401);
@@ -51,8 +58,9 @@ class TransaksiController extends BaseController
     }
     public function orderByUser($user_id)
     {
-        $order = Order::where('user_id', $user_id)->with('bengkel')->orderBy('created_at', 'desc')->get();
-        // echo '<pre>' . var_dump($order) . '</pre>';
+        $order = Order::with('bengkel:id,nama_bengkel')->where('user_id', $user_id)->orderBy('created_at', 'desc')->get();
+
+        // return '<pre>' . print_r($order) . '</pre>';
         if ($order) {
             return $this->success($order,  200);
         } else {
@@ -64,6 +72,27 @@ class TransaksiController extends BaseController
         $orderDetail = Order::where('id', $order_id)->with('bengkel')->first();
         if ($orderDetail) {
             return $this->success($orderDetail, "Data Order Berhasil dikirim");
+        } else {
+            return $this->error('Data Gagal Terkirim.', 401);
+        }
+    }
+
+    public function orderMasuk($user_id)
+    {
+        $user = User::findOrFail($user_id);
+        if ($user->tipe_user === 'Admin') {
+            $order = Order::orderBy('created_at', 'desc')->get();
+            if ($order) {
+                return $this->success($order, "Data Order Berhasil dikirim");
+            } else {
+                return $this->error('Data Gagal Terkirim.', 401);
+            }
+        }
+
+        $bengkel = Bengkel::where('user_id', $user_id)->pluck('id');
+        $order = Order::whereIn('bengkel_id', $bengkel)->with('user')->orderBy('created_at', 'desc')->get();
+        if ($order) {
+            return $this->success($order, "Data Order Berhasil dikirim");
         } else {
             return $this->error('Data Gagal Terkirim.', 401);
         }

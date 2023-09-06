@@ -43,12 +43,7 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        // $foto = $request->file('foto');
-        // if ($foto) {
-        //     $foto = $foto->storeAs('user/profil', $request->file('foto')->getClientOriginalName());
-        // } else {
-        //     $foto = 'default.jpg';
-        // }
+
         if ($request->file('foto')) {
             $foto = cloudinary()->upload($request->file('foto')->getRealPath());
             $secure_url = $foto->getSecurePath();
@@ -71,16 +66,19 @@ class UserController extends Controller
         $new_user->foto = $secure_url;
         $new_user->public_id = $public_id;
         $new_user->password = bcrypt($request->password);
-        if ($request->get('roles') === "Admin") {
+        if ($request->get("roles") === "Admin") {
             $new_user->assignRole("Admin");
-        } else if ($request->get('roles') === "Admin Bengkel") {
+            $new_user->tipe_user = "Admin";
+        } else if ($request->get("roles") === "Admin Bengkel") {
             $new_user->assignRole("Admin Bengkel");
+            $new_user->tipe_user = "Admin Bengkel";
         } else {
             $new_user->assignRole("User");
+            $new_user->tipe_user = "User";
         }
         $new_user->save();
         Alert::success("Tersimpan", "Data Berhasil Disimpan!");
-        return redirect()->route('user.index');
+        return redirect()->route("user.index");
     }
     /**
      * Display the specified resource.

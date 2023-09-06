@@ -253,6 +253,7 @@
                                     <td>{{ $t->deskripsi }}</td>
                                     <td>{{ $t->no_hp }}</td>
                                     <td>{{ $t->user->name }}</td>
+
                                     <td> <img src="{{ $t->foto_bengkel }}" width="150px" alt="Foto Bengkel">
                                     </td>
                                     <td align="center" width="15%">
@@ -261,17 +262,18 @@
                                         <i class="fas fa-eye fa-sm text-white-50"></i>
                                     </a> --}}
 
+
                                         <a href="{{ route('bengkel.edit', [$t->id]) }}" data-toggle="tooltip"
                                             title="Edit"
                                             class="d-none  d-sm-inline-block btn btn-sm btn-success shadow-sm">
                                             <i class="fas fa-edit fa-sm text-white-50"></i>
                                         </a>
+
                                         <a href="/bengkel/hapus/{{ $t->id }}" data-toggle="tooltip"
                                             title="Hapus" onclick="return confirm('Yakin Ingin menghapus data?')"
                                             class="d-none d-sm-inline-block btn btn-sm btn-danger shadow-sm">
                                             <i class="fas fa-trash-alt fa-sm text-white-50"></i>
                                         </a>
-
                                     </td>
                                 </tr>
                             @endforeach

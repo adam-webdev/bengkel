@@ -243,8 +243,8 @@
                                     <a class="dropdown-item text-dark"
                                         style="font-weight:<?php echo $notif->read_at === null ? 'bold' : 'normal'; ?>;color:<?php echo $notif->read_at !== null ? 'black' : 'grey'; ?>"
                                         onclick="{{ $notif->markAsRead() }}"
-                                        href="{{ route('order.show', [$notif->id]) }}">
-                                        <i class="fas fa-user fa-sm fa-fw mr-2 "></i>
+                                        href="{{ route('order.show', [$notif->data['order_id']]) }}"> <i
+                                            class="fas fa-user fa-sm fa-fw mr-2 "></i>
                                         {{ $notif->data['name'] }}
                                     </a>
                                 @endforeach

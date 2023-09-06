@@ -20,4 +20,8 @@ class Bengkel extends Model
     {
         return $this->hasMany(Ulasan::class);
     }
+    public function tracking()
+    {
+        return $this->hasOne(Tracking::class);
+    }
 }

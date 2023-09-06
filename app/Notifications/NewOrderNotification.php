@@ -17,11 +17,9 @@ class NewOrderNotification extends Notification
      * @return void
      */
     private $user;
-    public $id;
-    public function __construct($user, $id)
+    public function __construct($user)
     {
         $this->user = $user;
-        $this->id = $id;
     }
 
     /**
@@ -58,8 +56,8 @@ class NewOrderNotification extends Notification
     public function toArray($notifiable)
     {
         return [
-            'name' => "ORDERB3N600" . $this->id . " dengan nama " . $this->user->name . " berhasil masuk",
-            'order_id' => $this->id
+            'name' => "Oder dengan nama " . $this->user->name . " berhasil masuk",
+            'order_id' => $this->user->order_id
         ];
     }
 }
