@@ -14,8 +14,17 @@ class TrackingController extends BaseController
         $new_track->bengkel_id = $request->bengkel_id;
         $new_track->lng = $request->lng;
         $new_track->lat = $request->lat;
+        $new_track->heading = $request->heading;
         if ($new_track->save()) {
             return $this->success('Data berhasil disimpan', 201);
         }
+    }
+    public function getDataTrack($bengkel_id)
+    {
+        $track = Tracking::where('bengkel_id', $bengkel_id)->latest()->first();
+        if ($track) {
+            return $this->success($track, 200);
+        }
+        return $this->error("Data tidak ditemukan", 401);
     }
 }

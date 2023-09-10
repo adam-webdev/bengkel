@@ -61,10 +61,12 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/v1/order/{user_id}', [TransaksiController::class, 'orderByUser']);
     Route::get('/v1/detail-order/{order_id}', [TransaksiController::class, 'orderDetail']);
     Route::get('/v1/order-masuk/{user_id}', [TransaksiController::class, 'orderMasuk']);
+    Route::put('/v1/order-status-update/{order_id}', [TransaksiController::class, 'orderStatusUpdate']);
 
 
     // tracking
     Route::post('/v1/tracking', [TrackingController::class, 'store']);
+    Route::get('/v1/tracking/{bengkel_id}', [TrackingController::class, 'getDataTrack']);
 
 
     // Route::post('/v1/image', [BengkelController::class, 'image']);

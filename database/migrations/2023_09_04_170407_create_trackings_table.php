@@ -18,6 +18,7 @@ class CreateTrackingsTable extends Migration
             $table->foreignId('bengkel_id')->constrained('bengkels')->onDelete('cascade');
             $table->string('lng')->nullable();
             $table->string('lat')->nullable();
+            $table->string('heading')->nullable();
             $table->timestamps();
         });
     }

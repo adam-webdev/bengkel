@@ -58,6 +58,18 @@ class TransaksiController extends BaseController
     }
     public function orderByUser($user_id)
     {
+        // $order = Order::select('orders.*', 'bengkel.id AS id_bengkel', 'bengkel.nama_bengkel')
+        //     ->join('bengkel', 'orders.bengkel_id', '=', 'bengkel.id')
+        //     ->where('orders.user_id', $user_id)
+        //     ->orderBy('orders.created_at', 'desc')
+        //     ->get();
+
+        // $order = Order::with(['bengkel' => function ($query) {
+        //     $query->select('id as bengkel_id', 'nama_bengkel');
+        // }])
+        // ->where('user_id', $user_id)
+        // ->orderBy('created_at', 'desc')
+        // ->get();
         $order = Order::with('bengkel:id,nama_bengkel')->where('user_id', $user_id)->orderBy('created_at', 'desc')->get();
 
         // return '<pre>' . print_r($order) . '</pre>';
@@ -81,7 +93,7 @@ class TransaksiController extends BaseController
     {
         $user = User::findOrFail($user_id);
         if ($user->tipe_user === 'Admin') {
-            $order = Order::orderBy('created_at', 'desc')->get();
+            $order = Order::with('user:id,name')->orderBy('created_at', 'desc')->get();
             if ($order) {
                 return $this->success($order, "Data Order Berhasil dikirim");
             } else {
@@ -90,11 +102,19 @@ class TransaksiController extends BaseController
         }
 
         $bengkel = Bengkel::where('user_id', $user_id)->pluck('id');
-        $order = Order::whereIn('bengkel_id', $bengkel)->with('user')->orderBy('created_at', 'desc')->get();
+        $order = Order::with('user:id,name')->whereIn('bengkel_id', $bengkel)->with('user')->orderBy('created_at', 'desc')->get();
         if ($order) {
             return $this->success($order, "Data Order Berhasil dikirim");
         } else {
             return $this->error('Data Gagal Terkirim.', 401);
         }
+    }
+    public function orderStatusUpdate($order_id)
+    {
+        $order = Order::where('id', $order_id)->update(['status' => 'Selesai']);
+        if ($order) {
+            return $this->success($order, "Status Order Selesai");
+        }
+        return $this->error('Upps Terjadi Kesalahan.', 401);
     }
 }
