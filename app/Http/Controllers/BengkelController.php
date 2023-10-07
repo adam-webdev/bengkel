@@ -31,6 +31,7 @@ class BengkelController extends Controller
 
     public function index()
     {
+
         $user = User::whereHas(
             'roles',
             function ($q) {
@@ -38,7 +39,11 @@ class BengkelController extends Controller
             }
         )->get();
         $provinsi = DB::table('provinces')->get();
-        $bengkel = Bengkel::all();
+        if (Auth::user()->tipe_user == "Admin Bengkel") {
+            $bengkel = Bengkel::with('user')->where('user_id', Auth::user()->id)->orderBy('created_at', 'desc')->get();
+        } else {
+            $bengkel = Bengkel::all();
+        }
         return view('bengkel.index', compact('bengkel', 'user', 'provinsi'));
     }
 

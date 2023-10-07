@@ -6,6 +6,7 @@ use App\Models\Order;
 use App\Models\Shipment;
 use App\Models\Transaksi;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use RealRashid\SweetAlert\Facades\Alert;
 
 class TransaksiController extends Controller
@@ -18,7 +19,14 @@ class TransaksiController extends Controller
     public function index()
     {
 
-        $order = Order::with('user', 'bengkel')->orderBy('created_at', 'desc')->get();
+        if (Auth::user()->tipe_user == "Admin Bengkel") {
+            $order = Order::with(['user', 'bengkel'])
+                ->whereHas('bengkel', function ($query) {
+                    $query->where('user_id', Auth::user()->id);
+                })->orderBy('created_at', 'desc')->get();
+        } else {
+            $order = Order::with('user', 'bengkel')->orderBy('created_at', 'desc')->get();
+        }
         return view('order.index', compact('order'));
     }
     public function notification()

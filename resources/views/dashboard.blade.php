@@ -8,33 +8,33 @@
     </div>
     <div class="row px-4 mt-3">
         <div class="col-md-3">
-            <a href="" class="card p-4 text-decoration-none "style="color:black">
+            <a href="{{ route('bengkel.index') }}" class="card p-4 text-decoration-none "style="color:black">
                 <img src="{{ asset('asset/img/approve.svg') }}" width="50px" alt="">
                 <p style="font-size: 20px; margin-top:10px"> {{ $bengkel }}</p>
-                <p>Data Bengekel</p>
+                <p>Data Bengkel</p>
             </a>
         </div>
         <div class="col-md-3">
-            <a href="" class="card p-4 text-decoration-none "style="color:black">
+            <a href="{{ route('order.index') }}" class="card p-4 text-decoration-none "style="color:black">
                 <img src="{{ asset('asset/img/pembayaran.svg') }}" width="50px" alt="">
                 <p style="font-size: 20px; margin-top:10px"> {{ $order }}</p>
                 <p>Data Order</p>
             </a>
         </div>
         <div class="col-md-3">
-            <a href="" class="card p-4 text-decoration-none "style="color:black">
+            <a href="{{ route('user.index') }}" class="card p-4 text-decoration-none "style="color:black">
                 <img src="{{ asset('asset/img/merah.svg') }}" width="50px"alt="">
                 <p style="font-size: 20px; margin-top:10px"> {{ $pengguna }}</p>
                 <p>Data Pengguna</p>
             </a>
         </div>
-        <div class="col-md-3">
+        {{-- <div class="col-md-3">
             <a href="" class="card p-4 text-decoration-none "style="color:black">
                 <img src="{{ asset('asset/img/merah.svg') }}" width="50px"alt="">
                 <p style="font-size: 20px; margin-top:10px"> {{ $pengguna }}</p>
                 <p>Data Pengguna</p>
             </a>
-        </div>
+        </div> --}}
 
         {{-- <div class="col-md-2">
                 <img src="{{ asset('asset/img/delivery.svg') }}" width="50px" alt="">

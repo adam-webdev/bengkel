@@ -298,7 +298,7 @@
             <footer class="sticky-footer  bg-white">
                 <div class="container my-auto">
                     <div class="copyright text-center my-auto">
-                        <span>Create By: User<br>Copyright &copy; Bengkel Kita. </span>
+                        <span>Create By: Nadya<br>Copyright &copy; Bengkel Kita. </span>
                     </div>
                 </div>
             </footer>
