@@ -6,7 +6,7 @@ use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\PertanyaanController;
 use App\Http\Controllers\Api\TrackingController;
 use App\Http\Controllers\Api\TransaksiController;
-
+use App\Http\Controllers\Api\UlasanController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -63,6 +63,12 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/v1/order-masuk/{user_id}', [TransaksiController::class, 'orderMasuk']);
     Route::put('/v1/order-status-update/{order_id}', [TransaksiController::class, 'orderStatusUpdate']);
 
+    // ulasan
+    Route::get('/v1/ulasan/{bengkel_id}', [UlasanController::class, 'index']);
+    Route::post('/v1/ulasan', [UlasanController::class, 'store']);
+    Route::put('/v1/ulasan/{id}/{user_id}', [UlasanController::class, 'update']);
+    Route::get('/v1/ulasan/user/{user_id}', [UlasanController::class, 'show']);
+    Route::delete('/v1/ulasan/{id}/{user_id}', [UlasanController::class, 'delete']);
 
     // tracking
     Route::post('/v1/tracking', [TrackingController::class, 'store']);

@@ -8,6 +8,7 @@ use App\Models\User;
 use App\Http\Controllers\Api\BaseController;
 use App\Http\Resources\BengkelResource;
 use App\Models\Bengkel;
+use App\Models\Ulasan;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 
@@ -15,7 +16,7 @@ class BengkelController extends BaseController
 {
     public function index()
     {
-        $bengkel = Bengkel::with('user')->inRandomOrder()->limit(5)->get();
+        $bengkel = Bengkel::with('user')->inRandomOrder()->get();
         if ($bengkel) {
             return $this->success($bengkel, "data berhasil dikirim",);
         } else {
@@ -65,6 +66,22 @@ class BengkelController extends BaseController
     public function show($id)
     {
         $bengkel = Bengkel::findOrFail($id);
+
+        $total_rating = Ulasan::select('angka_ulasan')->where('bengkel_id', $id)->sum('angka_ulasan');
+        $jumlah_rating = Ulasan::select('angka_ulasan')->where('bengkel_id', $id)->count();
+        if ($jumlah_rating > 0) {
+            $rating = $total_rating / $jumlah_rating;
+            $bengkel["rating"] = floor($rating);
+            $bengkel["ulasan"] = $jumlah_rating;
+        } else {
+            $bengkel["rating"] = 0;
+            $bengkel["ulasan"] = $jumlah_rating;
+        }
+        // $data = [
+        //     "bengkel" => $bengkel,
+        //     "rating" => $rating
+        // ];
+
         if ($bengkel) {
             // $bengkel['foto_bengkel'] = stripslashes(url($bengkel['foto_bengkel']));
             return $this->success($bengkel, "data berhasil dikirim");

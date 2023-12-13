@@ -85,11 +85,11 @@
                         style="marign-top:30px">
                 </div>
             </a>
+            <hr>
 
             <!-- Divider -->
 
             <!-- Divider -->
-            <hr class="sidebar-divider d-none d-md-block">
 
             <li class="nav-item" style="margin-top:50px">
                 <a class="nav-link text-white {{ request()->is('dashboard') ? 'active' : '' }}"
@@ -134,6 +134,12 @@
                         href="{{ route('user.index') }}">
                         <i class="fas fa-users"></i>
                         <span>Data Pengguna</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-white {{ request()->is('ulasan') ? 'active' : '' }}"
+                        href="{{ route('ulasan.index') }}">
+                        <i class="fas fa-comments"></i>
+                        <span>Data Ulasan</span></a>
                 </li>
             @endrole
             <li class="nav-item">

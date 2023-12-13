@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\{BengkelController, DashboardController, JawabanController, PertanyaanController, UserController, TransaksiController};
+use App\Http\Controllers\{BengkelController, DashboardController, JawabanController, PertanyaanController, UserController, TransaksiController, UlasanController};
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -22,6 +22,9 @@ Route::get('/dashboard', [DashboardController::class, "index"])->name('dashboard
 // hanya admin yang dapat akses route ini
 Route::resource('/user', UserController::class);
 Route::get('/user/hapus/{id}', [UserController::class, "delete"]);
+
+Route::resource('/ulasan', UlasanController::class);
+Route::get('/ulasan/hapus/{id}', [UlasanController::class, "delete"]);
 
 Route::resource('/pertanyaan', PertanyaanController::class);
 Route::get('/pertanyaan/hapus/{id}', [PertanyaanController::class, "delete"]);

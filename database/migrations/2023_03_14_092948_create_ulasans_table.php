@@ -18,10 +18,7 @@ class CreateUlasansTable extends Migration
             $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
             $table->foreignId('bengkel_id')->constrained('bengkels')->onDelete('cascade');
             $table->string('ulasan');
-            $table->string('angka_ulasan');
-            $table->date('tanggal_ulasan');
-            $table->string('public_id')->nullable();
-            $table->string('foto_ulasan')->nullable();
+            $table->integer('angka_ulasan', 10);
             $table->timestamps();
         });
     }
